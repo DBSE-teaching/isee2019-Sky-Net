@@ -1,4 +1,4 @@
-# Software Engineers Blog - Sky-Net;.
+# Software Engineers Blog - Sky-Net Upsure Imagination
 
 This is the main page of your repository for the course project that is a center piece of the lecture "Introduction to Software Engineering for Engineers" in summer term 2019.
 
