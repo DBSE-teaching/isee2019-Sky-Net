@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "ISEE 2019 -- Initial Blog Post"
-date: 201904-12
+date: 2018904-12
 ---
 
 It's almost done! The initial Blog post of the ISEE lecture in summer term 2019 -- powered by [Jekyll](http://jekyllrb.com).
