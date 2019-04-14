@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "ISEE 2019 -- Initial Blog Post"
-date: 2018904-12
+date: 201904-12
 ---
 
-It's done! The initial Blog post of the ISEE lecture in summer term 2019 -- powered by [Jekyll](http://jekyllrb.com).
+It's almost done! The initial Blog post of the ISEE lecture in summer term 2019 -- powered by [Jekyll](http://jekyllrb.com).
 Note that you can easily use Markdown to author your posts. This should make your life much more easier---Wooohooo!
 
 One more word about markdown: Is is a really easy-to-learn markup language, similar to those used in Wikis.
