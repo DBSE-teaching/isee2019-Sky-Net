@@ -59,7 +59,7 @@ table, th, td {
   <li>This helps in visualizing progress at the end of each sprint (series of development progress). </li>
 </ul> 
 
-![Deadline image]({{site.baseurl}}/images/Picture1.png "Scrum1"){:height="30%" width="30%"}                        ![Deadline image]({{site.baseurl}}/images/Picture2.png "Scrum2"){:height="30%" width="30%"}
+![Deadline image]({{site.baseurl}}/images/Picture1.png "Scrum1"){:height="30%" width="30%"}   ![Deadline image]({{site.baseurl}}/images/Picture2.png "Scrum2"){:height="30%" width="30%"}
 
 
 
