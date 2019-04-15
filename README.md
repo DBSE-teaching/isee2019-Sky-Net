@@ -1,6 +1,7 @@
 # Software Engineers Blog - Sky-Net Upsure Imagination
 
 This is the main page of your repository for the course project that is a center piece of the lecture "Introduction to Software Engineering for Engineers" in summer term 2019.
+https://dbse-teaching.github.io/isee2019-Sky-Net/
 
 In this lecture, each student group needs to report on the project progress via **Blog entries and weekly status reports**. 
 We will link all Blogs as far as they are set up (presumably in the 3rd week of the semester).
