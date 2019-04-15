@@ -3,7 +3,7 @@ layout: post
 title: "ISEE 2019 -- Team & Project Introduction"
 date: 2019-04-16
 ---
-![Deadline image]({{site.baseurl}}/images/logo.png "team logo"){:height="30%" width="30%" align="center"}
+![Deadline image]({{site.baseurl}}/images/logo.png "team logo"){:height="30%" width="30%"}
 
 # Motivation 
   
