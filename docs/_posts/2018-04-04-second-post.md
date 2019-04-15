@@ -61,6 +61,16 @@ table, th, td {
 
 ![Deadline image]({{site.baseurl}}/images/Picture1.png "Scrum1"){:height="40%" width="40%"}   ![Deadline image]({{site.baseurl}}/images/Picture2.png "Scrum2"){:height="40%" width="40%"}
 
+# Team Communication - TRELLO
+
+<ul style="font-family:verdana;font-size:120%">
+  <li>It’s free to use and provides a systematic way of team coordination and task management.</li>
+  <li>Replaces whiteboard & sticky notes and helps to adapt to the SCRUM model effectively.</li>
+  <li>Enables every team member to stay updated about the current status of the project.</li>
+  <li>Provides options to add tasks, descriptions, comments, due dates, attachments and more directly to the Trello cards.</li>
+</ul>
+
+![Deadline image]({{site.baseurl}}/images/Trello.png "Trello"){:height="50%" width="100%"}
 
 
 
