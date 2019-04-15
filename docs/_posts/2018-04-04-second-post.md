@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "ISEE 2019 -- Team & Project Introduction"
-date: 2018-04-04
+date: 2019-04-16
 ---
 
 # Motivation 
@@ -52,5 +52,21 @@ table, th, td {
     <td>Functional Testing</td>
   </tr>
 </table>
+
+# SCRUM PROCESS MODEL
+
+<ul>
+  <li>Flexibility and Adaptability</li>
+  <li>Scrum model works effective when the requirement about end product is not clear or is largely unknown</li>
+  <li>It follows an iterative approach to redefine or increment the software development</li>
+  <li>This helps in visualizing progress at the end of each sprint (series of development progress). </li>
+</ul> 
+
+
+
+
+
+
+
 
 
