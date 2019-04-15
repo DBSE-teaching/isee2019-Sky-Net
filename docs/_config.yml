@@ -1,6 +1,6 @@
 name: ISEE 2019 -- Template
 markdown: kramdown
-baseurl: /isee2019--template
+baseurl: /isee2019-Sky-Net--template
 permalink: /blog/:year/:month/:day/:title/
 theme: jekyll-theme-slate
 
