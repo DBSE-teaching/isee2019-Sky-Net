@@ -3,6 +3,8 @@ layout: post
 title: "ISEE 2019 -- Team & Project Introduction"
 date: 2019-04-16
 ---
+<body style="background-color:silver;">
+
 ![Deadline image]({{site.baseurl}}/images/Picture.png "team logo"){:height="50%" width="100%"}
 
 # Motivation 
@@ -61,7 +63,7 @@ table, th, td {
 ![Deadline image]({{site.baseurl}}/images/Picture1.png "Scrum1"){:height="30%" width="30%"}                        ![Deadline image]({{site.baseurl}}/images/Picture2.png "Scrum2"){:height="30%" width="30%"}
 
 
-
+</Body>
 
 
 
