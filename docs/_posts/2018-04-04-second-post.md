@@ -23,7 +23,7 @@ date: 2019-04-16
 <style> 
 table, th, td {
   border: 1px solid black;
-  font-family:verdana;font-size:120%
+  font-family:verdana;font-size:100%
 }
 </style>
   <tr>
@@ -56,6 +56,7 @@ table, th, td {
 # SCRUM PROCESS MODEL
 
 <ul>
+  <style="font-family:verdana;font-size:120%">
   <li>Flexibility and Adaptability</li>
   <li>Scrum model works effective when the requirement about end product is not clear or is largely unknown</li>
   <li>It follows an iterative approach to redefine or increment the software development</li>
