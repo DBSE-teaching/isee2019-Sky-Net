@@ -61,6 +61,7 @@ table, th, td {
   <li>It follows an iterative approach to redefine or increment the software development</li>
   <li>This helps in visualizing progress at the end of each sprint (series of development progress). </li>
 </ul> 
+![Deadline image]({{site.baseurl}}/images/Picture1.png){:height="30%" width="30%"}
 
 
 
