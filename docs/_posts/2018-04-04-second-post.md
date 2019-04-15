@@ -3,6 +3,7 @@ layout: post
 title: "ISEE 2019 -- Team & Project Introduction"
 date: 2019-04-16
 ---
+![Deadline image]({{site.baseurl}}/images/logo.png "team logo"){:height="30%" width="30%" align="center"}
 
 # Motivation 
   
@@ -13,11 +14,6 @@ date: 2019-04-16
 <p style="font-family:verdana;font-size:120%">The aspect of money managing is being imparted to the man from the very early ages of his life. There exist several methods and techniques to achieve this goal. Over the period of time with the upsurge in technological advancements, the aforementioned methods have evolved from bookkeeping to complex banking services and share markets. The needs of a common man still vary from day to day, where he keeps searching for simpler methods to manage his money effectively. Here we strive in providing one such solution and at the same time learn the core technology which offers this solution and ultimately helping the common man follow Buffet’s rule 1.  </p>
   
 # Teams – Roles and Responsibilities
-
-![Deadline image]({{site.baseurl}}/images/logo.png "team logo"){:height="30%" width="30%"}
-
-<h2>Roles & Reponsibilities </h2>
-
 
 <table style="width:100%">
 <style> 
@@ -53,7 +49,7 @@ table, th, td {
   </tr>
 </table>
 
-# SCRUM PROCESS MODEL
+# Scrum Process Model
 
 <ul style="font-family:verdana;font-size:120%">
   <li>Flexibility and Adaptability</li>
