@@ -15,9 +15,5 @@ To validate some of the configuration settings, I just created a second sample p
   
 # Teams – Roles and responsibilitie
 
-<img src="https://github.com/DBSE-teaching/isee2019-Sky-Net/blob/master/docs/images/logo.png" height="150" width="150"
-alt ="TEAM LOGO" 
-style="float: left; margin-right: 5px;" />
-
-
+![Deadline image]({{site.baseurl}}/images/logo.png "team logo"{:height="30%" width="30%"}.,
 
