@@ -15,9 +15,9 @@ To validate some of the configuration settings, I just created a second sample p
   
 # Teams – Roles and responsibilitie
 
-<img src="https://github.com/DBSE-teaching/isee2019-Sky-Net/blob/master/docs/images/logo.png"
+<img src="https://github.com/DBSE-teaching/isee2019-Sky-Net/blob/master/docs/images/logo.png" height="25" width="25"
 alt ="TEAM LOGO" 
-style="width=15%;height=15%;float: left; margin-right: 5px;" />
+style="float: left; margin-right: 5px;" />
 
 
 
