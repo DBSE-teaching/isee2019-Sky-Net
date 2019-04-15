@@ -18,9 +18,20 @@ date: 2019-04-16
 
 <table style="width:100%">
 <style> 
-table, th, td {
-  border: 1px solid black;
-  font-family:verdana;font-size:100%
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
 }
 </style>
   <tr>
