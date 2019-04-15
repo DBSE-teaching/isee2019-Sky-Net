@@ -15,5 +15,5 @@ To validate some of the configuration settings, I just created a second sample p
   
 # Teams – Roles and responsibilitie
 
-![Deadline image]({{site.baseurl}}/images/logo.png "team logo"{:height="30%" width="30%"}.,
+![Deadline image]({{site.baseurl}}/images/logo.png "team logo"){:height="30%" width="30%"}
 
