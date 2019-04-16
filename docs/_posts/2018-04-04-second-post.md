@@ -70,10 +70,11 @@ tr:nth-child(even) {
   <li>This helps in visualizing progress at the end of each sprint (series of development progress). </li>
 </ul> 
 
-![Deadline image]({{site.baseurl}}/images/Picture1.png "Scrum1"){:height="40%" width="40%" align="left"} ![Deadline image]({{site.baseurl}}/images/Picture2.png "Scrum2"){:height="30%" width="40%" align="right"}
+![Deadline image]({{site.baseurl}}/images/Picture1.png "Scrum1"){:height="40%" width="40%" align="left"} 
+![Deadline image]({{site.baseurl}}/images/Picture2.png "Scrum2"){:height="30%" width="40%" align="right"}
 
 
-<h1> Team Communication - TRELLO </h1>
+# Team Communication - TRELLO 
 
 <ul style="font-family:verdana;font-size:120%">
   <li>It’s free to use and provides a systematic way of team coordination and task management.</li>
