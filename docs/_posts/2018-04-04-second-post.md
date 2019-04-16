@@ -72,6 +72,7 @@ tr:nth-child(even) {
 
 ![Deadline image]({{site.baseurl}}/images/Picture1.png "Scrum1"){:height="40%" width="40%" align="left"}   ![Deadline image]({{site.baseurl}}/images/Picture2.png "Scrum2"){:height="40%" width="40%" align="right"}
 
+
 # Team Communication - TRELLO
 
 <ul style="font-family:verdana;font-size:120%">
