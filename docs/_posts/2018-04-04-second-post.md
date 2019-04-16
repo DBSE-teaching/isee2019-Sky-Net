@@ -69,9 +69,9 @@ tr:nth-child(even) {
   <li>It follows an iterative approach to redefine or increment the software development</li>
   <li>This helps in visualizing progress at the end of each sprint (series of development progress). </li>
 </ul> 
-<p>
-![Deadline image]({{site.baseurl}}/images/Picture1.png "Scrum1"){:height="40%" width="40%" align="left"} ![Deadline image]({{site.baseurl}}/images/Picture2.png "Scrum2"){:height="40%" width="40%" align="right"}
-</p>
+
+![Deadline image]({{site.baseurl}}/images/Picture1.png "Scrum1"){:height="40%" width="40%" align="left"} ![Deadline image]({{site.baseurl}}/images/Picture2.png "Scrum2"){:height="40%" width="40%"}
+
 
 # Team Communication - TRELLO
 
