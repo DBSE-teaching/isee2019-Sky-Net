@@ -73,7 +73,7 @@ tr:nth-child(even) {
 ![Deadline image]({{site.baseurl}}/images/Picture1.png "Scrum1"){:height="40%" width="40%" align="left"} ![Deadline image]({{site.baseurl}}/images/Picture2.png "Scrum2"){:height="30%" width="40%" align="right"}
 
 
-# Team Communication - TRELLO
+<h1> Team Communication - TRELLO </h1>
 
 <ul style="font-family:verdana;font-size:120%">
   <li>It’s free to use and provides a systematic way of team coordination and task management.</li>
