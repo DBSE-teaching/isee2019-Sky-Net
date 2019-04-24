@@ -7,7 +7,7 @@
 <th> Section 4 </th>
 </tr>
 <tr>
-<td> 10/4 - 17/4 </td>
+<td> 10/4 - 17/4 (Week 2)</td>
 <td> </td>
 <td> 
 <ul> <p> <b> Done: </b> </p>
@@ -51,7 +51,7 @@ To overcome this problem, we started using Trello - task management tool </li>
 </tr>
 
 <tr>
-<td> 18/4 - 24/4 </td>
+<td> 18/4 - 24/4 (Week 3)</td>
 <td>
 <ul>
 <li> Software Design - Harish </li>
