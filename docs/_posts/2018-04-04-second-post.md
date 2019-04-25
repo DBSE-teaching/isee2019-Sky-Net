@@ -70,8 +70,8 @@ tr:nth-child(even) {
   <li>This helps in visualizing progress at the end of each sprint (series of development progress). </li>
 </ul> 
 
-![Deadline image]({{site.baseurl}}/images/Picture1.png "Scrum1"){:height="40%" width="40%" align="left"} 
-![Deadline image]({{site.baseurl}}/images/Picture2.png "Scrum2"){:height="40%" width="40%" align="right"}
+![Deadline image]({{site.baseurl}}/images/Picture1.png "Scrum1"){:height="40%" width="40%" align="Justify"} 
+![Deadline image]({{site.baseurl}}/images/Picture2.png "Scrum2"){:height="40%" width="40%" align="Justify"}
 <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
 
 # Team Communication - TRELLO 
