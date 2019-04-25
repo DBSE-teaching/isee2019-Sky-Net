@@ -8,7 +8,7 @@ date: 2019-04-16
 
 # Motivation 
   
- <p style="font-family:verdana;font-size:120%;text-align:center"> <i> " Rule 1: Never lose money
+ <p style="font-family:verdana;font-size:120%;text-align:justify"> <i> " Rule 1: Never lose money
  <br>
  &nbsp; Rule 2: Always follow rule 1"
  <br> 
