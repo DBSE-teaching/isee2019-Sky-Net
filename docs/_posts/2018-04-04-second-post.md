@@ -63,7 +63,7 @@ tr:nth-child(even) {
 
 # Scrum Process Model
 
-<ul style="font-family:verdana;font-size:120%">
+<ul style="font-family:verdana;font-size:120%;text-align:justify">
   <li>Flexibility and Adaptability</li>
   <li>Scrum model works effective when the requirement about end product is not clear or is largely unknown</li>
   <li>It follows an iterative approach to redefine or increment the software development</li>
@@ -76,7 +76,7 @@ tr:nth-child(even) {
 
 # Team Communication - TRELLO 
 
-<ul style="font-family:verdana;font-size:120%">
+<ul style="font-family:verdana;font-size:120%;text-align:justify">
   <li>It’s free to use and provides a systematic way of team coordination and task management.</li>
   <li>Replaces whiteboard & sticky notes and helps to adapt to the SCRUM model effectively.</li>
   <li>Enables every team member to stay updated about the current status of the project.</li>
