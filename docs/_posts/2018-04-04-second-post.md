@@ -18,7 +18,7 @@ date: 2019-04-16
 
 # Team Members :
 
-![Deadline image]({{site.baseurl}}/images/Team Members.png "team members"){:height="50%" width="100%"}
+![Deadline image]({{site.baseurl}}/images/TeamMembers.png "team members"){:height="50%" width="100%"}
   
 # Teams – Roles and Responsibilities
 
