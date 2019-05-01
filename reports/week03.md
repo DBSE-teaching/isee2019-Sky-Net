@@ -116,22 +116,22 @@ To overcome this problem, we started using Trello - task management tool </li>
 </ul> 
 
 <ul> <p> <b> Problems: </b> </p>
-<li>  Got stuck while drawing Class Diagrams
+<li>  Got stuck while drawing class diagrams.
 To overcome this problem, we were revising slides and online tutorials </li>
 </ul>
 </td>
 
 <td>
 <ul>
-<li> Activity layout design finalisation and implementation -- Harish and Logesh </li>
-<li> Update Blog for next milestone and Database Integration-- Shudarsan and Abhivanth </li>
+<li> Activity layout design finalisation and implementation  -- Harish and Logesh </li>
+<li> Update blog for next milestone and database integration -- Shudarsan and Abhivanth </li>
 </ul>
 </td>
 
 <td>
 <ul>
-<li> Feedback on Behavioral diagrams  </li>
-<li> Prototype and database integration </li>
+<li> Feedback on behavioral diagrams  </li>
+<li> Discuss about prototype and database integration </li>
 </ul>
 </td>
 
