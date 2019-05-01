@@ -107,7 +107,7 @@ To overcome this problem, we started using Trello - task management tool </li>
 <ul>
 <li> Activity UML Diagram -- Logesh and Abhivanth </li> 
 <li> Class Diagram -- Harish and Shudarsan </li>
-<li> Update Blog, Layout and theme -- Shudarsan and Abhivanth </li>
+<li> Update Blog, Content, Layout and theme -- All </li>
 </ul>
 <ul> <p> <b> Learned: </b> </p>
 <li>  Behavioral diagrams - Activity and UML diagrams</li>
