@@ -36,8 +36,18 @@ We have designed the following as part of our application development.
 
 ### Use Case Diagram
 
+![Deadline image]({{site.baseurl}}/images/Usecase.png "User Stories"){:height="50%" width="100%"}
+
 ### Activity Diagram
+
+![Deadline image]({{site.baseurl}}/images/Activitydiagram1.png "User Stories"){:height="50%" width="100%"}
+
+![Deadline image]({{site.baseurl}}/images/Activitydiagram2.png "User Stories"){:height="50%" width="100%"}
 
 ### Class Diagram
 
+![Deadline image]({{site.baseurl}}/images/Classdiagram.png "User Stories"){:height="50%" width="100%"}
+
 ### Behavioural Diagram
+
+![Deadline image]({{site.baseurl}}/images/Behaviouraldiagram.png "User Stories"){:height="50%" width="100%"}
