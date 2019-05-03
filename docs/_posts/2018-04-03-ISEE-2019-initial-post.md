@@ -24,4 +24,4 @@ Requirements being the first and important step towards a software development. 
  --> Requirement Documentation : We have documented the discussed requirements in the form of epics and user stories below. 
  
  
-![Deadline image]({{site.baseurl}}/images/Pictue.png "team logo"){:height="50%" width="100%"}
+![Deadline image]({{site.baseurl}}/images/Userstories.png "User Stories"){:height="50%" width="100%"}
