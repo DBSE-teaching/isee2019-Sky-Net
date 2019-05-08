@@ -40,9 +40,13 @@ We have designed the following as part of our application development.
 
 ### Activity Diagram
 
-![Deadline image]({{site.baseurl}}/images/Activitydiagram1.png "User Stories"){:height="50%" width="100%"}
+#### Input and View Page
 
-![Deadline image]({{site.baseurl}}/images/Activitydiagram2.png "User Stories"){:height="50%" width="100%"}
+![Deadline image]({{site.baseurl}}/images/ActivityDiagram1.png "User Stories"){:height="50%" width="100%"}
+
+#### Settings Page
+
+![Deadline image]({{site.baseurl}}/images/ActivityDiagram2.png "User Stories"){:height="50%" width="100%"}
 
 ### Class Diagram
 
