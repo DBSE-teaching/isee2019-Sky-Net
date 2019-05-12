@@ -178,8 +178,8 @@ To overcome this problem, we were revising slides and online tutorials </li>
 <ul>
 <li> Feedback on UML Class Diagrams  </li>
 <li> Discuss about emulator problems in andriod studio </li>
-<li> applying contraints in front end UI <li>
-<li>  finilizing blog and presentation requirments for milestone presentation <li>
+<li> applying contraints in front end UI </li>
+<li>  finilizing blog and presentation requirments for milestone presentation </li>
 </ul>
 </td>
 
