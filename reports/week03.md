@@ -167,7 +167,6 @@ To overcome this problem, we were revising slides and online tutorials </li>
 
 <td>
 <ul>
-<li>    -- Harish and Logesh </li>
 <li>  Final copy of presentation for the milestone presentation-- Shudarsan and Abhivanth </li>
 </li> backend process update - Harish </li>
 </li> front end update - Logesh and Abhivanth
