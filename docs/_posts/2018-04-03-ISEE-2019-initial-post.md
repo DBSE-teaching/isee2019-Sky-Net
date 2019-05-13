@@ -16,7 +16,7 @@ This phase showcases our team effort in progressing with how we have understood 
 # Requirements
 
 ## Requirement: Track Expenses
-<ul>
+<ul class ="bigger">
   <li>Each and every expenses must be monitored and categorized into areas so as to exactly know where the money has been spent.</li>
   <li>Category field must be a dropdown. It must contain many areas (values) of spending which are generic to everyone. </li>
   <li>The user must be given an option to add a category.</li>
