@@ -94,11 +94,13 @@ date: 2019-05-14
 
 ### Input and View Page
 
+
+
 ![Deadline image]({{site.baseurl}}/images/ActivityDiagram1.png "User Stories"){:height="50%" width="100%"}
 
 ### Settings Page
 
-![Deadline image]({{site.baseurl}}/images/ActivityDiagram2.png "User Stories"){:height="50%" width="100%"}
+![Deadline image]({{site.baseurl}}/images/Activity2.png "User Stories"){:height="50%" width="100%"}
 
 ## Development Strategy
 
