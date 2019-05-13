@@ -51,7 +51,7 @@ This phase showcases our team effort in progressing with how we have understood 
 
 ## Use Case Diagram
 
-![Deadline image]({{site.baseurl}}/images/Usecase.png "User Stories"){:height="50%" width="100%"}
+![Deadline image]({{site.baseurl}}/images/Usecase.png "Use Case"){:height="50%" width="100%"}
 
 ## Gathering Requirements and Analysis
 
@@ -73,27 +73,27 @@ Requirements being the first and important step towards a software development. 
 ## System Design Implementation
 
 We have designed the following as part of our application development.
-      ---> Use Case Diagram
-      ---> Activity Diagram
-      ---> Class Diagram
-      ---> Behavioural Diagram
+<ul>
+  <li>Use Case Diagram</li>
+  <li>Activity Diagram</li>
+  <li>Class Diagram</li>
+  <li>Behavioural Diagram</li>
+ </ul>
+      
+## Class Diagram
 
+![Deadline image]({{site.baseurl}}/images/classdiagram.png "Class Diagram"){:height="50%" width="100%"}
 
+## Activity Diagram
 
-### Activity Diagram
-
-#### Input and View Page
+### Input and View Page
 
 ![Deadline image]({{site.baseurl}}/images/ActivityDiagram1.png "User Stories"){:height="50%" width="100%"}
 
-#### Settings Page
+### Settings Page
 
 ![Deadline image]({{site.baseurl}}/images/ActivityDiagram2.png "User Stories"){:height="50%" width="100%"}
 
-### Class Diagram
-
-![Deadline image]({{site.baseurl}}/images/Classdiagram.png "User Stories"){:height="50%" width="100%"}
-
-### Behavioural Diagram
+## Behavioural Diagram
 
 ![Deadline image]({{site.baseurl}}/images/Behaviouraldiagram.png "User Stories"){:height="50%" width="100%"}
