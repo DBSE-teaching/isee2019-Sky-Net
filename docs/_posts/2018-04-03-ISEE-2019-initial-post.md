@@ -26,7 +26,7 @@ As we have successfully completed our first milestone presentation, now we move 
 - The user must be able to track recurring expenses as few payments are recurring every month. The field should be a checkbox.
 
 ## Requirement: Settings Page to Manage Profile
-<ul>
+<ul align="justified">
   <li>The user must need a pin login for authorization and security purposes.</li>
   <li>The user must be able to set the pin, the first time when he opens the application.</li>
   <li>The user must be able to customize categories.</li>
