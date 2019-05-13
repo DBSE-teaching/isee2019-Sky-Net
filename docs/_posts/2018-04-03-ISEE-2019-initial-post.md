@@ -12,7 +12,9 @@ date: 2019-05-14
 
 ## **Overview**
 
-As we have successfully completed our first milestone presentation, now we move on to the next phase in our application development. This phase showcases our team effort in progressing with how we have understood the requirement from the product owner, the problems we have encountered while developing our application.
+<ul>
+  <li>As we have successfully completed our first milestone presentation, now we move on to the next phase in our application development. This phase showcases our team effort in progressing with how we have understood the requirement from the product owner, the problems we have encountered while developing our application.</li>
+</ul>
 
 ## **Requirement: Track Expenses**
 
