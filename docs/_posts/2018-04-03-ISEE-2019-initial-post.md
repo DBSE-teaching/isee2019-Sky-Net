@@ -6,14 +6,12 @@ date: 2019-05-14
 
 # Basic Prototype
 
-# Application Name & Logo
+## Application Name & Logo
 
-# Overview
+## Overview
 
 As we have succesfully completed our first milestone presentation, now we move on to the next phase in our application development.
 This phase showcases our team effort in progressing with how we have understood the requirement from the product owner, the problems we have encountered while developing our application.
-
-# Requirements
 
 ## Requirement: Track Expenses
 <ul class ="bigger">
@@ -43,19 +41,19 @@ This phase showcases our team effort in progressing with how we have understood 
   <li>Filter option must be enabled to the payment option to view the expenses collectively on the mode of payment.</li>
 </ul>
 
-# User Stories
+## User Stories
 
 ![Deadline image]({{site.baseurl}}/images/Userstories2.png "User Stories"){:height="50%" width="100%"}
 
-# Estimated Time
+## Estimated Time
 
 ![Deadline image]({{site.baseurl}}/images/Estimatedtime.png "Estimated Time"){:height="50%" width="100%"}
 
-# Use Case Diagram
+## Use Case Diagram
 
 ![Deadline image]({{site.baseurl}}/images/Usecase.png "User Stories"){:height="50%" width="100%"}
 
-# Gathering Requirements and Analysis
+## Gathering Requirements and Analysis
 
 Requirements being the first and important step towards a software development. We basically categorized them in to three parts as to how we have progressed.
 
@@ -65,7 +63,7 @@ Requirements being the first and important step towards a software development. 
  <li>Requirement Documentation: We have documented the discussed requirements. </li>
 </ul>
 
-# Wrong Assumptions
+## Wrong Assumptions
 <ul>
  <li>We mistook the application as a multi user interface. On further discussions with the stakeholders, we understood that the application is a single-user interface.</li>
  <li>We assumed, we had to set the default currency instead of setting the currency.</li>
