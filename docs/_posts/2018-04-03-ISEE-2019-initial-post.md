@@ -120,4 +120,8 @@ This diagrams contains the flow pof process in which the user can change the pin
 
 ## Working Prototype
 
-![Deadline image]({{site.baseurl}}/images/Application.png "Application"){:height="50%" width="100%"}
+
+
+![Deadline image]({{site.baseurl}}/images/App1.png "Application"){:height="50%" width="100%"}
+
+![Deadline image]({{site.baseurl}}/images/App2.png "Application"){:height="50%" width="100%"}
