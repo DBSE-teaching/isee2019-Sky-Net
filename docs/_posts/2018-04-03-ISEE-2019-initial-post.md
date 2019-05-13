@@ -79,7 +79,6 @@ We have designed the following as part of our application development.
   <li>Use Case Diagram</li>
   <li>Activity Diagram</li>
   <li>Class Diagram</li>
-  <li>Behavioural Diagram</li>
  </ul>
       
 ## Class Diagram
@@ -100,6 +99,3 @@ We have designed the following as part of our application development.
 
 ![Deadline image]({{site.baseurl}}/images/ActivityDiagram2.png "User Stories"){:height="50%" width="100%"}
 
-## Behavioural Diagram
-
-![Deadline image]({{site.baseurl}}/images/Behaviouraldiagram1.png "User Stories"){:height="50%" width="100%"}
