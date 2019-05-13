@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView01"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:orientation="vertical"
+        android:layout_height="fill_parent">
+
+
+    <TextView
+        android:id="@+id/promptSetPin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/setPin"/>
+
+     <EditText
+         android:id="@+id/set_Pin_textbox"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:inputType="number"
+         android:maxLength="4"/>
+
+        <TextView
+            android:id="@+id/promptRetypePin"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/retypePin"/>
+
+        <EditText
+            android:id="@+id/confirm_Pin_textbox"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="4"/>
+
+        <TextView
+            android:id="@+id/pin_no_match"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             />
+
+        <Button
+            android:id="@+id/change_pin_ok"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/savePin"
+            />
+
+</LinearLayout>
+</ScrollView>
