@@ -86,6 +86,10 @@ We have designed the following as part of our application development.
 
 ![Deadline image]({{site.baseurl}}/images/classdiagram.png "Class Diagram"){:height="50%" width="100%"}
 
+![Deadline image]({{site.baseurl}}/images/C1.png "C1"){:height="50%" width="100%"}
+
+![Deadline image]({{site.baseurl}}/images/C2.png "C2"){:height="50%" width="100%"}
+
 ## Activity Diagram
 
 ### Input and View Page
