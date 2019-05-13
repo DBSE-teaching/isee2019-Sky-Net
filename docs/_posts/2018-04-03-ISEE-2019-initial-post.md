@@ -8,6 +8,8 @@ date: 2019-05-14
 
 ## Application Name & Logo
 
+![Deadline image]({{site.baseurl}}/images/logoapp.png "Logo"){:height="300px" width="400px"}
+
 ## Overview
 
 As we have succesfully completed our first milestone presentation, now we move on to the next phase in our application development.
@@ -47,7 +49,7 @@ This phase showcases our team effort in progressing with how we have understood 
 
 ## Estimated Time
 
-![Deadline image]({{site.baseurl}}/images/Estimatedtime.png "Estimated Time"){:height="50%" width="100%"}
+![Deadline image]({{site.baseurl}}/images/Estimatedtime.png "Estimated Time"){:height="50%" width="50%"}
 
 ## Use Case Diagram
 
