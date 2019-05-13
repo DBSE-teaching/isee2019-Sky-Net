@@ -35,7 +35,7 @@ This phase showcases our team effort in progressing with how we have understood 
   <li>The user must need to select a currency.</li>
  </ul>
  
- ## Requirement: Graphical View Page
+## Requirement: Graphical View Page
  <ul>
   <li>Filter option must be enabled on category field.</li>
   <li>Start Date and End date must be given to filter the expenses according to the date and be represented in a graphical way.</li>
