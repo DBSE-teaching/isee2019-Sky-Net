@@ -120,7 +120,8 @@ This diagrams contains the flow pof process in which the user can change the pin
 
 ## Working Prototype
 
-
+<p style="font-family:Times;font-size:120%;text-align:justify"> Click below link to download APK file.</p>
+<p style="font-family:Times;font-size:120%;text-align:justify"><a href="https://github.com/DBSE-teaching/isee2019-Sky-Net/blob/Application/APK/app-debug.apk">ExSpendables.apk</a></p>
 
 ![Deadline image]({{site.baseurl}}/images/App1.png "Application"){:height="50%" width="100%"}
 
