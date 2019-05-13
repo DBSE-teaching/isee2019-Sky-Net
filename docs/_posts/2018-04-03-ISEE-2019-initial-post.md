@@ -102,4 +102,4 @@ We have designed the following as part of our application development.
 
 ## Behavioural Diagram
 
-![Deadline image]({{site.baseurl}}/images/Behaviouraldiagram.png "User Stories"){:height="50%" width="100%"}
+![Deadline image]({{site.baseurl}}/images/Behaviouraldiagram1.png "User Stories"){:height="50%" width="100%"}
