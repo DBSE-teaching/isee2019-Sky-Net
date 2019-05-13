@@ -94,11 +94,13 @@ date: 2019-05-14
 
 ### Input and View Page
 
-
+This diagram contains the flow of process from user entering the pin and sequentially to other processes.
 
 ![Deadline image]({{site.baseurl}}/images/Activity2.png "User Stories"){:height="50%" width="100%"}
 
 ### Settings Page
+
+This diagrams contains the flow pof process in which the user can change the pin and customise the categories and also set the currency type.
 
 ![Deadline image]({{site.baseurl}}/images/ActivityDiagram2.png "User Stories"){:height="50%" width="100%"}
 
