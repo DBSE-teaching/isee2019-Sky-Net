@@ -106,6 +106,17 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             }
         });
 
+        DatabaseCurrency databaseCurrency = new DatabaseCurrency(this);
+        Cursor currCode = databaseCurrency.getData();
+
+        if(currCode != null){
+            if(currCode.moveToFirst()){
+                String currencySavedInDB = currCode.getString(0).toString();
+                TextView code = (TextView) findViewById(R.id.currencyCode);
+                code.setText(currencySavedInDB);
+            }
+        }
+
 
     }
 
@@ -173,24 +184,23 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     public void showSummary(View view){
 
         TextView startDate = (TextView) findViewById(R.id.entryDate);
-        Date startDateValue = Date.valueOf(startDate.getText().toString());
+        String startDateValue = startDate.getText().toString();
 
         TextView endDate = (TextView) findViewById(R.id.endDate);
-        Date endDateValue = Date.valueOf(endDate.getText().toString());
+        String endDateValue = endDate.getText().toString();
 
         DatabaseIncomeExpense databaseIncomeExpense = new DatabaseIncomeExpense(this);
         Cursor cursor = databaseIncomeExpense.getData(startDateValue,endDateValue);
 
         List<DatabaseIncomeExpense> expenseDetails = new ArrayList<DatabaseIncomeExpense>();
 
-
         cursor.moveToFirst();
         int i = 0;
         while (!cursor.isAfterLast()){
             databaseIncomeExpense.category      = cursor.getString(0);
-            databaseIncomeExpense.startDate     = Date.valueOf(cursor.getString(1));
-            databaseIncomeExpense.endDate       = Date.valueOf(cursor.getString(2));
-            databaseIncomeExpense.amount        = Integer.valueOf(cursor.getString(3));
+            databaseIncomeExpense.startDate     = cursor.getString(1);
+            databaseIncomeExpense.endDate       = cursor.getString(2);
+            databaseIncomeExpense.amount        = cursor.getString(3);
             databaseIncomeExpense.code          = cursor.getString(4);
             databaseIncomeExpense.paymentMethod = cursor.getString(5);
             databaseIncomeExpense.note          = cursor.getString(6);
@@ -218,10 +228,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         TableLayout tableLayout = (TableLayout)findViewById(R.id.tab);
         tableLayout.removeAllViews();
-
-        for(int rowCount =0;i<rows.length;rowCount++){
+        String row;
+        for(int rowCount =0;rowCount<rows.length;rowCount++){
          //   Log.d("Rows",rows[i]);
-            String row  = rows[rowCount];
+            row  = rows[rowCount];
             TableRow tableRow = new TableRow(getApplicationContext());
             tableRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
             final String[] cols = row.split(";");
@@ -251,16 +261,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         Button changePinBtn = (Button) findViewById(R.id.changePin);
         changePinBtn.setOnClickListener(this);
 
-        DatabaseCurrency databaseCurrency = new DatabaseCurrency(this);
-        Cursor currCode = databaseCurrency.getData();
-
-        if(currCode != null){
-            if(currCode.moveToFirst()){
-                String currencySavedInDB = currCode.getString(0).toString();
-                TextView code = (TextView) findViewById(R.id.currencyCode);
-                code.setText(currencySavedInDB);
-            }
-        }
     }
 
 
@@ -491,14 +491,27 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 dbCategories = new DatabaseCategories(this);
                 categoryList = (ListView) findViewById(R.id.categorylist);
                 checked = categoryList.getCheckedItemPositions();
-                selectedItems = new ArrayList<String>();
+                //selectedItems = new ArrayList<String>();
+
+                checked = categoryList.getCheckedItemPositions();
+                //selectedItems = new ArrayList<String>();
+
+                categorylist = dbCategories.getData();
+                values = new String[categorylist.size()];
+                for(int i = 0; i < categorylist.size();i++){
+                    values[i] = categorylist.get(i).toString();
+                }
+                categoryAdapter = new ArrayAdapter<String>
+                        (this,android.R.layout.simple_list_item_multiple_choice,values);
 
                 for (int i = 0; i < checked.size(); i++) {
                     // Item position in adapter
                     int position = checked.keyAt(i);
-
-                    if (checked.valueAt(i)){
-                        oldValue = selectedItems.get(i).toString();
+                    // Add sport if it is checked i.e.) == TRUE!
+                    if (checked.valueAt(i)) {
+                        //          String dummy1 = selectedItems.get(i).toString();
+                        //         String dummy2 = selectedItems.get(position).toString();
+                        oldValue = categoryAdapter.getItem(position).toString();
                         break;
                     }
                 }
@@ -580,6 +593,18 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     break;
                 }
         }
+    }
+
+    public void backToHome(View view) {
+        setContentView(R.layout.income_or_expense);
+    }
+
+    public void backToSettings(View view){
+        setContentView(R.layout.settings);
+    }
+
+    public void backToCategory(View view){
+        setContentView(R.layout.category_popup);
     }
 }
 

@@ -31,5 +31,12 @@
             android:layout_height="wrap_content"
             android:text="@string/edit_categories"/>
 
+        <Button
+            android:id="@+id/backToHome"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:onClick="backToHome"/>
+
     </LinearLayout>
 </ScrollView>

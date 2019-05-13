@@ -15,9 +15,9 @@ import static android.content.ContentValues.TAG;
 public class DatabaseIncomeExpense extends SQLiteOpenHelper {
 
     public String category;
-    public Date startDate;
-    public Date endDate;
-    public int amount;
+    public String startDate;
+    public String endDate;
+    public String amount;
     public String code;
     public String paymentMethod;
     public String note;
@@ -89,74 +89,44 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
         return category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public int getAmount() {
+    public String getAmount() {
         return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
     }
 
     public String getCode() {
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getPaymentMethod() {
         return paymentMethod;
-    }
-
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
     }
 
     public String getNote() {
         return note;
     }
 
-    public void setNote(String note) {
-        this.note = note;
-    }
-
     public String getIndicator() {
         return indicator;
     }
 
-    public void setIndicator(String indicator) {
-        this.indicator = indicator;
-    }
-
-    public Cursor getData(Date startDate, Date endDate){
+    public Cursor getData(String startDate, String endDate){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String query = "SELECT * " +
+        /*String query = "SELECT * " +
                 "FROM TRANSACTIONS " +
                 "WHERE startDate >= " +
                 startDate + " AND endDate <= " +
-                endDate + " AND indicator = Expense";
+                endDate;*/
+
+        String query = "SELECT * FROM TRANSACTIONS";
 
         Cursor data = db.rawQuery(query,null);
 

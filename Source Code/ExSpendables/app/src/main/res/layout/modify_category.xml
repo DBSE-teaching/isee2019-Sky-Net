@@ -28,5 +28,13 @@
           android:layout_height="wrap_content"
           android:text="@string/Modify"/>
 
+        <Button
+            android:id="@+id/backToCategory"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Back"
+            android:onClick= "backToCategory"/>
+
     </LinearLayout>
 </ScrollView>

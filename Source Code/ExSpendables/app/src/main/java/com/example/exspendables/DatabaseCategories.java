@@ -51,7 +51,8 @@ public class DatabaseCategories extends SQLiteOpenHelper {
 
     public boolean deleteData(String category){
         SQLiteDatabase db = this.getWritableDatabase();
-        int result = db.delete("CATEGORIES","catlist = " + category,null);
+        //int result = db.delete("CATEGORIES","catlist=" + category,null);
+        int result = db.delete("CATEGORIES","catlist=?",new String[]{category});
         if(result > 0){
             return true;
         }
@@ -64,7 +65,8 @@ public class DatabaseCategories extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("catlist",new_category);
-        int result = db.update("CATEGORIES",contentValues,"catlist = " + old_category,null);
+        //int result = db.update("CATEGORIES",contentValues,"catlist=" + old_category,null);
+        int result = db.update("CATEGORIES",contentValues,"catlist=?",new String[]{old_category});
 
         if(result > 0){
             return true;
