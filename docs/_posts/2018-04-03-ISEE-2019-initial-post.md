@@ -8,7 +8,7 @@ date: 2019-05-14
 
 ## Application Name & Logo
 
-![Deadline image]({{site.baseurl}}/images/logoapp.png "Logo"){:height="300px" width="400px"}
+![Deadline image]({{site.baseurl}}/images/logoapp.png "Logo"){:height="300px" width="400px" align="center"}
 
 ## **Overview**
 
