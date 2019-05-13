@@ -10,22 +10,20 @@ date: 2019-05-14
 
 ![Deadline image]({{site.baseurl}}/images/logoapp.png "Logo"){:height="300px" width="400px"}
 
-## Overview
+## **Overview**
 
-As we have succesfully completed our first milestone presentation, now we move on to the next phase in our application development.
-This phase showcases our team effort in progressing with how we have understood the requirement from the product owner, the problems we have encountered while developing our application.
+As we have successfully completed our first milestone presentation, now we move on to the next phase in our application development. This phase showcases our team effort in progressing with how we have understood the requirement from the product owner, the problems we have encountered while developing our application.
 
-## Requirement: Track Expenses
-<ul class ="bigger">
-  <li>Each and every expenses must be monitored and categorized into areas so as to exactly know where the money has been spent.</li>
-  <li>Category field must be a dropdown. It must contain many areas (values) of spending which are generic to everyone. </li>
-  <li>The user must be given an option to add a category.</li>
-  <li>The end user must be able to enter the date of expense.</li>
-  <li>The end user must be given an option to select the mode of payment. I.e., Card Payment or Cash Payment which must also be a dropdown.</li>
-  <li>The end user must be given a free text box so that he is able to add comments to that particular expense.</li>
-  <li>Enter Income/Expense and Enter Amount fields must have only numeric keypad as input.</li>
-  <li>The user must be able to track recurring expenses as few payments are recurring every month. The field should be a checkbox.</li>
-</ul>
+## **Requirement: Track Expenses**
+
+- Each and every expenses must be monitored and categorized into areas so as to exactly know where the money has been spent.
+- Category field must be a dropdown. It must contain many areas (values) of spending which are generic to everyone.
+- The user must be given an option to add a category.
+- The end user must be able to enter the date of expense.
+- The end user must be given an option to select the mode of payment. I.e., Card Payment or Cash Payment which must also be a dropdown.
+- The end user must be given a free text box so that he is able to add comments to that particular expense.
+- Enter Income/Expense and Enter Amount fields must have only numeric keypad as input.
+- The user must be able to track recurring expenses as few payments are recurring every month. The field should be a checkbox.
 
 ## Requirement: Settings Page to Manage Profile
 <ul>
