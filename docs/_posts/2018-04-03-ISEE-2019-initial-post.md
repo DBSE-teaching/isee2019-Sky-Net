@@ -97,3 +97,14 @@ We have designed the following as part of our application development.
 
 ![Deadline image]({{site.baseurl}}/images/ActivityDiagram2.png "User Stories"){:height="50%" width="100%"}
 
+## Development Strategy
+
+- Requirements and user stories - to be 100% sure on the requirement. 
+- Design, Class diagram - while designing it was difficult to identify the exact ones, so we decided not to worry much and go ahead with the coding. We updated the diagram once the coding is 90% completed
+- Queries and Roadblocks - How to get it clarified as quick as possible 
+- Coding - Concentrated on the functionalities rather than UI
+- How to work in parallel – management on individuals activity was tracked in Trello. We assigned user stories among individual members.
+- How to merge code - In every page, each and every one worked on different functionalities and integrated the code.
+- Software comparability - Initial checks - Android Studio Issues - For couple of us couldn‘t connect and run the code in the emulator.
+
+![Deadline image]({{site.baseurl}}/images/Trello2.png "Trello"){:height="50%" width="100%"}
