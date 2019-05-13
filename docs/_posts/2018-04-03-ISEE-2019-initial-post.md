@@ -108,3 +108,7 @@ We have designed the following as part of our application development.
 - Software comparability - Initial checks - Android Studio Issues - For couple of us couldn‘t connect and run the code in the emulator.
 
 ![Deadline image]({{site.baseurl}}/images/Trello2.png "Trello"){:height="50%" width="100%"}
+
+## Working Prototype
+
+![Deadline image]({{site.baseurl}}/images/Application.png "Application"){:height="50%" width="100%"}
