@@ -49,7 +49,7 @@ This phase showcases our team effort in progressing with how we have understood 
 
 # Estimated Time
 
-![Deadline image]({{site.baseurl}}/images/EstimatedTime.png "Estimated Time"){:height="50%" width="100%"}
+![Deadline image]({{site.baseurl}}/images/Estimatedtime.png "Estimated Time"){:height="50%" width="100%"}
 
 # Use Case Diagram
 
