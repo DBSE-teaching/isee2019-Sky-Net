@@ -8,7 +8,7 @@ date: 2019-05-14
 
 ## Application Name & Logo
 
-![Deadline image]({{site.baseurl}}/images/logocover.png "Logo"){:height="300px" width="400px" align="center"}
+![Deadline image]({{site.baseurl}}/images/logocover.png "Application Logo"){:height="50%" width="100%"}
 
 ## **Overview**
 
@@ -109,7 +109,7 @@ date: 2019-05-14
 <li>Coding - Concentrated on the functionalities rather than UI</li>
 <li>How to work in parallel – management on individuals activity was tracked in Trello. We assigned user stories among individual members.</li>
 <li>How to merge code - In every page, each and every one worked on different functionalities and integrated the code.</li>
-<li>Software comparability - Initial checks - Android Studio Issues - For couple of us couldn‘t connect and run the code in the emulator.
+<li>Software comparability - Initial checks - Android Studio Issues - For couple of us couldn‘t connect and run the code in the emulator.</li>
  </ul>
 
 ![Deadline image]({{site.baseurl}}/images/Trello2.png "Trello"){:height="50%" width="100%"}
