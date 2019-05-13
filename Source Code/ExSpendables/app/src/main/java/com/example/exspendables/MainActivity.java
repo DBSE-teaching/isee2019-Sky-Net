@@ -70,6 +70,19 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     public void openIncomePage(View view) {
         setContentView(R.layout.income);
 
+        Button button = (Button) findViewById(R.id.selectDate);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void checkButtonStat(){
+                isEntryDateClicked = true;
+                isEndDateClicked = false;
+            }
+            @Override
+            public void onClick(View v) {
+                checkButtonStat();
+                DialogFragment datePicker = new com.example.exspendables.DatePicker();
+                datePicker.show(getSupportFragmentManager(), "date picker");
+            }
+        });
 
     }
 
@@ -582,6 +595,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                             dbPinTable.modifyData(pin, pinSavedInDB);
 
                             setContentView(R.layout.settings);
+                            Button categoryDisplay = (Button) findViewById(R.id.edit_categories);
+                            categoryDisplay.setOnClickListener(this);
+
+                            Button changePinBtn = (Button) findViewById(R.id.changePin);
+                            changePinBtn.setOnClickListener(this);
+
                             break;
                         }
                     }
@@ -601,10 +620,28 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     public void backToSettings(View view){
         setContentView(R.layout.settings);
+
+        Button categoryDisplay = (Button) findViewById(R.id.edit_categories);
+        categoryDisplay.setOnClickListener(this);
+
+        Button changePinBtn = (Button) findViewById(R.id.changePin);
+        changePinBtn.setOnClickListener(this);
     }
 
     public void backToCategory(View view){
         setContentView(R.layout.category_popup);
+
+        Button deleteCategory = (Button) findViewById(R.id.deleteCategoryBtn);
+        Button modifyCategory = (Button) findViewById(R.id.modifyCategoryBtn);
+        Button addCategory = (Button) findViewById(R.id.addCategoryBtn);
+
+        deleteCategory = (Button) findViewById(R.id.deleteCategoryBtn);
+        modifyCategory = (Button) findViewById(R.id.modifyCategoryBtn);
+        addCategory = (Button) findViewById(R.id.addCategoryBtn);
+
+        deleteCategory.setOnClickListener(this);
+        modifyCategory.setOnClickListener(this);
+        addCategory.setOnClickListener(this);
     }
 }
 
