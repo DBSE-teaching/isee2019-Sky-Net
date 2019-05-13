@@ -12,7 +12,7 @@ date: 2019-05-14
 
 ## **Overview**
 
-  <p style="font-family:courier;font-size:160%;align:justified"> As we have successfully completed our first milestone presentation, now we move on to the next phase in our application development. This phase showcases our team effort in progressing with how we have understood the requirement from the product owner, the problems we have encountered while developing our application.</p>
+  <p style="font-family:courier;font-size:160%;align:justify"> As we have successfully completed our first milestone presentation, now we move on to the next phase in our application development. This phase showcases our team effort in progressing with how we have understood the requirement from the product owner, the problems we have encountered while developing our application.</p>
 
 
 ## **Requirement: Track Expenses**
@@ -27,7 +27,7 @@ date: 2019-05-14
 - The user must be able to track recurring expenses as few payments are recurring every month. The field should be a checkbox.
 
 ## Requirement: Settings Page to Manage Profile
-<ul style="font-family:courier;font-size:160%;align:justified">
+<ul style="font-family:courier;font-size:160%;align:justify">
   <li>The user must need a pin login for authorization and security purposes.</li>
   <li>The user must be able to set the pin, the first time when he opens the application.</li>
   <li>The user must be able to customize categories.</li>
