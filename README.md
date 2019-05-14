@@ -8,5 +8,4 @@ We are a team of 4 members and we would like to show what has been done from our
 
 <ul>
    <li> Blog Link - https://dbse-teaching.github.io/isee2019-Sky-Net/ </li>
-   <li> GitHub Link - https://github.com/DBSE-teaching/isee2019-Sky-Net </li>
 </ul>
