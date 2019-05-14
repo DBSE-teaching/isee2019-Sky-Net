@@ -113,7 +113,7 @@ This diagrams contains the flow pof process in which the user can change the pin
 <li>Coding - Concentrated on the functionalities rather than UI</li>
 <li>How to work in parallel – management on individuals activity was tracked in Trello. We assigned user stories among individual members.</li>
 <li>How to merge code - In every page, each and every one worked on different functionalities and integrated the code.</li>
-<li>Software comparability - Initial checks - Android Studio Issues - For couple of us couldn‘t connect and run the code in the emulator.</li>
+<li>Software compatability - Initial checks - Android Studio Issues - For couple of us couldn‘t connect and run the code in the emulator.</li>
  </ul>
 
 ![Deadline image]({{site.baseurl}}/images/Trello2.png "Trello"){:height="50%" width="100%"}
@@ -128,3 +128,6 @@ This diagrams contains the flow pof process in which the user can change the pin
 
 <p style="font-family:Times;font-size:120%;text-align:justify">Settings Page &&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Currency Selection &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transaction Details </p>
 ![Deadline image]({{site.baseurl}}/images/App2.png "Img 4, Img 5, Img 6"){:height="50%" width="100%"}
+
+# Thanks for Reading!!
+
