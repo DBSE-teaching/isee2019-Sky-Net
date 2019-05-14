@@ -123,6 +123,14 @@ This diagrams contains the flow pof process in which the user can change the pin
 <p style="font-family:Times;font-size:120%;text-align:justify"> Click below link to download APK file.</p>
 <p style="font-family:Times;font-size:120%;text-align:justify"><a href="https://github.com/DBSE-teaching/isee2019-Sky-Net/blob/Application/APK/app-debug.apk?raw=true">ExSpendables.apk</a></p>
 
+<p style="font-family:Times;font-size:120%;text-align:justify">
+Img 1 : User is setting the pin for the first time.<br>
+Img 2 : User is redirected to the Homepage.<br>
+Img 3 : User is able to select the Date.<br>
+Img 4 : User is taken to the settings page.<br>
+Img 5 : User is able to set the currency.<br>
+Img 6 : User is able to enter the details. </p>
+
 ![Deadline image]({{site.baseurl}}/images/App1.png "Application"){:height="50%" width="100%"}
 
 ![Deadline image]({{site.baseurl}}/images/App2.png "Application"){:height="50%" width="100%"}
