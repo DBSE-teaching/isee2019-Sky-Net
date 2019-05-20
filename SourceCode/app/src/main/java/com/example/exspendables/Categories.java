@@ -12,12 +12,12 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class DatabaseCategories extends SQLiteOpenHelper {
+public class Categories extends SQLiteOpenHelper {
 
     /*private static final String table_name = "Categories";
     private static final String col1_name = "catList";*/
 
-    public DatabaseCategories(Context context) {
+    public Categories(Context context) {
         super(context, "CATEGORIES", null, 1);
     }
 

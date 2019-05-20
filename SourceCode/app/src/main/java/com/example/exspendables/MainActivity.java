@@ -22,11 +22,7 @@ import android.util.SparseBooleanArray;
 import com.mynameismidori.currencypicker.CurrencyPicker;
 import com.mynameismidori.currencypicker.CurrencyPickerListener;
 
-import org.w3c.dom.Text;
-
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -34,7 +30,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, View.OnClickListener {
 
     DatabaseHandler dbPinTable;     // database table for storing PIN
-    DatabaseCategories dbCategories;
+    Categories dbCategories;
     private Button btnSavePin;      // access Save PIN button during First time user login
     private boolean isEntryDateClicked = false;
     private boolean isEndDateClicked = false;
@@ -90,8 +86,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     public void openExpensePage(View view) {
         setContentView(R.layout.expense);
 
-        DatabaseCategories dbCategories;
-        dbCategories = new DatabaseCategories(this);
+        Categories dbCategories;
+        dbCategories = new Categories(this);
         // Populate Category DDLB
         Spinner categoryddlb = (Spinner) findViewById(R.id.categoryddlb);
         List<String> categorylist = dbCategories.getData();
@@ -400,7 +396,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 Button modifyCategory = (Button) findViewById(R.id.modifyCategoryBtn);
                 Button addCategory = (Button) findViewById(R.id.addCategoryBtn);
 
-                dbCategories = new DatabaseCategories(this);
+                dbCategories = new Categories(this);
                 // Populate Category List View
                 List<String> categorylist = dbCategories.getData();
                 String[] values = new String[categorylist.size()];
@@ -418,7 +414,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 break;
 
             case  R.id.deleteCategoryBtn:
-                dbCategories = new DatabaseCategories(this);
+                dbCategories = new Categories(this);
                 categoryList = (ListView) findViewById(R.id.categorylist);
                 SparseBooleanArray checked = categoryList.getCheckedItemPositions();
                 ArrayList<String> selectedItems = new ArrayList<String>();
@@ -445,7 +441,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 //refresh the list with new value
                 categoryList = (ListView) findViewById(R.id.categorylist);
 
-                dbCategories = new DatabaseCategories(this);
+                dbCategories = new Categories(this);
                 // Populate Category List View
                 categorylist = dbCategories.getData();
                 values = new String[categorylist.size()];
@@ -468,7 +464,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 break;
 
             case R.id.btnOKAddCategory:
-                dbCategories = new DatabaseCategories(this);
+                dbCategories = new Categories(this);
                 EditText newCategoryValue = (EditText) findViewById(R.id.add_cat_textbox);
                 dbCategories.addData(newCategoryValue.getText().toString());
                 setContentView(R.layout.category_popup);
@@ -484,7 +480,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 modifyCategory.setOnClickListener(this);
                 addCategory.setOnClickListener(this);
 
-                dbCategories = new DatabaseCategories(this);
+                dbCategories = new Categories(this);
                 // Populate Category List View
                 categorylist = dbCategories.getData();
                 values = new String[categorylist.size()];
@@ -501,7 +497,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             case R.id.modifyCategoryBtn:
                 // create a layout with a EditText and OK button on click on "Modify"
 
-                dbCategories = new DatabaseCategories(this);
+                dbCategories = new Categories(this);
                 categoryList = (ListView) findViewById(R.id.categorylist);
                 checked = categoryList.getCheckedItemPositions();
                 //selectedItems = new ArrayList<String>();
@@ -540,7 +536,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             case R.id.btnOKModifyCategory:
 
                 EditText newValue = (EditText) findViewById(R.id.modify_cat_textbox);
-                dbCategories = new DatabaseCategories(this);
+                dbCategories = new Categories(this);
                 dbCategories.modifyData(newValue.getText().toString(),oldValue);
 
                 setContentView(R.layout.category_popup);
@@ -555,7 +551,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 modifyCategory.setOnClickListener(this);
                 addCategory.setOnClickListener(this);
 
-                dbCategories = new DatabaseCategories(this);
+                dbCategories = new Categories(this);
                 // Populate Category List View
                 categorylist = dbCategories.getData();
                 values = new String[categorylist.size()];
