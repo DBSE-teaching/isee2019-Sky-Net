@@ -29,6 +29,8 @@
     <string name="add_cat_msg">Add new category</string>
     <string name="modify_cat_msg">Modify Category</string>
     <string name="ok">OK</string>
+    <string name="radio_Expense">Expense</string>
+    <string name="radio_Income">Income</string>
     <string-array name="paymentselect">
         <item>@string/noselection</item>
         <item>@string/cash</item>
