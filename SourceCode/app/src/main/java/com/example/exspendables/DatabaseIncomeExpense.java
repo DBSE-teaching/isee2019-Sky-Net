@@ -22,6 +22,9 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
     public String paymentMethod;
     public String note;
     public String indicator;
+    public String recurringTransaction;
+    public String recurringFrequency;
+    public String recurringValue;
 
     public DatabaseIncomeExpense(Context context) {
         super(context, "TRANSACTIONS", null, 1);
@@ -38,7 +41,10 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
                 " code TEXT DEFAULT 'EUR'," +
                 " paymentMethod TEXT," +
                 " note TEXT DEFAULT 'No value entered'," +
-                " indicator TEXT )" ;
+                " indicator TEXT,"+
+                " recurringTransaction TEXT, "+
+                " recurringFrequency TEXT,"+
+                " recurringValue TEXT )" ;
 
         db.execSQL(createQuery);
     }
@@ -49,8 +55,9 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData(String category, Date startDate,Date endDate,int amount,
-                        String code, String paymMethod, String note, String indicator) {
+    public boolean addData(String category, Date startDate, Date endDate, int amount,
+                           String code, String paymentMethod, String note, String indicator, String recurringTransaction,
+                           String recurringFrequency, String recurringValue) {
 
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -60,9 +67,12 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
         contentValues.put("endDate",endDate.toString());
         contentValues.put("amount",amount);
         contentValues.put("code",code);
-        contentValues.put("paymentMethod",paymMethod);
+        contentValues.put("paymentMethod",paymentMethod);
         contentValues.put("note",note);
         contentValues.put("indicator",indicator);
+        contentValues.put("recurringTransaction",recurringTransaction);
+        contentValues.put("recurringFrequency",recurringFrequency);
+        contentValues.put("recurringValue",recurringValue);
 
         long result = db.insert("TRANSACTIONS",null,contentValues);
 
@@ -93,9 +103,7 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
         return startDate;
     }
 
-    public String getEndDate() {
-        return endDate;
-    }
+    public String getEndDate() { return endDate; }
 
     public String getAmount() {
         return amount;
@@ -116,6 +124,19 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
     public String getIndicator() {
         return indicator;
     }
+
+    public String getRecurringTransaction() {
+        return recurringTransaction;
+    }
+
+    public String getRecurringFrequency() {
+        return recurringFrequency;
+    }
+
+    public String getRecurringValue() {
+        return recurringValue;
+    }
+
 
     public Cursor getData(String startDate, String endDate){
         SQLiteDatabase db = this.getReadableDatabase();

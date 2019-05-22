@@ -1,18 +1,29 @@
 package com.example.exspendables;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
+import android.icu.lang.UCharacter;
 import android.os.Handler;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -23,6 +34,7 @@ import com.mynameismidori.currencypicker.CurrencyPicker;
 import com.mynameismidori.currencypicker.CurrencyPickerListener;
 
 import java.sql.Date;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -126,6 +138,128 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             }
         }
 
+        //Logesh - 20.05
+
+        final Switch recurringSwitch = (Switch) findViewById(R.id.recurringSwitch);
+        final CharSequence[] items = {"Daily", "Weekly", "Monthly", "Other"};
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final EditText editText = new EditText(this);
+        final TextView textView = (TextView) findViewById(R.id.recurringValue);
+        final TextView textView1 = (TextView) findViewById(R.id.recurringValue1);
+
+        builder.setView(editText);
+        editText.setVisibility(View.INVISIBLE);
+        editText.setHint("Ex. 10");
+        builder.setTitle("Select any option");
+        builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item) {
+                Toast.makeText(getApplicationContext(), items[item].toString(), Toast.LENGTH_SHORT).show();
+                if(item == 3){
+                    final String value = items[item].toString();
+                    textView.setText(value);
+                    editText.setVisibility(View.VISIBLE);
+                    textView1.setVisibility(View.VISIBLE);
+                    editText.setText("");
+                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    String value1 = editText.getText().toString();
+                        if (value1.isEmpty()){
+                        editText.setError("Enter Value to Proceed");
+                        //editText.setText("0");
+                        textView1.setText(value1);
+                        } else{
+                        textView1.setText(value1);
+                        }
+
+                }else if(item == 0)
+                {
+                    String value = items[item].toString();
+                    textView.setText(value);
+                    textView1.setVisibility(View.INVISIBLE);
+                    editText.setText("");
+                    editText.setVisibility(View.INVISIBLE);
+                }else if(item == 1)
+                {
+                    String value = items[item].toString();
+                    textView.setText(value);
+                    textView1.setVisibility(View.INVISIBLE);
+                    editText.setText("");
+                    editText.setVisibility(View.INVISIBLE);
+                }else if(item == 2)
+                {
+                    String value = items[item].toString();
+                    textView.setText(value);
+                    textView1.setVisibility(View.INVISIBLE);
+                    editText.setText("");
+                    editText.setVisibility(View.INVISIBLE);
+                } else
+                {
+
+                    editText.setVisibility(View.INVISIBLE);
+                    editText.setText("");
+                    textView1.setVisibility(View.INVISIBLE);
+                    textView.setVisibility(View.INVISIBLE);
+                }
+
+
+            }
+        });
+
+        builder.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        String value1 = editText.getText().toString();
+                        Integer value2 = editText.getVisibility();
+
+                            if (value1.equals("") & value2.equals(View.VISIBLE)){
+                            textView1.setText("0");
+                            editText.setText("0");
+                            } else {
+                            textView1.setText(value1);
+                            }
+
+                        Toast.makeText(getApplicationContext(), "Recurring option selected", Toast.LENGTH_SHORT).show();
+
+                        //textView1.setText(items);
+                    }
+                });
+        builder.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        textView1.setText("");
+                        recurringSwitch.setChecked(false);
+                        Toast.makeText(getApplicationContext(), "Data Not Saved", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        final AlertDialog alert = builder.create();
+        recurringSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                        if (isChecked == true ) {
+                        alert.show();
+                        textView.setVisibility(View.VISIBLE);
+                        textView1.setVisibility(View.VISIBLE);
+                        } else
+                        {
+                        alert.cancel();
+                        textView.setVisibility(View.INVISIBLE);
+                        textView1.setVisibility(View.INVISIBLE);
+                        }
+
+                        textView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                        alert.show();
+                        }
+                        });
+            }
+        });
+
+        //Logesh - 21.05
 
     }
 
@@ -295,6 +429,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         }
     }
 
+    //Logesh - 22.05
+
     public void saveExpense(View view) {
 
         Spinner category = (Spinner) findViewById(R.id.categoryddlb);
@@ -320,13 +456,24 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         EditText note = (EditText) findViewById(R.id.optionalNote);
         String noteValue = note.getText().toString();
 
+        TextView recurringTransaction = (TextView) findViewById(R.id.recurringSwitch);
+        String recurringTransactionValue = String.valueOf(recurringTransaction.getText().toString());
+
+        TextView recurringFrequency = (TextView) findViewById(R.id.recurringValue);
+        String recurringFrequencyValue = String.valueOf(recurringFrequency.getText().toString());
+
+        TextView recurringValue = (TextView) findViewById(R.id.recurringValue);
+        String recurringValueValue = String.valueOf(recurringValue.getText().toString());
+
         String indicatorValue = "Expense";
 
         DatabaseIncomeExpense databaseIncomeExpense = new DatabaseIncomeExpense(this);
         databaseIncomeExpense.addData(categoryValue,startDateValue,endDateValue,amountValue,
-                codeValue,paymMethodValue,noteValue,indicatorValue);
+                codeValue,paymMethodValue,noteValue,indicatorValue, recurringTransactionValue, recurringFrequencyValue, recurringValueValue);
 
     }
+
+    //Logesh 22.05
 
     public void onLogin(View view){
         // get the value of PIN from Database
