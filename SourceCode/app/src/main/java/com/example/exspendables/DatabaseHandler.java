@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import static android.content.ContentValues.TAG;
 
@@ -40,9 +41,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if(result == -1){
             Log.d(TAG, "PIN added to DB success");
+            db.close();     // harish - 25.05
             return false;
         }else{
             Log.d(TAG, "PIN not added to DB failure");
+            db.close();     // harish - 25.05
             return true;
         }
     }
@@ -52,6 +55,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM PIN";
         Cursor data = db.rawQuery(query,null);
+
         return data;
 
     }
@@ -63,10 +67,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         int result = db.update("PIN",contentValues,"userpin = " + oldPin,null);
 
         if(result > 0){
+            db.close();     // harish - 25.05
             return true;
         }
         else
         {
+            db.close();     // harish - 25.05
             return false;
         }
     }

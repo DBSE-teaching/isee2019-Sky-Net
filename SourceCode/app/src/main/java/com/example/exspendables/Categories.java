@@ -42,11 +42,14 @@ public class Categories extends SQLiteOpenHelper {
 
         if(result == -1){
             Log.d(TAG, "Category added to DB successfully");
+            db.close();     // harish - 25.05
             return false;
         }else{
             Log.d(TAG, "Category not added to DB");
+            db.close();     // harish - 25.05
             return true;
         }
+
     }
 
     public boolean deleteData(String category){
@@ -54,9 +57,11 @@ public class Categories extends SQLiteOpenHelper {
         //int result = db.delete("CATEGORIES","catlist=" + category,null);
         int result = db.delete("CATEGORIES","catlist=?",new String[]{category});
         if(result > 0){
+            db.close();     // harish - 25.05
             return true;
         }
         else{
+            db.close();     // harish - 25.05
             return false;
         }
     }
@@ -69,12 +74,15 @@ public class Categories extends SQLiteOpenHelper {
         int result = db.update("CATEGORIES",contentValues,"catlist=?",new String[]{old_category});
 
         if(result > 0){
+            db.close();     // harish - 25.05
             return true;
         }
         else
         {
+            db.close();     // harish - 25.05
             return false;
         }
+
     }
 
     public List<String> getData(){
@@ -91,7 +99,7 @@ public class Categories extends SQLiteOpenHelper {
                 cursor.moveToNext();
             }
         }
-
+        db.close();     // harish - 25.05
         return categories;
     }
 }

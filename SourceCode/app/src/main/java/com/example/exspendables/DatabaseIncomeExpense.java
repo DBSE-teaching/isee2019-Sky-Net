@@ -16,7 +16,8 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
 
     public String category;
     public String startDate;
-    public String endDate;
+    // harish - 25.05 - commented endDate as it is not required
+    //public String endDate;
     public String amount;
     public String code;
     public String paymentMethod;
@@ -36,7 +37,8 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
         String createQuery = "CREATE TABLE TRANSACTIONS " +
                 "(category TEXT," +
                 " startDate DATE," +
-                " endDate   DATE," +
+                // harish - 25.05 - commented endDate as it is not required
+                //" endDate   DATE," +
                 " amount INTEGER," +
                 " code TEXT DEFAULT 'EUR'," +
                 " paymentMethod TEXT," +
@@ -55,7 +57,7 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData(String category, Date startDate, Date endDate, int amount,
+    public boolean addData(String category, Date startDate, int amount,
                            String code, String paymentMethod, String note, String indicator, String recurringTransaction,
                            String recurringFrequency, String recurringValue) {
 
@@ -64,7 +66,8 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put("category",category);
         contentValues.put("startDate",startDate.toString());
-        contentValues.put("endDate",endDate.toString());
+        // harish - 25.05 - commented endDate as it is not required
+        // contentValues.put("endDate",endDate.toString());
         contentValues.put("amount",amount);
         contentValues.put("code",code);
         contentValues.put("paymentMethod",paymentMethod);
@@ -77,9 +80,11 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
         long result = db.insert("TRANSACTIONS",null,contentValues);
 
         if(result > 0){
+            db.close();     // harish - 25.05
             return true;
         }
         else{
+            db.close();     // harish - 25.05
             return false;
         }
 
@@ -103,7 +108,8 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
         return startDate;
     }
 
-    public String getEndDate() { return endDate; }
+    // harish - 25.05 - commented endDate as it is not required
+//    public String getEndDate() { return endDate; }
 
     public String getAmount() {
         return amount;
@@ -150,7 +156,6 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
         String query = "SELECT * FROM TRANSACTIONS";
 
         Cursor data = db.rawQuery(query,null);
-
         return data;
     }
 }

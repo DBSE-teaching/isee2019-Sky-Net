@@ -35,9 +35,11 @@ public class DatabaseCurrency extends SQLiteOpenHelper {
 
         if(result == -1){
             Log.d(TAG, "Currency added to DB successfully");
+            db.close();     // harish - 25.05
             return false;
         }else{
             Log.d(TAG, "Currency not added to DB");
+            db.close();     // harish - 25.05
             return true;
         }
     }
@@ -49,10 +51,12 @@ public class DatabaseCurrency extends SQLiteOpenHelper {
         int result = db.update("CURRENCY",contentValues,"unit = " + old_unit,null);
 
         if(result > 0){
+            db.close();     // harish - 25.05
             return true;
         }
         else
         {
+            db.close();     // harish - 25.05
             return false;
         }
     }

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.icu.lang.UCharacter;
 import android.os.Handler;
 import android.support.v4.app.DialogFragment;
@@ -12,8 +13,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -53,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         dbPinTable = new DatabaseHandler(this);
         Cursor cursor = dbPinTable.getPinData();
@@ -103,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         // Populate Category DDLB
         Spinner categoryddlb = (Spinner) findViewById(R.id.categoryddlb);
         List<String> categorylist = dbCategories.getData();
-
+        categorylist.add(0,"");
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,categorylist);
         categoryAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         categoryddlb.setAdapter(categoryAdapter);
@@ -164,13 +166,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     editText.setText("");
                     editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                     String value1 = editText.getText().toString();
-                        if (value1.isEmpty()){
+                    if (value1.isEmpty()){
                         editText.setError("Enter Value to Proceed");
                         //editText.setText("0");
                         textView1.setText(value1);
-                        } else{
+                    } else{
                         textView1.setText(value1);
-                        }
+                    }
 
                 }else if(item == 0)
                 {
@@ -213,12 +215,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         String value1 = editText.getText().toString();
                         Integer value2 = editText.getVisibility();
 
-                            if (value1.equals("") & value2.equals(View.VISIBLE)){
+                        if (value1.equals("") & value2.equals(View.VISIBLE)){
                             textView1.setText("0");
                             editText.setText("0");
-                            } else {
+                        } else {
                             textView1.setText(value1);
-                            }
+                        }
 
                         Toast.makeText(getApplicationContext(), "Recurring option selected", Toast.LENGTH_SHORT).show();
 
@@ -239,23 +241,23 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                        if (isChecked == true ) {
-                        alert.show();
-                        textView.setVisibility(View.VISIBLE);
-                        textView1.setVisibility(View.VISIBLE);
-                        } else
-                        {
-                        alert.cancel();
-                        textView.setVisibility(View.INVISIBLE);
-                        textView1.setVisibility(View.INVISIBLE);
-                        }
+                if (isChecked == true ) {
+                    alert.show();
+                    textView.setVisibility(View.VISIBLE);
+                    textView1.setVisibility(View.VISIBLE);
+                } else
+                {
+                    alert.cancel();
+                    textView.setVisibility(View.INVISIBLE);
+                    textView1.setVisibility(View.INVISIBLE);
+                }
 
-                        textView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
+                textView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         alert.show();
-                        }
-                        });
+                    }
+                });
             }
         });
 
@@ -279,9 +281,15 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     if(currencyData.moveToFirst()){
                         String currencySavedInDB = currencyData.getString(0).toString();
                         databaseCurrency.modifyData(currency_selected,currencySavedInDB);
+                        // harish - 25.05
+                        Toast.makeText(getApplicationContext(), "Selected currency unit is set", Toast.LENGTH_SHORT).show();
+                        // harish - 25.05
                     }
                     else{
                         databaseCurrency.addData(currency_selected);
+                        // harish - 25.05
+                        Toast.makeText(getApplicationContext(), "Selected currency unit is set", Toast.LENGTH_SHORT).show();
+                        // harish - 25.05
                     }
                 }
             }
@@ -332,6 +340,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         TextView endDate = (TextView) findViewById(R.id.endDate);
         String endDateValue = endDate.getText().toString();
 
+        setContentView(R.layout.tablesummary);
+
         DatabaseIncomeExpense databaseIncomeExpense = new DatabaseIncomeExpense(this);
         Cursor cursor = databaseIncomeExpense.getData(startDateValue,endDateValue);
 
@@ -342,12 +352,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         while (!cursor.isAfterLast()){
             databaseIncomeExpense.category      = cursor.getString(0);
             databaseIncomeExpense.startDate     = cursor.getString(1);
-            databaseIncomeExpense.endDate       = cursor.getString(2);
-            databaseIncomeExpense.amount        = cursor.getString(3);
-            databaseIncomeExpense.code          = cursor.getString(4);
-            databaseIncomeExpense.paymentMethod = cursor.getString(5);
-            databaseIncomeExpense.note          = cursor.getString(6);
-            databaseIncomeExpense.indicator     = cursor.getString(7);
+            // harish - 25.05 - commented endDate as it is not required and altered column index further
+            //databaseIncomeExpense.endDate       = cursor.getString(2);
+            databaseIncomeExpense.amount        = cursor.getString(2);
+            databaseIncomeExpense.code          = cursor.getString(3);
+            databaseIncomeExpense.paymentMethod = cursor.getString(4);
+            databaseIncomeExpense.note          = cursor.getString(5);
+            databaseIncomeExpense.indicator     = cursor.getString(6);
+            // harish - 25.05
 
             expenseDetails.add(databaseIncomeExpense);
             i++;
@@ -355,10 +367,21 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         }
 
         StringBuilder builder = new StringBuilder();
+
+        // harish - 25.05
+        builder.append("Category").append(";")
+               .append("Date").append(";")
+               .append("Amount").append(";")
+               .append("Currency").append(";")
+               .append("Payment").append(";")
+               .append("Note").append("_");
+        // harish - 25.05
+
         for(DatabaseIncomeExpense expense: expenseDetails){
             builder.append(expense.getCategory()).append(";")
                     .append(expense.getStartDate()).append(";")
-                    .append(expense.getEndDate()).append(";")
+                    // harish - 25.05 - commented endDate as it is not required
+                    //.append(expense.getEndDate()).append(";")
                     .append(expense.getAmount()).append(";")
                     .append(expense.getCode()).append(";")
                     .append(expense.getPaymentMethod()).append(";")
@@ -373,7 +396,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         tableLayout.removeAllViews();
         String row;
         for(int rowCount =0;rowCount<rows.length;rowCount++){
-         //   Log.d("Rows",rows[i]);
+            //   Log.d("Rows",rows[i]);
             row  = rows[rowCount];
             TableRow tableRow = new TableRow(getApplicationContext());
             tableRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
@@ -389,7 +412,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 columsView.setText(String.format("%7s", col));
                 //Log.d("Cols", String.format("%7s", col));
                 tableRow.addView(columsView);
-
             }
             tableLayout.addView(tableRow);
         }
@@ -431,27 +453,74 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     //Logesh - 22.05
 
+    // harish - 25.05 - Fields as mandatory
     public void saveExpense(View view) {
+        String categoryValue = "";
+        String indicatorValue = "";
+        Date transactionDateValue = null;
+        int amountValue = 0;
+        String codeValue = "";
+        String paymMethodValue = "";
+        boolean mandatoryFieldMissing = false;
 
         Spinner category = (Spinner) findViewById(R.id.categoryddlb);
-        String categoryValue = category.toString();
+        TextView categoryTV = (TextView) findViewById(R.id.category);
+        int selectedCategoryItem = category.getSelectedItemPosition();
+        if(selectedCategoryItem > 0) {
+            categoryValue = category.getSelectedItem().toString();
+            categoryTV.setTextColor(Color.BLACK);
+        }else{
+            mandatoryFieldMissing = true;
+            categoryTV.setTextColor(Color.RED);
+        }
+
+        TextView transactionDate = (TextView) findViewById(R.id.entryDate);
+        TextView trandateTV = (TextView) findViewById(R.id.date);
+        if(TextUtils.isEmpty(transactionDate.getText())){
+            mandatoryFieldMissing = true;
+            trandateTV.setTextColor(Color.RED);
+        }else{
+            String dummy = transactionDate.getText().toString();
+            transactionDateValue = Date.valueOf(transactionDate.getText().toString());
+            trandateTV.setTextColor(Color.BLACK);
+        }
 
 
-        TextView startDate = (TextView) findViewById(R.id.entryDate);
-        String dummy = startDate.getText().toString();
-        Date startDateValue = Date.valueOf(startDate.getText().toString());
-
-        TextView endDate = (TextView) findViewById(R.id.endDate);
-        Date endDateValue = Date.valueOf(endDate.getText().toString());
+        // harish - 25.05 - commented endDate as it is not required
+        /*TextView endDate = (TextView) findViewById(R.id.endDate);
+        Date endDateValue = Date.valueOf(endDate.getText().toString());*/
 
         EditText amount = (EditText) findViewById(R.id.amount);
-        int amountValue = Integer.valueOf(amount.getText().toString());
+        TextView amountTV = (TextView) findViewById(R.id.amountenter);
+        if(TextUtils.isEmpty(amount.getText())){
+            mandatoryFieldMissing = true;
+            amountTV.setTextColor(Color.RED);
+        }else{
+            amountValue = Integer.valueOf(amount.getText().toString());
+            amountTV.setTextColor(Color.BLACK);
+        }
 
         TextView code = (TextView) findViewById(R.id.currencyCode);
-        String codeValue = "EUR";//code.getText().toString();
+        TextView codeTV = (TextView) findViewById(R.id.currencytype);
+        if(TextUtils.isEmpty(code.getText())){
+            mandatoryFieldMissing = true;
+            codeTV.setTextColor(Color.RED);
+        }else{
+            codeValue = code.getText().toString();
+            codeTV.setTextColor(Color.BLACK);
+        }
 
         Spinner paymentMethod = (Spinner) findViewById(R.id.paymList);
-        String paymMethodValue = paymentMethod.toString();
+        TextView paymentTV = (TextView) findViewById(R.id.payment);
+        int selectedPaymentItem = paymentMethod.getSelectedItemPosition();
+        if(selectedPaymentItem > 0){
+            paymMethodValue = paymentMethod.getSelectedItem().toString();
+            paymentTV.setTextColor(Color.BLACK);
+        }else{
+            mandatoryFieldMissing = true;
+            paymentTV.setTextColor(Color.RED);
+        }
+        // harish - 25.05
 
         EditText note = (EditText) findViewById(R.id.optionalNote);
         String noteValue = note.getText().toString();
@@ -465,13 +534,61 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         TextView recurringValue = (TextView) findViewById(R.id.recurringValue);
         String recurringValueValue = String.valueOf(recurringValue.getText().toString());
 
-        String indicatorValue = "Expense";
+        // harish - 25.05
+        RadioGroup transactiontype = (RadioGroup) findViewById(R.id.radioTransactionType);
+        if(transactiontype.getCheckedRadioButtonId() == R.id.radioIncome){
+             indicatorValue = "Income";
+        }else{
+             indicatorValue = "Expense";
+        }
 
-        DatabaseIncomeExpense databaseIncomeExpense = new DatabaseIncomeExpense(this);
-        databaseIncomeExpense.addData(categoryValue,startDateValue,endDateValue,amountValue,
-                codeValue,paymMethodValue,noteValue,indicatorValue, recurringTransactionValue, recurringFrequencyValue, recurringValueValue);
 
+        if(mandatoryFieldMissing == false){
+            // harish - 25.05
+
+            DatabaseIncomeExpense databaseIncomeExpense = new DatabaseIncomeExpense(this);
+
+            //harish-25.05
+            boolean isTransactionSaved = databaseIncomeExpense.addData(categoryValue,transactionDateValue,amountValue,
+                    codeValue,paymMethodValue,noteValue,indicatorValue, recurringTransactionValue, recurringFrequencyValue, recurringValueValue);
+
+            // display transaction is saved and clear the fields
+            if(isTransactionSaved) {
+                Toast.makeText(getApplicationContext(), "Transaction is saved", Toast.LENGTH_SHORT).show();
+
+                dbCategories = new Categories(this);
+                List<String> categorylist = dbCategories.getData();
+                categorylist.add(0, "");
+
+                ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categorylist);
+                categoryAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                category.setAdapter(categoryAdapter);
+
+                List<String> paymentList = new ArrayList<String>();
+                paymentList.add(" ");
+                paymentList.add("Cash");
+                paymentList.add("Debit Card");
+                paymentList.add("Credit Card");
+
+                ArrayAdapter<String> paymentAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, paymentList);
+                paymentAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                paymentMethod.setAdapter(paymentAdapter);
+
+                transactionDate.setText("");
+                amount.setText("");
+                note.setText("");
+                recurringTransaction.setText("");
+                recurringFrequency.setText("");
+                recurringValue.setText("");
+            }
+        }
+        else{
+            // harish - 25.05
+            Toast.makeText(getApplicationContext(), "Please fill the mandatory fields", Toast.LENGTH_SHORT).show();
+            // harish - 25.05
+        }
     }
+    // harish - 25.05
 
     //Logesh 22.05
 
@@ -510,7 +627,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         switch (v.getId()){
             case R.id.set_btn:
+                // harish - 25.05
                 Toast.makeText(this,"Button clicked",Toast.LENGTH_SHORT).show();
+                // harish - 25.05
                 EditText pinValue = (EditText) findViewById(R.id.set_Pin_textbox);
                 EditText reEnterPinValue = (EditText) findViewById(R.id.confirm_Pin_textbox);
 
@@ -520,6 +639,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 if(pin.equals(pinToConfirm)){
                     dbPinTable = new DatabaseHandler(this);
                     dbPinTable.addData(pin);
+                    // harish - 25.05
+                    Toast.makeText(getApplicationContext(), "PIN details saved", Toast.LENGTH_SHORT).show();
+                    // harish - 25.05
                     // Redirect to activity where user is prompted to
                     // 1. Enter income 2. Expense 3. View summary
                     setContentView(R.layout.income_or_expense);
@@ -582,8 +704,18 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         //          String dummy1 = selectedItems.get(i).toString();
                         //         String dummy2 = selectedItems.get(position).toString();
                         dbCategories.deleteData(categoryAdapter.getItem(position).toString());
+
                     }
                 }
+
+                // harish - 25.05
+                if(checked.size() == 1){
+                    Toast.makeText(getApplicationContext(), "Category is deleted", Toast.LENGTH_SHORT).show();
+                }
+                else if(checked.size() > 1){
+                    Toast.makeText(getApplicationContext(), "Categories are deleted", Toast.LENGTH_SHORT).show();
+                }
+                // harish - 25.05
 
                 //refresh the list with new value
                 categoryList = (ListView) findViewById(R.id.categorylist);
@@ -614,6 +746,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 dbCategories = new Categories(this);
                 EditText newCategoryValue = (EditText) findViewById(R.id.add_cat_textbox);
                 dbCategories.addData(newCategoryValue.getText().toString());
+                // harish - 25.05
+                Toast.makeText(getApplicationContext(), "New category added", Toast.LENGTH_SHORT).show();
+                // harish - 25.05
                 setContentView(R.layout.category_popup);
 
                 //refresh the list with new value
@@ -685,7 +820,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 EditText newValue = (EditText) findViewById(R.id.modify_cat_textbox);
                 dbCategories = new Categories(this);
                 dbCategories.modifyData(newValue.getText().toString(),oldValue);
-
+                // harish - 25.05
+                Toast.makeText(getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
+                // harish - 25.05
                 setContentView(R.layout.category_popup);
                 //refresh the list with new value
                 categoryList = (ListView) findViewById(R.id.categorylist);
@@ -736,7 +873,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         if (cursor.moveToFirst()) {
                             String pinSavedInDB = cursor.getString(0).toString();
                             dbPinTable.modifyData(pin, pinSavedInDB);
-
+                            // harish - 25.05
+                            Toast.makeText(getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
+                            // harish - 25.05
                             setContentView(R.layout.settings);
                             Button categoryDisplay = (Button) findViewById(R.id.edit_categories);
                             categoryDisplay.setOnClickListener(this);
