@@ -370,11 +370,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         // harish - 25.05
         builder.append("Category").append(";")
-               .append("Date").append(";")
-               .append("Amount").append(";")
-               .append("Currency").append(";")
-               .append("Payment").append(";")
-               .append("Note").append("_");
+                .append("Date").append(";")
+                .append("Amount").append(";")
+                .append("Currency").append(";")
+                .append("Payment").append(";")
+                .append("Note").append("_");
         // harish - 25.05
 
         for(DatabaseIncomeExpense expense: expenseDetails){
@@ -398,11 +398,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         for(int rowCount =0;rowCount<rows.length;rowCount++){
             //   Log.d("Rows",rows[i]);
             row  = rows[rowCount];
-            TableRow tableRow = new TableRow(getApplicationContext());
+           TableRow tableRow = new TableRow(getApplicationContext());
             tableRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
             final String[] cols = row.split(";");
 
             Handler handler = null;
+           /* TableRow tableRowHead = (TableRow) findViewById(R.id.tableHeading);
+            TableRow tableDataRow = (TableRow) findViewById(R.id.tableData);*/
 
             for (int j = 0; j < cols.length; j++) {
                 final String col = cols[j];
@@ -411,6 +413,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 //columsView.setTextColor(android.R.color.black);
                 columsView.setText(String.format("%7s", col));
                 //Log.d("Cols", String.format("%7s", col));
+                if(rowCount == 0) {
+                    tableRow.setClickable(false);
+                    tableRow.setBackgroundColor(Color.CYAN);
+                }else{
+                    tableRow.setBackgroundColor(Color.LTGRAY);
+                    tableRow.setClickable(true);
+                }
                 tableRow.addView(columsView);
             }
             tableLayout.addView(tableRow);
@@ -537,9 +546,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         // harish - 25.05
         RadioGroup transactiontype = (RadioGroup) findViewById(R.id.radioTransactionType);
         if(transactiontype.getCheckedRadioButtonId() == R.id.radioIncome){
-             indicatorValue = "Income";
+            indicatorValue = "Income";
         }else{
-             indicatorValue = "Expense";
+            indicatorValue = "Expense";
         }
 
 
