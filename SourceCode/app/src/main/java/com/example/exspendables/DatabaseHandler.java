@@ -76,4 +76,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return false;
         }
     }
+
+    public void deleteData() {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM PIN");
+
+    }
 }

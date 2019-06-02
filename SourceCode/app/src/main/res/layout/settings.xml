@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!--CHANGED THE TEXT FIELD TO 'PIN SETTINGS'-->
+
     <Button
         android:id="@+id/changePin"
         android:layout_width="350dp"
@@ -15,7 +17,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/modifyPin"
+        android:text="PIN SETTINGS"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.88"

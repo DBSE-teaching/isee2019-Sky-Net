@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         Cursor cursor = dbPinTable.getPinData();
 
         // check if a value of PIN exists in dbTable - PIN
+        // abhivanth , changed "login_pin" to
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 //launch authenticate PIN page
@@ -68,9 +69,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
             } else {
                 // if PIN does not exist, launch first time login page
-                setContentView(R.layout.first_time_login);
-                btnSavePin = (Button) findViewById(R.id.set_btn);
-                btnSavePin.setOnClickListener(this);
+                setContentView(R.layout.income_or_expense);
+                // btnSavePin = (Button) findViewById(R.id.set_btn);
+                //btnSavePin.setOnClickListener(this);
             }
         }
     }
@@ -398,7 +399,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         for(int rowCount =0;rowCount<rows.length;rowCount++){
             //   Log.d("Rows",rows[i]);
             row  = rows[rowCount];
-           TableRow tableRow = new TableRow(getApplicationContext());
+            TableRow tableRow = new TableRow(getApplicationContext());
             tableRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
             final String[] cols = row.split(";");
 
@@ -856,15 +857,33 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 categoryList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
                 categoryList.setAdapter(categoryAdapter);
                 break;
-
+// abhivanth,changed "change_pin" to switch_pin
             case R.id.changePin:
-                setContentView(R.layout.change_pin);
+                setContentView(R.layout.switch_pin);
+                Switch enablePin = (Switch) findViewById(R.id.enablePin);
+                enablePin.setOnClickListener(this);
 
-                Button changePinOkBtn = (Button) findViewById(R.id.change_pin_ok);
-                changePinOkBtn.setOnClickListener(this);
+                enableSwitch();
+
+                // Button changePinOkBtn = (Button) findViewById(R.id.change_pin_ok);
+                //changePinOkBtn.setOnClickListener(this);
+                break;
+
+            case R.id.enablePin:
+
+                enablePin = (Switch) findViewById(R.id.enablePin);
+                if(enablePin.isChecked()) {
+                    setContentView(R.layout.change_pin);
+                    Button changePinOkBtn = (Button) findViewById(R.id.change_pin_ok);
+                    changePinOkBtn.setOnClickListener(this);
+                }
+                else {
+                    dbPinTable.deleteData();
+                }
                 break;
 
             case R.id.change_pin_ok:
+
 
                 pinValue = (EditText) findViewById(R.id.set_Pin_textbox);
                 reEnterPinValue = (EditText) findViewById(R.id.confirm_Pin_textbox);
@@ -876,6 +895,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 if (pin.equals(pinToConfirm)) {
                     dbPinTable = new DatabaseHandler(this);
                     Cursor cursor = dbPinTable.getPinData();
+
 
                     // check if a value of PIN exists in dbTable - PIN
                     if (cursor != null) {
@@ -892,7 +912,20 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                             Button changePinBtn = (Button) findViewById(R.id.changePin);
                             changePinBtn.setOnClickListener(this);
 
+
                             break;
+                        }
+                        else {
+
+                            dbPinTable.addData(pin);
+                            Toast.makeText(getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
+                            setContentView(R.layout.settings);
+
+                            Button categoryDisplay = (Button) findViewById(R.id.edit_categories);
+                            categoryDisplay.setOnClickListener(this);
+
+                            Button changePinBtn = (Button) findViewById(R.id.changePin);
+                            changePinBtn.setOnClickListener(this);
                         }
                     }
                 }
@@ -934,5 +967,24 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         modifyCategory.setOnClickListener(this);
         addCategory.setOnClickListener(this);
     }
+    // Abhivanth , enable switch.
+    public void enableSwitch() {
+        Switch enablepinBtn = (Switch) findViewById(R.id.enablePin);
+
+        dbPinTable = new DatabaseHandler(this);
+        Cursor cursor = dbPinTable.getPinData();
+
+        // check if a value of PIN exists in dbTable - PIN
+        // abhivanth , changed "login_pin" to
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                enablepinBtn.setChecked(true);
+            } else {
+                enablepinBtn.setChecked(false);
+
+            }
+        }
+    }
+
 }
 
