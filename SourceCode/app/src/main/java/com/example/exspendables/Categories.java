@@ -23,7 +23,7 @@ public class Categories extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createQuery = "CREATE TABLE CATEGORIES (catlist TEXT PRIMARY KEY)" ;
+        String createQuery = "CREATE TABLE CATEGORIES (catlist TEXT PRIMARY KEY, maxbudget TEXT)" ;
         db.execSQL(createQuery);
     }
 
@@ -102,4 +102,25 @@ public class Categories extends SQLiteOpenHelper {
         db.close();     // harish - 25.05
         return categories;
     }
+
+    public boolean addmaxbudget(String category, String budget){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        //contentValues.put("catlist",category);
+        contentValues.put("maxbudget",budget);
+        //int result = db.update("CATEGORIES",contentValues,"catlist=" + old_category,null);
+        int result = db.update("CATEGORIES",contentValues,"catlist=?",new String[]{category});
+
+        if(result > 0){
+            db.close();
+            return true;
+        }
+        else
+        {
+            db.close();
+            return false;
+        }
+
+    }
+
 }
