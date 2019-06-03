@@ -1256,7 +1256,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 }
                 break;
 
-                break;
 
             case R.id.submit2:
                 Spinner categoryBudget = (Spinner) findViewById(R.id.categorybudget);
@@ -1275,8 +1274,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 categoryAdapter = new ArrayAdapter<String>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item, categorylist);
                 categoryAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                 categoryBudget.setAdapter(categoryAdapter);
-                break;
-
                 break;
 
         }
