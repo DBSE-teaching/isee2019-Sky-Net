@@ -14,9 +14,10 @@ date: 2019-06-04
 
 <p style="font-family:Times;font-size:110%;text-align:justify">Design patterns  for software development was first proposed by “Gang of Four” in their book “Design Patterns: Elements of Reusable Object-Oriented Software” . Patterns were majorly classified into 3 broad categories.
   
- 1.Creational Pattern
- 2.Behavioral Pattern 
- 3.Structural pattern
+<ul style="font-family:Times;font-size:110%;text-align:justify">
+  <li>Creational Pattern</li>
+  <li>Behavioral Pattern</li> 
+  <li>Structural pattern</li> </ul>
   
 Many patterns were later formulated by developers based on the patterns proposed by the “Gang of Four”.These patterns provides solution in solving recurring issues related to common software development problems.We have used majorly two design patterns throughout our development. They are Composite Design Pattern and Model View Controller. </p>
 
