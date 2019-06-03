@@ -91,7 +91,7 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
         /*SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("INSERT INTO TRANSACTIONS " +
                 "VALUES(" + "Grocery" + "," +
-                startDate + "," +
+                startDate + "," +cat
                 endDate + "," +
                 amount + "," +
                 code + "," +
@@ -144,18 +144,31 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
     }
 
 
-    public Cursor getData(String startDate, String endDate){
+    public Cursor getData(){
         SQLiteDatabase db = this.getReadableDatabase();
-
-        /*String query = "SELECT * " +
-                "FROM TRANSACTIONS " +
-                "WHERE startDate >= " +
-                startDate + " AND endDate <= " +
-                endDate;*/
 
         String query = "SELECT * FROM TRANSACTIONS";
 
         Cursor data = db.rawQuery(query,null);
         return data;
+    }
+
+    public boolean deleteData(String category,String date,String amount,String payment){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        date = date.replaceAll("/","-");
+
+        int result = db.delete("TRANSACTIONS", "category = " + "'" + category + "'"+
+                        " AND " + "startDate = " + "'" + date + "'"+
+                        " AND " + "amount = " + "'"+ amount + "'" +
+                        " AND " + "paymentMethod = "+ "'"+ payment + "'",null);
+
+        if(result > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

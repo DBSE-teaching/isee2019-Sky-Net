@@ -17,6 +17,9 @@ public class Categories extends SQLiteOpenHelper {
     /*private static final String table_name = "Categories";
     private static final String col1_name = "catList";*/
 
+    String catList;
+    String maxBudget;
+
     public Categories(Context context) {
         super(context, "CATEGORIES", null, 1);
     }
@@ -97,8 +100,31 @@ public class Categories extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 String categoryname = cursor.getString(cursor.getColumnIndex("catlist"));
-
+                //String maxbudget = cursor.getString(cursor.getColumnIndex("maxbudget"));
                 categories.add(categoryname);
+
+                cursor.moveToNext();
+            }
+        }
+        db.close();     // harish - 25.05
+        return categories;
+    }
+
+    public List<String> getCategoryAndBudget(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM CATEGORIES",null);
+
+        List<String> categories = new ArrayList<String>();
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                String categoryname = cursor.getString(cursor.getColumnIndex("catlist"));
+                String maxbudget = cursor.getString(cursor.getColumnIndex("maxbudget"));
+
+                categoryname = categoryname+";"+maxbudget;
+                categories.add(categoryname);
+
                 cursor.moveToNext();
             }
         }
