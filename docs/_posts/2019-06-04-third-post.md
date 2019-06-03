@@ -44,6 +44,8 @@ date: 2019-06-04
 
 ### Context of Use
 
+<p style="font-family:Times;font-size:110%;text-align:justify">The below images are from two different users perspective on why exactly they need a money tracker application.</p>
+
 ![Deadline image]({{site.baseurl}}/images/Personas.png "Personas"){:height="50%" width="100%"}
 
 ### Design Solution
