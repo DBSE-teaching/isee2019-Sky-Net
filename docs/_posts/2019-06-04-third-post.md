@@ -12,7 +12,7 @@ date: 2019-06-04
 
 ## Design Pattern
 
-<p style="font-family:Times;font-size:110%;text-align:justify">Design patterns  for software development was first proposed by “Gang of Four” in their book “Design Patterns: Elements of Reusable Object-Oriented Software” . Patterns were majorly classified into 3 broad categories.
+<p style="font-family:Times;font-size:110%;text-align:justify">Design patterns  for software development was first proposed by “Gang of Four” in their book “Design Patterns: Elements of Reusable Object-Oriented Software” . Patterns were majorly classified into 3 broad categories.</p>
   
 <ul>
   <li><p style="font-family:Times;font-size:110%;text-align:justify">Creational Pattern</p></li>
