@@ -17,7 +17,7 @@ date: 2019-06-04
 <ul>
   <li><p style="font-family:Times;font-size:110%;text-align:justify">Creational Pattern</p></li>
   <li><p style="font-family:Times;font-size:110%;text-align:justify">Behavioral Pattern</p></li> 
-  <li><p style="font-family:Times;font-size:110%;text-align:justify">Structural pattern</p></li></ul>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify">Structural Pattern</p></li></ul>
   
 Many patterns were later formulated by developers based on the patterns proposed by the “Gang of Four”.These patterns provides solution in solving recurring issues related to common software development problems.We have used majorly two design patterns throughout our development. They are Composite Design Pattern and Model View Controller. </p>
 
@@ -29,9 +29,10 @@ Many patterns were later formulated by developers based on the patterns proposed
 
 <p style="font-family:Times;font-size:110%;text-align:justify">This is by far the most used design pattern in software development. It is developed as an evolution  to the design patterns proposed by the “Gang of Four”.It is often referred an architectural pattern. As the name suggests it involves three components,which are namely Model,View and Controller.</p>
 
-1.Model : This consist of the data and set of rules for the application to work on.
-2.View  : This often referred to as the center part of the model.This pattern aids the user in viewing graphs ,tables and form view.
-3.Controller : This interprets the user  commands to the model and aids in performing desired action.
+<ul>
+<li><p style="font-family:Times;font-size:110%;text-align:justify">Model : This consist of the data and set of rules for the application to work on.</p></li>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>View</b> : This often referred to as the center part of the model.This pattern aids the user in viewing graphs ,tables and form view.</p></li>
+<li><p style="font-family:Times;font-size:110%;text-align:justify">Controller : This interprets the user  commands to the model and aids in performing desired action.</p></li>
 
 
 
