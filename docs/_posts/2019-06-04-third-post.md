@@ -68,6 +68,10 @@ date: 2019-06-04
 <li><p style="font-family:Times;font-size:110%;text-align:justify">Graph Summary:  For all the transactions recorded, there is a graphical representation implemented on Date and Category filter basis.</p></li>
 <li><p style="font-family:Times;font-size:110%;text-align:justify">Email: The user is now able to send an email with the saved transaction details.</p></li></ul>
 
+### Before:
 ![Deadline image]({{site.baseurl}}/images/olduserstories.png "Old User Stories"){:height="50%" width="100%"}
+
+### After:
+![Deadline image]({{site.baseurl}}/images/newuserstories.png "New User Stories"){:height="50%" width="100%"}
 
 ## Working Prototype
