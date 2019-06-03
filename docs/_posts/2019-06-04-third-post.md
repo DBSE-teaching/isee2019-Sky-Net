@@ -33,4 +33,6 @@ date: 2019-06-04
 
 ## Summary of Changes
 
+![Deadline image]({{site.baseurl}}/images/olduserstories.png "Old User Stories"){:height="50%" width="100%"}
+
 ## Working Prototype
