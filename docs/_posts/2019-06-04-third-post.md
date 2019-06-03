@@ -18,6 +18,8 @@ date: 2019-06-04
 
 ### Design Solution
 
+<p style="font-family:Times;font-size:120%;text-align:justify">
+
 ![Deadline image]({{site.baseurl}}/images/logocove.png "Application Logo"){:height="50%" width="100%"}
 
 
