@@ -11,6 +11,8 @@ import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -33,11 +35,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.util.SparseBooleanArray;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.mynameismidori.currencypicker.CurrencyPicker;
 import com.mynameismidori.currencypicker.CurrencyPickerListener;
 
+
 import java.sql.Date;
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -75,6 +86,312 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             }
         }
     }
+
+    // Graph Summary - Logesh
+
+    public void openGraphSummaryPage(View view) {
+        setContentView(R.layout.view_summary);
+
+        Button buttonStartDate = (Button) findViewById(R.id.filterStartDate);
+        buttonStartDate.setOnClickListener(new View.OnClickListener() {
+            public void checkButtonStat() {
+                isEntryDateClicked = true;
+                isEndDateClicked = false;
+            }
+
+            @Override
+            public void onClick(View v) {
+                checkButtonStat();
+                DialogFragment datePicker = new com.example.exspendables.DatePicker();
+                datePicker.show(getSupportFragmentManager(), "date picker");
+            }
+        });
+
+
+        Button buttonEndDate = (Button) findViewById(R.id.filterEndDate);
+        buttonEndDate.setOnClickListener(new View.OnClickListener() {
+            public void checkButtonStat() {
+                isEntryDateClicked = false;
+                isEndDateClicked = true;
+            }
+
+            @Override
+            public void onClick(View v) {
+                checkButtonStat();
+                DialogFragment datePicker = new com.example.exspendables.DatePicker();
+                datePicker.show(getSupportFragmentManager(), "date picker");
+            }
+        });
+
+        Spinner spinner = findViewById(R.id.filter);
+        Button button = findViewById(R.id.okSubmitButton);
+        final DatabaseIncomeExpense databaseIncomeExpense = new DatabaseIncomeExpense(this);
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                //changeToDateFormat("Mon Jun 03 00:00:00 GMT+02:00 2019");
+
+                TextView startDate = findViewById(R.id.entryDate);
+                String startDateValue = startDate.getText().toString();
+                SimpleDateFormat Formatter = new SimpleDateFormat("yyyy/MM/dd");
+
+
+                TextView endDate = findViewById(R.id.endDate);
+                String endDateValue = endDate.getText().toString();
+
+
+                BarChart chart;
+                ArrayList<BarEntry> BARENTRY;
+                ArrayList<String> BarEntryLabels;
+                BarDataSet Bardataset;
+                BarData BARDATA;
+                chart = (BarChart) findViewById(R.id.barGraph);
+
+
+                BARENTRY = new ArrayList<>();
+                BarEntryLabels = new ArrayList<String>();
+
+
+                SQLiteDatabase db = databaseIncomeExpense.getReadableDatabase();
+
+                Cursor cur;
+
+                String startDateVal = startDate.getText().toString();
+                String endDateVal = endDate.getText().toString();
+
+                startDateVal = startDateVal.replaceAll("-", "/");
+                endDateVal = endDateVal.replaceAll("-", "/");
+
+                java.util.Date startDate1 = null;
+                java.util.Date endDate1 = null;
+
+                //SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    startDate1 = (java.util.Date) Formatter.parse(startDateVal);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    endDate1 = (java.util.Date) Formatter.parse(endDateVal);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                //int count = 0;
+                //int k = 0;
+                //String newDate = null;
+                //Calendar calendar = Calendar.getInstance();
+
+
+                //  for (java.util.Date date = startDate1 ; date.before(endDate1); date = date) {
+                //for (long j = startDate1.getTime(); j<endDate1.getTime(); j++) {
+                //      count = count+1;
+
+                //for (LocalDate date = startDate1; date.isBefore(endDate1); date = date.plusDays(1)) {
+
+                //      String dateVal = date.toString();
+                //      String dateChanged = changeToDateFormat(dateVal);
+
+                //cur = db.rawQuery( "SELECT amount FROM TRANSACTIONS WHERE startDate = ? ", new String[]{dateChanged});
+                cur = db.rawQuery("SELECT amount,startDate FROM TRANSACTIONS", null);
+
+                //Harish
+
+                java.util.Date dateToCheck = null;
+                java.util.Date startdateToCheck = null;
+                java.util.Date enddateToCheck = null;
+                int i = 0;
+                int k = 0;
+
+
+                cur.moveToFirst();
+                while (!cur.isAfterLast()) {
+                    String amount = cur.getString(0);
+                    String date = cur.getString(1);
+
+                    date = date.replaceAll("-", "/");
+
+                    try {
+                        dateToCheck = Formatter.parse(date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        startdateToCheck = Formatter.parse(startDateVal);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        enddateToCheck = Formatter.parse(endDateVal);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (dateToCheck.after(startdateToCheck) && dateToCheck.before(enddateToCheck)) {
+
+                        date = date.replaceAll("/", "");
+                        i = Integer.valueOf(date);
+                        k = Integer.valueOf(amount);
+                        BARENTRY.add(new BarEntry(i, k));
+
+                    }
+                    cur.moveToNext();
+                }
+
+
+
+                //Harish
+
+                   /* try {
+                        calendar.setTime(Formatter.parse(startDateVal));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    calendar.add(Calendar.DAY_OF_MONTH, count);
+                    newDate = Formatter.format(calendar.getTime());
+
+                    try {
+                        date = Formatter.parse(newDate);
+                    } catch (ParseException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }*/
+
+                //newDate = newDate.replaceAll("/","");
+                //int i = Integer.valueOf(newDate);
+                //int i =Integer.parseInt(dateVal);
+                //int j = Integer.parseInt(databaseIncomeExpense.getAmount());
+                //cur.moveToFirst();
+
+
+                //databaseIncomeExpense.amount = cur.getString(2);
+                    /*if(cur != null){
+                if(cur.moveToFirst()){
+                    String amount = cur.getString(0);
+                    String currentDate = cur.getString(1);
+                    k = Integer.valueOf(amount);
+                }
+            }*/
+
+
+                //BARENTRY.add(new BarEntry(i,k));
+
+
+                Bardataset = new BarDataSet(BARENTRY, "Expenses");
+
+                BARDATA = new BarData(Bardataset);
+
+                Bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
+
+                chart.setData(BARDATA);
+
+                chart.animateY(3000);
+
+                //}
+
+           /* public void AddValuesToBARENTRY(){
+
+
+                BARENTRY.add(new BarEntry(2f, 0));
+                BARENTRY.add(new BarEntry(4f, 1));
+                BARENTRY.add(new BarEntry(6f, 2));
+                BARENTRY.add(new BarEntry(8f, 3));
+                BARENTRY.add(new BarEntry(7f, 4));
+                BARENTRY.add(new BarEntry(3f, 5));
+
+            }; */
+
+            /*public void AddValuesToBarEntryLabels(){
+
+
+                BarEntryLabels.add("January");
+                BarEntryLabels.add("February");
+                BarEntryLabels.add("March");
+                BarEntryLabels.add("April");
+                BarEntryLabels.add("May");
+                BarEntryLabels.add("June");
+
+            };*/
+
+            }
+
+
+
+        });
+
+
+
+
+    }
+//Logesh
+
+    public String changeToDateFormat(String date){
+        // Mon Jun 03 00:00:00 GMT+02:00 2019
+
+        String month = date.substring(4,7);
+        String dateVal = date.substring(8,10);
+        String year = date.substring(29,34);
+
+        switch (month){
+            case "Jan":
+                month = "01";
+                break;
+
+            case "Feb":
+                month = "02";
+                break;
+
+            case "Mar":
+                month = "03";
+                break;
+
+            case "Apr":
+                month = "04";
+                break;
+
+            case "May":
+                month = "05";
+                break;
+
+            case "Jun":
+                month = "06";
+                break;
+
+            case "Jul":
+                month="07";
+                break;
+
+            case "Aug":
+                month="08";
+                break;
+
+            case "Sep":
+                month = "09";
+                break;
+
+            case "Oct":
+                month="10";
+                break;
+
+            case "Nov":
+                month="11";
+                break;
+
+            case  "Dec":
+                month="12";
+                break;
+
+        }
+
+        return year+"/"+month+"/"+dateVal;
+
+    }
+
 
 
     // Event handler for button "Enter Income"
@@ -313,7 +630,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         });
 
 
-        Button buttonEndDate = (Button) findViewById(R.id.selecEndtDate);
+        Button buttonEndDate = (Button) findViewById(R.id.selectEndDate);
         buttonEndDate.setOnClickListener(new View.OnClickListener() {
             public void checkButtonStat() {
                 isEntryDateClicked = false;
@@ -443,9 +760,25 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
+        String month1;
+        String dayOfMonth1;
         month = month + 1;
 
-        String currentDateString = year + "-" + month + "-" + dayOfMonth; //DateFormat.getDateInstance(DateFormat.DEFAULT).format(c.getTime());
+        if(month < 10){
+            month1 = "0" + month;
+        }else {
+            month1 = String.valueOf(month);
+        }
+
+        if(dayOfMonth < 10){
+            dayOfMonth1  = "0" + dayOfMonth ;
+        }else {
+            dayOfMonth1 = String.valueOf(dayOfMonth);
+        }
+
+
+        String currentDateString = year + "-" + month1 + "-" + dayOfMonth1; //DateFormat.getDateInstance(DateFormat.DEFAULT).format(c.getTime());
+
 
         if (isEntryDateClicked == true) {
             TextView entryDate = (TextView) findViewById(R.id.entryDate);
@@ -923,6 +1256,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 }
                 break;
 
+                break;
+
             case R.id.submit2:
                 Spinner categoryBudget = (Spinner) findViewById(R.id.categorybudget);
                 String categorySelected = categoryBudget.getSelectedItem().toString();
@@ -940,6 +1275,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 categoryAdapter = new ArrayAdapter<String>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item, categorylist);
                 categoryAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                 categoryBudget.setAdapter(categoryAdapter);
+                break;
+
                 break;
 
         }
