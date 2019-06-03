@@ -42,9 +42,13 @@ import android.widget.Toast;
 import android.util.SparseBooleanArray;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.mynameismidori.currencypicker.CurrencyPicker;
@@ -142,117 +146,208 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                 //changeToDateFormat("Mon Jun 03 00:00:00 GMT+02:00 2019");
 
+                Spinner spinner = (Spinner) findViewById(R.id.filter);
                 TextView startDate = findViewById(R.id.entryDate);
-                String startDateValue = startDate.getText().toString();
                 SimpleDateFormat Formatter = new SimpleDateFormat("yyyy/MM/dd");
 
 
                 TextView endDate = findViewById(R.id.endDate);
-                String endDateValue = endDate.getText().toString();
+
+                if (spinner.getSelectedItem().equals("By Date") & startDate.getText() != "" &  endDate.getText() != "" ) {
+
+                    setContentView(R.layout.barchart);
+
+                    String startDateValue = startDate.getText().toString();
+                    String endDateValue = endDate.getText().toString();
 
 
-                BarChart chart;
-                ArrayList<BarEntry> BARENTRY;
-                ArrayList<String> BarEntryLabels;
-                BarDataSet Bardataset;
-                BarData BARDATA;
-                chart = (BarChart) findViewById(R.id.barGraph);
+                    BarChart chart;
+                    ArrayList<BarEntry> BARENTRY;
+                    ArrayList<String> BarEntryLabels;
+                    BarDataSet Bardataset;
+                    BarData BARDATA;
+                    chart = (BarChart) findViewById(R.id.barGraph);
 
 
-                BARENTRY = new ArrayList<>();
-                BarEntryLabels = new ArrayList<String>();
+                    BARENTRY = new ArrayList<>();
+                    BarEntryLabels = new ArrayList<String>();
 
 
-                SQLiteDatabase db = databaseIncomeExpense.getReadableDatabase();
+                    SQLiteDatabase db = databaseIncomeExpense.getReadableDatabase();
 
-                Cursor cur;
+                    Cursor cur;
 
-                String startDateVal = startDate.getText().toString();
-                String endDateVal = endDate.getText().toString();
+                    String startDateVal = startDate.getText().toString();
+                    String endDateVal = endDate.getText().toString();
 
-                startDateVal = startDateVal.replaceAll("-", "/");
-                endDateVal = endDateVal.replaceAll("-", "/");
+                    startDateVal = startDateVal.replaceAll("-", "/");
+                    endDateVal = endDateVal.replaceAll("-", "/");
 
-                java.util.Date startDate1 = null;
-                java.util.Date endDate1 = null;
+                    java.util.Date startDate1 = null;
+                    java.util.Date endDate1 = null;
 
-                //SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                try {
-                    startDate1 = (java.util.Date) Formatter.parse(startDateVal);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    endDate1 = (java.util.Date) Formatter.parse(endDateVal);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-
-                cur = db.rawQuery("SELECT amount,startDate FROM TRANSACTIONS", null);
-
-                //Harish
-
-                java.util.Date dateToCheck = null;
-                java.util.Date startdateToCheck = null;
-                java.util.Date enddateToCheck = null;
-                int i = 0;
-                int k = 0;
-
-
-                cur.moveToFirst();
-                while (!cur.isAfterLast()) {
-                    String amount = cur.getString(0);
-                    String date = cur.getString(1);
-
-                    date = date.replaceAll("-", "/");
-
+                    //SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                     try {
-                        dateToCheck = Formatter.parse(date);
+                        startDate1 = (java.util.Date) Formatter.parse(startDateVal);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
 
                     try {
-                        startdateToCheck = Formatter.parse(startDateVal);
+                        endDate1 = (java.util.Date) Formatter.parse(endDateVal);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
 
-                    try {
-                        enddateToCheck = Formatter.parse(endDateVal);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+
+                    cur = db.rawQuery("SELECT amount,startDate FROM TRANSACTIONS", null);
+
+                    //Harish
+
+                    java.util.Date dateToCheck = null;
+                    java.util.Date startdateToCheck = null;
+                    java.util.Date enddateToCheck = null;
+                    int i = 0;
+                    int k = 0;
+
+
+                    cur.moveToFirst();
+                    while (!cur.isAfterLast()) {
+                        String amount = cur.getString(0);
+                        String date = cur.getString(1);
+
+                        date = date.replaceAll("-", "/");
+
+                        try {
+                            dateToCheck = Formatter.parse(date);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            startdateToCheck = Formatter.parse(startDateVal);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            enddateToCheck = Formatter.parse(endDateVal);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (dateToCheck.after(startdateToCheck) && dateToCheck.before(enddateToCheck)) {
+
+                            date = date.replaceAll("/", "");
+                            i = Integer.valueOf(date);
+                            k = Integer.valueOf(amount);
+                            BARENTRY.add(new BarEntry(i, k));
+
+                        }
+                        cur.moveToNext();
                     }
 
-                    if (dateToCheck.after(startdateToCheck) && dateToCheck.before(enddateToCheck)) {
 
-                        date = date.replaceAll("/", "");
-                        i = Integer.valueOf(date);
-                        k = Integer.valueOf(amount);
-                        BARENTRY.add(new BarEntry(i, k));
+                    //Harish
 
-                    }
-                    cur.moveToNext();
+
+                    Bardataset = new BarDataSet(BARENTRY, "Expenses");
+
+                    BARDATA = new BarData(Bardataset);
+
+                    Bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
+
+                    chart.setData(BARDATA);
+
+                    chart.animateY(3000);
+
                 }
 
+                else if (spinner.getSelectedItem().equals("By Categories")) {
+
+                    setContentView(R.layout.piechart);
+
+                    PieChart mChart;
+                    SQLiteDatabase db = databaseIncomeExpense.getReadableDatabase();
+                    String sql = "Select category, sum(amount), count(category) from TRANSACTIONS GROUP BY category";
+                    mChart = (PieChart) findViewById(R.id.PieChart);
+
+                    Cursor c = db.rawQuery(sql, null);
+                    int count = c.getCount();
+                    c.moveToFirst();
+
+                    double[] values = new double[count];
+                    String[] categoryNames = new String[count];
+                    int[] colors = new int[count];
+
+                    for (int m = 0; m < count; m++) {
+                        categoryNames[m] = c.getString(0);
+                        values[m] = c.getDouble(1);
+                        colors[m] = c.getInt(2);
+                        c.moveToNext();
+                    }
+
+                    ArrayList<PieEntry> yVals1 = new ArrayList<PieEntry>();
+
+                    for (int i = 0; i < categoryNames.length; i++) {
+                        yVals1.add(new PieEntry((float) (values[i]), i));
+                    }
+
+                    ArrayList<String> xVals = new ArrayList<String>();//array legend
+
+                    for (int i = 0; i < categoryNames.length; i++) {
+                        xVals.add(categoryNames[i]);
+                        String xVals1 = xVals.toString();
+                        PieDataSet set1 = new PieDataSet(yVals1, xVals1);
+                        set1.setSliceSpace(3f);
+                        set1.setColors(ColorTemplate.createColors(colors));
+
+                        PieData data = new PieData(set1);
+                        set1.setColors(ColorTemplate.COLORFUL_COLORS);
+                        mChart.setData(data);
+                        // undo all highlights
+                        mChart.highlightValues(null);
+                        mChart.invalidate();
+                    }
+                    c.close();
+                    db.close();
+
+                  /*  for (int m = 0; m < count; m++) {
+                        c.moveToNext();
+                        categoryNames[m] = c.getString(0);
+                        values[m] = c.getDouble(1);
+                        colors[m] = c.getInt(2);
 
 
-                //Harish
+                        ArrayList<PieEntry> yVals1 = new ArrayList<PieEntry>();
 
+                        for (int i = 0; i < categoryNames.length; i++) {
+                            yVals1.add(new PieEntry((float) (values[i]), i));
+                        }
 
+                        ArrayList<String> xVals = new ArrayList<String>();//array legend
 
-                Bardataset = new BarDataSet(BARENTRY, "Expenses");
+                        for (int i = 0; i < categoryNames.length; i++){
+                            xVals.add(categoryNames[m % categoryNames.length]);
 
-                BARDATA = new BarData(Bardataset);
+                        PieDataSet set1 = new PieDataSet(yVals1, "Expenses");
+                        set1.setSliceSpace(3f);
+                        set1.setColors(ColorTemplate.createColors(colors));
 
-                Bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
+                        PieData data = new PieData(set1);
+                        //set1.setColors(ColorTemplate.COLORFUL_COLORS);
+                        mChart.setData(data);
+                        // undo all highlights
+                        mChart.highlightValues(null);
+                        mChart.invalidate();
 
-                chart.setData(BARDATA);
+                    }
+                    c.close();
+                    db.close();
+} */
+                } else {
 
-                chart.animateY(3000);
-
+                }
             }
         });
     }
