@@ -515,6 +515,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             public void onSelectCurrency(String name, String code, String symbol, int flagDrawableResID) {
                 // Implement your code here
                 closeOptionsMenu();
+
                 String currency_selected = code.toString();
 
                 // save this value to DB so that it can be displayed next to Amount
@@ -533,6 +534,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         // harish - 25.05
                     }
                 }
+                picker.dismiss();
             }
         });
         picker.show(getSupportFragmentManager(), "CURRENCY_PICKER");
@@ -961,7 +963,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                 float percentSpent = (float)total/(float)budgetSetByUser;
                 percentSpent = percentSpent * 100;
-                
+
                 int percent = (int)percentSpent;
 
                 NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);

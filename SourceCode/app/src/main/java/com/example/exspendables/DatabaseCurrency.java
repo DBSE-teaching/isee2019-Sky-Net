@@ -48,7 +48,7 @@ public class DatabaseCurrency extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("unit",new_unit);
-        int result = db.update("CURRENCY",contentValues,"unit = " + old_unit,null);
+        int result = db.update("CURRENCY",contentValues,"unit=?",new String[]{old_unit});
 
         if(result > 0){
             db.close();     // harish - 25.05
