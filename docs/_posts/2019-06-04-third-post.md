@@ -25,20 +25,18 @@ date: 2019-06-04
 
 <p style="font-family:Times;font-size:110%;text-align:justify">This pattern comes under the structural design  pattern as this forms a group of objects into a  tree like structure. This ensures us an effective way of using the the created objects of various classes.</p>
 
-![Deadline image]({{site.baseurl}}/images/compositedesignpattern.png "composite design pattern"){:height="50%" width="100%"}
+![Deadline image]({{site.baseurl}}/images/compositedesignpattern.png "Composite Design Pattern"){:height="50%" width="100%"}
 
 ### Model View Controller
 
 <p style="font-family:Times;font-size:110%;text-align:justify">This is by far the most used design pattern in software development. It is developed as an evolution  to the design patterns proposed by the “Gang of Four”.It is often referred an architectural pattern. As the name suggests it involves three components,which are namely Model,View and Controller.</p>
-
-![Deadline image]({{site.baseurl}}/images/modelviewcontroller.png "model view controller"){:height="50%" width="100%"}
 
 <ul>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Model</b> : This consist of the data and set of rules for the application to work on.</p></li>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>View</b> : This often referred to as the center part of the model.This pattern aids the user in viewing graphs ,tables and form view.</p></li>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Controller</b> : This interprets the user  commands to the model and aids in performing desired action.</p></li></ul>
 
-
+![Deadline image]({{site.baseurl}}/images/modelviewcontroller.png "Model View Controller"){:height="50%" width="100%"}
 
 ## Implementation & User Interface
 
