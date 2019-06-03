@@ -28,12 +28,20 @@
             android:text="@string/Delete" />
 
         <Button
+            android:id="@+id/sendEmail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="E-mail summary"
+            android:onClick="sendemail" />
+
+        <Button
             android:id="@+id/backToSettings"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:text="Back"
-            android:onClick="backToSettings"/>
+            android:onClick="backToHome"/>
 
     </LinearLayout>
 </ScrollView>
