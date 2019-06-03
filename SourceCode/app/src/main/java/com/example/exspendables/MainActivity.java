@@ -2,6 +2,9 @@ package com.example.exspendables;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -610,7 +613,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         backToSetting.setOnClickListener(this);*/
 
         DatabaseIncomeExpense databaseIncomeExpense = new DatabaseIncomeExpense(this);
-        Cursor cursor = databaseIncomeExpense.getData(startDateValue, endDateValue);
+        Cursor cursor = databaseIncomeExpense.getData();
 
        // List<DatabaseIncomeExpense> expenseDetails = new ArrayList<DatabaseIncomeExpense>();
 
@@ -926,6 +929,49 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 recurringTransaction.setText("");
                 recurringFrequency.setText("");
                 recurringValue.setText("");
+
+                DatabaseIncomeExpense txns = new DatabaseIncomeExpense(this);
+                Cursor txnCur = txns.getData();
+                txnCur.moveToFirst();
+                int total = 0;
+                while (!txnCur.isAfterLast()) {
+                    // fetch Categories and amount and compare with categoryValue
+                    String cat = txnCur.getString(0);
+                    if(cat.equals(categoryValue)){
+                        String amountStr = txnCur.getString(2);
+                        total += Integer.valueOf(amountStr);
+                    }
+                    txnCur.moveToNext();
+                }
+
+                Categories categories = new Categories(this);
+                List<String> categoryList = categories.getCategoryAndBudget();
+                int budgetSetByUser = 0;
+
+                for(int listIdx = 0; listIdx < categoryList.size(); listIdx++){
+
+                    String dummy = categoryList.get(listIdx);
+                    String[] values = dummy.split(";");
+
+                    if(values[0].equals(categoryValue)){
+                      budgetSetByUser = Integer.valueOf(values[1]);
+                    }
+                }
+
+
+                float percentSpent = (float)total/(float)budgetSetByUser;
+                percentSpent = percentSpent * 100;
+                
+                int percent = (int)percentSpent;
+
+                NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+                Notification notify=new Notification.Builder
+                        (getApplicationContext()).setContentTitle("Budget notification").setContentText(
+                                "You have spent "+percent+ " % in the category " + categoryValue).
+                        setContentTitle("abc").setSmallIcon(R.drawable.ic_android_black_24dp).build();
+
+                notify.flags |= Notification.FLAG_AUTO_CANCEL;
+                notif.notify(0, notify);
             }
         } else {
             // harish - 25.05
@@ -1076,7 +1122,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 backToSetting.setOnClickListener(this);*/
 
                 DatabaseIncomeExpense databaseIncomeExpense = new DatabaseIncomeExpense(this);
-                Cursor cursor = databaseIncomeExpense.getData(startDateValue, endDateValue);
+                Cursor cursor = databaseIncomeExpense.getData();
 
                 // List<DatabaseIncomeExpense> expenseDetails = new ArrayList<DatabaseIncomeExpense>();
 
@@ -1458,7 +1504,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 backToSetting.setOnClickListener(this);*/
 
             DatabaseIncomeExpense databaseIncomeExpense = new DatabaseIncomeExpense(this);
-            Cursor cursor = databaseIncomeExpense.getData(startDateValue, endDateValue);
+            Cursor cursor = databaseIncomeExpense.getData();
 
             // List<DatabaseIncomeExpense> expenseDetails = new ArrayList<DatabaseIncomeExpense>();
 

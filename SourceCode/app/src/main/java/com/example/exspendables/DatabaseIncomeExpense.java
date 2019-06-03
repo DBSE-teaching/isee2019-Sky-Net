@@ -144,14 +144,8 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
     }
 
 
-    public Cursor getData(String startDate, String endDate){
+    public Cursor getData(){
         SQLiteDatabase db = this.getReadableDatabase();
-
-        /*String query = "SELECT * " +
-                "FROM TRANSACTIONS " +
-                "WHERE startDate >= " +
-                startDate + " AND endDate <= " +
-                endDate;*/
 
         String query = "SELECT * FROM TRANSACTIONS";
 
