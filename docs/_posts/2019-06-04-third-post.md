@@ -14,9 +14,9 @@ date: 2019-06-04
 
 <p style="font-family:Times;font-size:110%;text-align:justify">Design patterns  for software development was first proposed by “Gang of Four” in their book “Design Patterns: Elements of Reusable Object-Oriented Software” . Patterns were majorly classified into 3 broad categories.
   
-  -->Creational Pattern
-  -->Behavioral Pattern 
-  -->Structural pattern
+ 1.Creational Pattern
+ 2.Behavioral Pattern 
+ 3.Structural pattern
   
 Many patterns were later formulated by developers based on the patterns proposed by the “Gang of Four”.These patterns provides solution in solving recurring issues related to common software development problems.We have used majorly two design patterns throughout our development. They are Composite Design Pattern and Model View Controller. </p>
 
@@ -28,9 +28,9 @@ Many patterns were later formulated by developers based on the patterns proposed
 
 <p style="font-family:Times;font-size:110%;text-align:justify">This is by far the most used design pattern in software development. It is developed as an evolution  to the design patterns proposed by the “Gang of Four”.It is often referred an architectural pattern. As the name suggests it involves three components,which are namely Model,View and Controller.</p>
 
---> Model : This consist of the data and set of rules for the application to work on.
---> View  : This often referred to as the center part of the model.This pattern aids the user in viewing graphs ,tables and form view.
---> Controller : This interprets the user  commands to the model and aids in performing desired action.
+1.Model : This consist of the data and set of rules for the application to work on.
+2.View  : This often referred to as the center part of the model.This pattern aids the user in viewing graphs ,tables and form view.
+3.Controller : This interprets the user  commands to the model and aids in performing desired action.
 
 
 
