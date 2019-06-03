@@ -341,6 +341,16 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             }
         });
 
+        DatabaseCurrency databaseCurrency = new DatabaseCurrency(this);
+        Cursor currCode = databaseCurrency.getData();
+
+        if (currCode != null) {
+            if (currCode.moveToFirst()) {
+                String currencySavedInDB = currCode.getString(0).toString();
+                TextView code = (TextView) findViewById(R.id.currencyCode);
+                code.setText(currencySavedInDB);
+            }
+        }
     }
 
     // Event handler for button "Enter Expense"
@@ -804,6 +814,68 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     //Logesh - 22.05
 
+    public void saveIncome(View view) {
+
+        Date transactionDateValue = null;
+        int amountValue = 0;
+        String codeValue = "";
+        boolean mandatoryFieldMissing = false;
+
+        TextView transactionDate = (TextView) findViewById(R.id.entryDate);
+        TextView trandateTV = (TextView) findViewById(R.id.enterdate);
+        if (TextUtils.isEmpty(transactionDate.getText())) {
+            mandatoryFieldMissing = true;
+            trandateTV.setTextColor(Color.RED);
+        } else {
+            String dummy = transactionDate.getText().toString();
+            transactionDateValue = Date.valueOf(transactionDate.getText().toString());
+            trandateTV.setTextColor(Color.BLACK);
+        }
+
+        EditText amount = (EditText) findViewById(R.id.amount);
+        TextView amountTV = (TextView) findViewById(R.id.Amount);
+        if (TextUtils.isEmpty(amount.getText())) {
+            mandatoryFieldMissing = true;
+            amountTV.setTextColor(Color.RED);
+        } else {
+            amountValue = Integer.valueOf(amount.getText().toString());
+            amountTV.setTextColor(Color.BLACK);
+        }
+
+        TextView code = (TextView) findViewById(R.id.currencyCode);
+        TextView codeTV = (TextView) findViewById(R.id.Currency);
+        if (TextUtils.isEmpty(code.getText())) {
+            mandatoryFieldMissing = true;
+            codeTV.setTextColor(Color.RED);
+        } else {
+            codeValue = code.getText().toString();
+            codeTV.setTextColor(Color.BLACK);
+        }
+
+        EditText note = (EditText) findViewById(R.id.optionalNote);
+        String noteValue = note.getText().toString();
+
+        String indicatorValue = "Income";
+
+        if (mandatoryFieldMissing == false) {
+
+            DatabaseIncomeExpense databaseIncomeExpense = new DatabaseIncomeExpense(this);
+
+            //harish-25.05
+            boolean isTransactionSaved = databaseIncomeExpense.addData("", transactionDateValue, amountValue,
+                    codeValue, "", noteValue, indicatorValue, "", "", "");
+
+            // display transaction is saved and clear the fields
+            if (isTransactionSaved) {
+                Toast.makeText(getApplicationContext(), "Transaction is saved", Toast.LENGTH_SHORT).show();
+
+                transactionDate.setText("");
+                amount.setText("");
+                note.setText("");
+            }
+        }
+    }
+
     // harish - 25.05 - Fields as mandatory
     public void saveExpense(View view) {
         String categoryValue = "";
@@ -876,7 +948,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         EditText note = (EditText) findViewById(R.id.optionalNote);
         String noteValue = note.getText().toString();
 
-        TextView recurringTransaction = (TextView) findViewById(R.id.recurringSwitch);
+        Switch recurringTransaction = (Switch) findViewById(R.id.recurringSwitch);
         String recurringTransactionValue = String.valueOf(recurringTransaction.getText().toString());
 
         TextView recurringFrequency = (TextView) findViewById(R.id.recurringValue);
@@ -928,7 +1000,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 transactionDate.setText("");
                 amount.setText("");
                 note.setText("");
-                recurringTransaction.setText("");
+                recurringTransaction.setChecked(false);
+                //recurringTransaction.setText("");
+
                 recurringFrequency.setText("");
                 recurringValue.setText("");
 
@@ -1604,5 +1678,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 }
             }
         }
-    }
+
+
+}
 
