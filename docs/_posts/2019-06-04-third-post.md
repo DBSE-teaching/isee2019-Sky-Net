@@ -25,7 +25,7 @@ date: 2019-06-04
 
 <p style="font-family:Times;font-size:110%;text-align:justify">This pattern comes under the structural design  pattern as this forms a group of objects into a  tree like structure. This ensures us an effective way of using the the created objects of various classes.</p>
 
-![Deadline image]({{site.baseurl}}/images/cdp.png "Composite Design Pattern"){:height="50%" width="100%"}
+![Deadline image]({{site.baseurl}}/images/cdp.png "Composite Design Pattern"){:height="50%" width="50%"}
 
 ### Model View Controller
 
@@ -36,7 +36,7 @@ date: 2019-06-04
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>View</b> : This often referred to as the center part of the model.This pattern aids the user in viewing graphs ,tables and form view.</p></li>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Controller</b> : This interprets the user  commands to the model and aids in performing desired action.</p></li></ul>
 
-![Deadline image]({{site.baseurl}}/images/mvc.png "Model View Controller"){:height="50%" width="100%"}
+![Deadline image]({{site.baseurl}}/images/mvc.png "Model View Controller"){:height="50%" width="50%"}
 
 ## Implementation & User Interface
 
