@@ -19,7 +19,7 @@ date: 2019-06-04
   <li><p style="font-family:Times;font-size:110%;text-align:justify">Behavioral Pattern</p></li> 
   <li><p style="font-family:Times;font-size:110%;text-align:justify">Structural Pattern</p></li></ul>
   
-<p style="font-family:Times;font-size:110%;text-align:justify">Many patterns were later formulated by developers based on the patterns proposed by the “Gang of Four”.These patterns provides solution in solving recurring issues related to common software development problems.We have used majorly two design patterns throughout our development. They are Composite Design Pattern and Model View Controller. </p>
+<p style="font-family:Times;font-size:110%;text-align:justify">Many patterns were later formulated by developers based on the patterns proposed by the “Gang of Four”.These patterns provides solution in solving recurring issues related to common software development problems.We have used majorly two design patterns throughout our development. They are Composite Design Pattern and Model View Controller.</p>
 
 ### Composite Design Pattern
 
