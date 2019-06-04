@@ -36,7 +36,7 @@ date: 2019-06-04
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>View</b> : This often referred to as the center part of the model.This pattern aids the user in viewing graphs ,tables and form view.</p></li>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Controller</b> : This interprets the user  commands to the model and aids in performing desired action.</p></li></ul>
 
-![Deadline image]({{site.baseurl}}/images/mvc.png "Model View Controller"){:height="50%" width="50%" align="centre"}
+![Deadline image]({{site.baseurl}}/images/mvc.png "Model View Controller"){:height="50%" width="50%" ali"centre"}
 
 ## Implementation & User Interface
 
