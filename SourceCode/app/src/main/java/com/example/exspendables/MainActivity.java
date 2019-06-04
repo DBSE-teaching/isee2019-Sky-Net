@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.icu.lang.UCharacter;
@@ -74,6 +75,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     public static String startDateValue = null;
     public static String endDateValue = null;
+
+    private ArrayList<CategoryIcon> mCategoryList;
+    private IconAdapter mAdapter;
 
 
     // main() method of UI
@@ -153,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                 TextView endDate = findViewById(R.id.endDate);
 
-                if (spinner.getSelectedItem().equals("By Date") & startDate.getText() != "" &  endDate.getText() != "" ) {
+                if (spinner.getSelectedItem().equals("By Date") & startDate.getText() != "" & endDate.getText() != "") {
 
                     setContentView(R.layout.barchart);
 
@@ -261,9 +265,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                     chart.animateY(3000);
 
-                }
-
-                else if (spinner.getSelectedItem().equals("By Categories")) {
+                } else if (spinner.getSelectedItem().equals("By Categories")) {
 
                     setContentView(R.layout.piechart);
 
@@ -353,14 +355,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 //Logesh
 
-    public String changeToDateFormat(String date){
+    public String changeToDateFormat(String date) {
         // Mon Jun 03 00:00:00 GMT+02:00 2019
 
-        String month = date.substring(4,7);
-        String dateVal = date.substring(8,10);
-        String year = date.substring(29,34);
+        String month = date.substring(4, 7);
+        String dateVal = date.substring(8, 10);
+        String year = date.substring(29, 34);
 
-        switch (month){
+        switch (month) {
             case "Jan":
                 month = "01";
                 break;
@@ -386,11 +388,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 break;
 
             case "Jul":
-                month="07";
+                month = "07";
                 break;
 
             case "Aug":
-                month="08";
+                month = "08";
                 break;
 
             case "Sep":
@@ -398,23 +400,22 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 break;
 
             case "Oct":
-                month="10";
+                month = "10";
                 break;
 
             case "Nov":
-                month="11";
+                month = "11";
                 break;
 
-            case  "Dec":
-                month="12";
+            case "Dec":
+                month = "12";
                 break;
 
         }
 
-        return year+"/"+month+"/"+dateVal;
+        return year + "/" + month + "/" + dateVal;
 
     }
-
 
 
     // Event handler for button "Enter Income"
@@ -699,7 +700,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             Toast.makeText(getApplicationContext(), "Please set End Date", Toast.LENGTH_SHORT).show();
         }
 
-        if(missingMandatoryFields == false) {
+        if (missingMandatoryFields == false) {
 
             startDateValue = startDate.getText().toString();
             startDateValue = startDateValue.replaceAll("-", "/");
@@ -900,15 +901,15 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         String dayOfMonth1;
         month = month + 1;
 
-        if(month < 10){
+        if (month < 10) {
             month1 = "0" + month;
-        }else {
+        } else {
             month1 = String.valueOf(month);
         }
 
-        if(dayOfMonth < 10){
-            dayOfMonth1  = "0" + dayOfMonth ;
-        }else {
+        if (dayOfMonth < 10) {
+            dayOfMonth1 = "0" + dayOfMonth;
+        } else {
             dayOfMonth1 = String.valueOf(dayOfMonth);
         }
 
@@ -1126,7 +1127,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 while (!txnCur.isAfterLast()) {
                     // fetch Categories and amount and compare with categoryValue
                     String cat = txnCur.getString(0);
-                    if(cat.equals(categoryValue)){
+                    if (cat.equals(categoryValue)) {
                         String amountStr = txnCur.getString(2);
                         total += Integer.valueOf(amountStr);
                     }
@@ -1137,26 +1138,26 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 List<String> categoryList = categories.getCategoryAndBudget();
                 int budgetSetByUser = 0;
 
-                for(int listIdx = 0; listIdx < categoryList.size(); listIdx++){
+                for (int listIdx = 0; listIdx < categoryList.size(); listIdx++) {
 
                     String dummy = categoryList.get(listIdx);
                     String[] values = dummy.split(";");
 
-                    if(values[0].equals(categoryValue)){
+                    if (values[0].equals(categoryValue)) {
                         budgetSetByUser = Integer.valueOf(values[1]);
                     }
                 }
 
 
-                float percentSpent = (float)total/(float)budgetSetByUser;
+                float percentSpent = (float) total / (float) budgetSetByUser;
                 percentSpent = percentSpent * 100;
 
-                int percent = (int)percentSpent;
+                int percent = (int) percentSpent;
 
-                NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-                Notification notify=new Notification.Builder
+                NotificationManager notif = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                Notification notify = new Notification.Builder
                         (getApplicationContext()).setContentTitle("Budget notification").setContentText(
-                        "You have spent "+percent+ " % in the category " + categoryValue).
+                        "You have spent " + percent + " % in the category " + categoryValue).
                         setContentTitle("abc").setSmallIcon(R.drawable.ic_android_black_24dp).build();
 
                 notify.flags |= Notification.FLAG_AUTO_CANCEL;
@@ -1266,16 +1267,16 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                 ListAdapter transactionAdapter = transactionList.getAdapter();
 
-                for(int i=0;i<isChecked.size();i++){
-                    if(isChecked.valueAt(i)){
+                for (int i = 0; i < isChecked.size(); i++) {
+                    if (isChecked.valueAt(i)) {
                         int index = isChecked.keyAt(i);
                         String valueToDelete = transactionAdapter.getItem(index).toString();
-                        Log.d("VALUE",valueToDelete);
+                        Log.d("VALUE", valueToDelete);
 
                         String[] tableValues = valueToDelete.split("\\t");
-                        boolean result = transactions.deleteData(tableValues[0],tableValues[1],tableValues[2],tableValues[3]);
+                        boolean result = transactions.deleteData(tableValues[0], tableValues[1], tableValues[2], tableValues[3]);
 
-                        if(result){
+                        if (result) {
 
                         }
 
@@ -1323,7 +1324,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 while (!cursor.isAfterLast()) {
 
                     String date = cursor.getString(1);
-                    date = date.replaceAll("-","/");
+                    date = date.replaceAll("-", "/");
 
                     try {
                         dateToCheck = Formatter.parse(date);
@@ -1331,13 +1332,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         e.printStackTrace();
                     }
 
-                    if(dateToCheck.before(enddateToCheck) && dateToCheck.after(startdateToCheck)) {
+                    if (dateToCheck.before(enddateToCheck) && dateToCheck.after(startdateToCheck)) {
 
                         builder.append(cursor.getString(0)).append(";")
                                 .append(date).append(";")
                                 .append(cursor.getString(2)).append(";")
                                 .append(cursor.getString(4)).append("_");
-
 
 
                     }
@@ -1349,8 +1349,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 String st = new String(builder);
                 String[] values1 = st.split("_");
 
-                for(int row = 0;row < values1.length;row++){
-                    values1[row] = values1[row].replaceAll(";","\t");
+                for (int row = 0; row < values1.length; row++) {
+                    values1[row] = values1[row].replaceAll(";", "\t");
                 }
 
                 ArrayAdapter<String> tranAdapter = new ArrayAdapter<String>
@@ -1611,7 +1611,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 String budgetValue = budgetamount.getText().toString();
 
                 dbCategories = new Categories(this);
-                dbCategories.addmaxbudget(categorySelected,budgetValue);
+                dbCategories.addmaxbudget(categorySelected, budgetValue);
 
                 Toast.makeText(getApplicationContext(), "Budget saved", Toast.LENGTH_SHORT).show();
                 budgetamount.setText("");
@@ -1656,7 +1656,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         setContentView(R.layout.income_or_expense);
     }
 
-    public void sendemail(View view){
+    public void sendemail(View view) {
 
         String[] to = {"muraliabhivanth@gmail.com"};
 
@@ -1664,8 +1664,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         emailIntent.setData(Uri.parse("mailto:"));
         emailIntent.setType("text/plain");
 
-        emailIntent.putExtra(Intent.EXTRA_EMAIL,to);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Transaction details");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Transaction details");
 
         SimpleDateFormat Formatter = new SimpleDateFormat("yyyy/MM/dd");
 
@@ -1705,7 +1705,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         while (!cursor.isAfterLast()) {
 
             String date = cursor.getString(1);
-            date = date.replaceAll("-","/");
+            date = date.replaceAll("-", "/");
 
             try {
                 dateToCheck = Formatter.parse(date);
@@ -1713,7 +1713,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 e.printStackTrace();
             }
 
-            if(dateToCheck.before(enddateToCheck) && dateToCheck.after(startdateToCheck)) {
+            if (dateToCheck.before(enddateToCheck) && dateToCheck.after(startdateToCheck)) {
 
                 builder.append(cursor.getString(0)).append(";")
                         .append(date).append(";")
@@ -1729,11 +1729,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         String st = new String(builder);
         String[] values1 = st.split("_");
 
-        for(int row = 0;row < values1.length;row++){
-            values1[row] = values1[row].replaceAll(";","\t");
+        for (int row = 0; row < values1.length; row++) {
+            values1[row] = values1[row].replaceAll(";", "\t");
         }
 
-        for(int row = 0;row < values1.length;row++) {
+        for (int row = 0; row < values1.length; row++) {
             emailIntent.putExtra(Intent.EXTRA_TEXT, values1[row]);
         }
 
@@ -1805,5 +1805,61 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
 
+    private void initIconList() {
+        mCategoryList = new ArrayList<>();
+        mCategoryList.add(new CategoryIcon("Clothing", R.drawable.clothing));
+        mCategoryList.add(new CategoryIcon("Food", R.drawable.food));
+        mCategoryList.add(new CategoryIcon("Groceries", R.drawable.groceries));
+        mCategoryList.add(new CategoryIcon("Shopping", R.drawable.shopping));
+    }
+
+
+    public void setIcons(View view) {
+
+        setContentView(R.layout.set_icons);
+
+        Categories dbCategories = new Categories(this);
+        // Populate Category DDLB
+        Spinner categoryddlb = (Spinner) findViewById(R.id.categoryddlb);
+        List<String> categorylist = dbCategories.getData();
+        categorylist.add(0, "");
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categorylist);
+        categoryAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        categoryddlb.setAdapter(categoryAdapter);
+
+        initIconList();
+
+        Spinner categoryIcons = (Spinner) findViewById(R.id.iconddlb);
+        mAdapter = new IconAdapter(this, mCategoryList);
+        categoryIcons.setAdapter(mAdapter);
+
+        categoryIcons.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CategoryIcon selectedItem = (CategoryIcon) parent.getItemAtPosition(position);
+                String clickedIconName = selectedItem.getmIconName();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    public void saveicons(View view) {
+
+        Spinner category = (Spinner) findViewById(R.id.categoryddlb);
+        String cat = category.getSelectedItem().toString();
+
+        Spinner categoryIcons = (Spinner) findViewById(R.id.iconddlb);
+        CategoryIcon selectedItem = (CategoryIcon) categoryIcons.getSelectedItem();
+        String iconName = selectedItem.getmIconName();
+
+        Categories categories = new Categories(this);
+        categories.modifyIcon(cat,iconName);
+
+        Toast.makeText(getApplicationContext(), "Icon saved", Toast.LENGTH_SHORT).show();
+    }
 }
 
