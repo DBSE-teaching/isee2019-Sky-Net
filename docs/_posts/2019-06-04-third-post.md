@@ -47,17 +47,17 @@ date: 2019-06-04
 <ul>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>CamelCaseNotation</b> -This convention is used in naming  functions,variables,class names.</p></li></ul>
   
-![Deadline image]({{site.baseurl}}/images/camelcase.png "Camel Case"){:height="30%" width="50%"}
+![Deadline image]({{site.baseurl}}/images/camelcase.png "Camel Case"){:height="50%" width="50%"}
 
 <ul>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>UPPER_CASE Notation</b> - This convention is used in all XML pages for buttons.</p></li></ul>
 
-![Deadline image]({{site.baseurl}}/images/uppercamel.png "Upper Camel Case"){:height="30%" width="50%"}
+![Deadline image]({{site.baseurl}}/images/uppercamel.png "Upper Camel Case"){:height="15%" width="50%"}
 
 <ul>
    <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>lower_case Notation</b> - This convention is used in all the imports,and naming XML pages.</p></li></ul>
    
-![Deadline image]({{site.baseurl}}/images/lowercase.png "Lower Case"){:height="30%" width="50%"}
+![Deadline image]({{site.baseurl}}/images/lowercase.png "Lower Case"){:height="15%" width="50%"}
 
 <ul>
    <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Own conventions</b> - we used “_” in naming XML pages and Android.id of the XML pages.</p></li></ul>
