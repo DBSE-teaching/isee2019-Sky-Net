@@ -19,7 +19,7 @@ date: 2019-06-04
   <li><p style="font-family:Times;font-size:110%;text-align:justify">Behavioral Pattern</p></li> 
   <li><p style="font-family:Times;font-size:110%;text-align:justify">Structural Pattern</p></li></ul>
   
-<p style="font-family:Times;font-size:110%;text-align:justify">Many patterns were later formulated by developers based on the patterns proposed by the “Gang of Four”.These patterns provide a solution for solving recurring issues related to common software development problems. We have used majorly two design patterns throughout our development. They are the Composite Design Pattern and Model View Controller.</p>
+<p style="font-family:Times;font-size:110%;text-align:justify">Many patterns were later formulated by developers based on the patterns proposed by the “Gang of Four”.These patterns provide a solution for solving recurring issues related to common software development problems. We have used majorly two design patterns throughout our development. They are the Composite Design Pattern and Model-View- Controller.</p>
 
 ### Composite Design Pattern
 
@@ -42,6 +42,8 @@ date: 2019-06-04
 <p style="font-family:Times;font-size:110%;text-align:justify">The application involves an end user interacting through input actions such as clicks,selection, etc.to process the backend data and the keeping track of money control. Purpose the application is more aligned with the MVC pattern where the model forms the backend data,  forms the user actions and view forms the visual representations 
 
 For eg, on click of submit button(controller) in transaction page the data entered by the user in various fields( view) the data gets saved to the database table TRANSACTIONS(model).</p>
+
+![Deadline image]({{site.baseurl}}/images/mvcprocess.png "MVC-PROCESS"){:height="50%" width="50%" align="centre"} 
 
 
 
