@@ -122,6 +122,10 @@ For eg, on click of submit button(controller) in transaction page the data enter
 
 ![Deadline image]({{site.baseurl}}/images/olduserstories.png "Old User Stories"){:height="50%" width="100%"}
 
+![Deadline image]({{site.baseurl}}/images/downarrow.png "down"){:height="50%" width="100%"}
+
+
+
 ### User Story - Advanced prototype
 
 ![Deadline image]({{site.baseurl}}/images/newuserstories.png "New User Stories"){:height="50%" width="100%"}
