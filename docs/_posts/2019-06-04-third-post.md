@@ -68,6 +68,10 @@ For eg, on click of submit button(controller) in transaction page the data enter
     
 ![Deadline image]({{site.baseurl}}/images/ownconvention.png "Own Convention"){:height="30%" width="50%"}
 
+### Enforcing Coding Conventions 
+
+<p style="font-family:Times;font-size:110%;text-align:justify">The defined conventions were documented and a detailed report containing usage of the conventions was circulated and explained in detail among team members. This made sure that the whole project had a unified naming convention. Additionally, the conventions were ensured to be implemented while proofread while performing stash and commit operations.</p>
+
 ### Context of Use
 
 <p style="font-family:Times;font-size:110%;text-align:justify">The below images are from two different users perspective on why exactly they need a money tracker application.</p>
@@ -98,10 +102,16 @@ For eg, on click of submit button(controller) in transaction page the data enter
 <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>View Summary</b>: Overview or history of a transaction is now displayed in a tabular format. It is filtered on the basis of Date Range. The user is given an option to delete the transaction recorded.</p></li>
 <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Graph Summary</b>:  For all the transactions recorded, there is a graphical representation implemented on Date and Category filter basis.</p></li>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Email</b>: The user is now able to send an email with the saved transaction details.</p></li></ul>
+  
+ ### User Story - Basic prototype 
 
 ![Deadline image]({{site.baseurl}}/images/olduserstories.png "Old User Stories"){:height="50%" width="100%"}
 
+ ### User Story - Advanced prototype
+
 ![Deadline image]({{site.baseurl}}/images/newuserstories.png "New User Stories"){:height="50%" width="100%"}
+
+ ### Updated Class diagram
 
 ![Deadline image]({{site.baseurl}}/images/classdiagramnew.png "class diagram new"){:height="50%" width="100%"}
 
