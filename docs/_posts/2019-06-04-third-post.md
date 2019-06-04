@@ -74,7 +74,7 @@ For eg, on click of submit button(controller) in transaction page the data enter
 
 ### Context of Use
 
-<p style="font-family:Times;font-size:110%;text-align:justify">This process is to identify the target audience of our application. Two personas were created based on different demographics ranging from geographic location, age, sex, marital status, income. This process enables us to find the wants and needs of the users.The below images are from two different users perspective on why exactly they need a money tracker application.</p>
+<p style="font-family:Times;font-size:110%;text-align:justify">This process is to identify the target audience of our application. Two personas were created based on different demographics ranging from geographic location, age, sex, marital status and income. This process enables us to find the wants and needs of the users.The below images are from two different users perspective on why exactly they need a money tracker application.</p>
 
 ![Deadline image]({{site.baseurl}}/images/Personas.png "Personas"){:height="50%" width="100%"}
 
