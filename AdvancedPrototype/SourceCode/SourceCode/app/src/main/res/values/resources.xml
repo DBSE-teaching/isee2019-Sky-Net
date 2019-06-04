@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="random_imgs">
+        <item>@drawable/ic_android_black_24dp</item>
+        <item>@drawable/ic_android_green_24dp</item>
+        <item>@drawable/ic_android_red_24dp</item>
+        <item>@drawable/ic_android_yellow_24dp</item>
+    </integer-array>
+</resources>
