@@ -9,8 +9,8 @@ import android.util.Log;
 
 import static android.content.ContentValues.TAG;
 
-public class DatabaseCurrency extends SQLiteOpenHelper {
-    public DatabaseCurrency(Context context) {
+public class Currency extends SQLiteOpenHelper {
+    public Currency(Context context) {
         super(context, "CURRENCY", null, 1);
     }
 
@@ -48,7 +48,7 @@ public class DatabaseCurrency extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("unit",new_unit);
-        int result = db.update("CURRENCY",contentValues,"unit = " + old_unit,null);
+        int result = db.update("CURRENCY",contentValues,"unit=?",new String[]{old_unit});
 
         if(result > 0){
             db.close();     // harish - 25.05

@@ -12,7 +12,7 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class DatabaseIncomeExpense extends SQLiteOpenHelper {
+public class Transactions extends SQLiteOpenHelper {
 
     public String category;
     public String startDate;
@@ -27,7 +27,7 @@ public class DatabaseIncomeExpense extends SQLiteOpenHelper {
     public String recurringFrequency;
     public String recurringValue;
 
-    public DatabaseIncomeExpense(Context context) {
+    public Transactions(Context context) {
         super(context, "TRANSACTIONS", null, 1);
     }
 

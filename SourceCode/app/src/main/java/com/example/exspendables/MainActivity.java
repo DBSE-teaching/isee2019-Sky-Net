@@ -1,7 +1,6 @@
 package com.example.exspendables;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -9,9 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.icu.lang.UCharacter;
 import android.net.Uri;
-import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +19,6 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -31,28 +27,27 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.util.SparseBooleanArray;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.mynameismidori.currencypicker.CurrencyPicker;
 import com.mynameismidori.currencypicker.CurrencyPickerListener;
 
 
 import java.sql.Date;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     public static String startDateValue = null;
     public static String endDateValue = null;
+
+    private ArrayList<CategoryIcon> mCategoryList;
+    private IconAdapter mAdapter;
 
 
     // main() method of UI
@@ -134,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         Spinner spinner = findViewById(R.id.filter);
         Button button = findViewById(R.id.okSubmitButton);
-        final DatabaseIncomeExpense databaseIncomeExpense = new DatabaseIncomeExpense(this);
+        final Transactions transactions = new Transactions(this);
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -142,130 +140,227 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                 //changeToDateFormat("Mon Jun 03 00:00:00 GMT+02:00 2019");
 
+                Spinner spinner = (Spinner) findViewById(R.id.filter);
                 TextView startDate = findViewById(R.id.entryDate);
-                String startDateValue = startDate.getText().toString();
                 SimpleDateFormat Formatter = new SimpleDateFormat("yyyy/MM/dd");
 
 
                 TextView endDate = findViewById(R.id.endDate);
-                String endDateValue = endDate.getText().toString();
+
+                if (spinner.getSelectedItem().equals("By Date") & startDate.getText() != "" & endDate.getText() != "") {
+
+                    setContentView(R.layout.barchart);
+
+                    String startDateValue = startDate.getText().toString();
+                    String endDateValue = endDate.getText().toString();
 
 
-                BarChart chart;
-                ArrayList<BarEntry> BARENTRY;
-                ArrayList<String> BarEntryLabels;
-                BarDataSet Bardataset;
-                BarData BARDATA;
-                chart = (BarChart) findViewById(R.id.barGraph);
+                    BarChart chart;
+                    ArrayList<BarEntry> BARENTRY;
+                    String label = null;
+                    ArrayList<String> BarEntryLabels;
+                    BarDataSet Bardataset;
+                    BarData BARDATA;
+                    chart = (BarChart) findViewById(R.id.barGraph);
 
 
-                BARENTRY = new ArrayList<>();
-                BarEntryLabels = new ArrayList<String>();
+                    BARENTRY = new ArrayList<>();
+                    BarEntryLabels = new ArrayList<String>();
 
 
-                SQLiteDatabase db = databaseIncomeExpense.getReadableDatabase();
+                    SQLiteDatabase db = transactions.getReadableDatabase();
 
-                Cursor cur;
+                    Cursor cur;
 
-                String startDateVal = startDate.getText().toString();
-                String endDateVal = endDate.getText().toString();
+                    String startDateVal = startDate.getText().toString();
+                    String endDateVal = endDate.getText().toString();
 
-                startDateVal = startDateVal.replaceAll("-", "/");
-                endDateVal = endDateVal.replaceAll("-", "/");
+                    startDateVal = startDateVal.replaceAll("-", "/");
+                    endDateVal = endDateVal.replaceAll("-", "/");
 
-                java.util.Date startDate1 = null;
-                java.util.Date endDate1 = null;
+                    java.util.Date startDate1 = null;
+                    java.util.Date endDate1 = null;
 
-                //SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                try {
-                    startDate1 = (java.util.Date) Formatter.parse(startDateVal);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    endDate1 = (java.util.Date) Formatter.parse(endDateVal);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-
-                cur = db.rawQuery("SELECT amount,startDate FROM TRANSACTIONS", null);
-
-                //Harish
-
-                java.util.Date dateToCheck = null;
-                java.util.Date startdateToCheck = null;
-                java.util.Date enddateToCheck = null;
-                int i = 0;
-                int k = 0;
-
-
-                cur.moveToFirst();
-                while (!cur.isAfterLast()) {
-                    String amount = cur.getString(0);
-                    String date = cur.getString(1);
-
-                    date = date.replaceAll("-", "/");
-
+                    //SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                     try {
-                        dateToCheck = Formatter.parse(date);
+                        startDate1 = (java.util.Date) Formatter.parse(startDateVal);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
 
                     try {
-                        startdateToCheck = Formatter.parse(startDateVal);
+                        endDate1 = (java.util.Date) Formatter.parse(endDateVal);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
 
-                    try {
-                        enddateToCheck = Formatter.parse(endDateVal);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+
+                    cur = db.rawQuery("SELECT amount,startDate FROM TRANSACTIONS", null);
+
+                    //Harish
+
+                    java.util.Date dateToCheck = null;
+                    java.util.Date startdateToCheck = null;
+                    java.util.Date enddateToCheck = null;
+                    int i = 0;
+                    int k = 0;
+
+
+                    cur.moveToFirst();
+                    while (!cur.isAfterLast()) {
+                        String amount = cur.getString(0);
+                        String date = cur.getString(1);
+
+                        date = date.replaceAll("-", "/");
+
+                        try {
+                            dateToCheck = Formatter.parse(date);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            startdateToCheck = Formatter.parse(startDateVal);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            enddateToCheck = Formatter.parse(endDateVal);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (dateToCheck.after(startdateToCheck) && dateToCheck.before(enddateToCheck)) {
+
+
+                            date = date.replaceAll("/", "");
+                            i = Integer.valueOf(date);
+                            k = Integer.valueOf(amount);
+                            label = date.toString();
+                            BARENTRY.add(new BarEntry(i, k));
+
+                        }
+                        cur.moveToNext();
                     }
 
-                    if (dateToCheck.after(startdateToCheck) && dateToCheck.before(enddateToCheck)) {
 
-                        date = date.replaceAll("/", "");
-                        i = Integer.valueOf(date);
-                        k = Integer.valueOf(amount);
-                        BARENTRY.add(new BarEntry(i, k));
+                    //Harish
 
-                    }
-                    cur.moveToNext();
+
+                    Bardataset = new BarDataSet(BARENTRY, "Expenses");
+
+                    BARDATA = new BarData(Bardataset);
+
+                    Bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
+
+                    chart.setData(BARDATA);
+
+                    chart.animateY(3000);
+
                 }
 
+                else if (spinner.getSelectedItem().equals("By Categories") & startDate.getText() != "" &  endDate.getText() != "")  {
+
+                    setContentView(R.layout.piechart);
+
+                    String startDatePie = startDate.getText().toString();
+                    String endDatePie = endDate.getText().toString();
+
+                    PieChart mChart;
+                    SQLiteDatabase db = transactions.getReadableDatabase();
+                    String sql = "Select category, sum(amount), count(category) from TRANSACTIONS where startDate between '" +startDatePie+"' and '"+ endDatePie + "'" + "GROUP BY category";
+                    mChart = (PieChart) findViewById(R.id.PieChart);
+
+                    Cursor c = db.rawQuery(sql, null);
+                    int count = c.getCount();
+                    c.moveToFirst();
+
+                    double[] values = new double[count];
+                    String[] categoryNames = new String[count];
+                    int[] colors = new int[count];
+
+                    for (int m = 0; m < count; m++) {
+                        categoryNames[m] = c.getString(0);
+                        values[m] = c.getDouble(1);
+                        colors[m] = c.getInt(2);
+                        c.moveToNext();
+                    }
+
+                    ArrayList<PieEntry> yVals1 = new ArrayList<PieEntry>();
+
+                    for (int i = 0; i < categoryNames.length; i++) {
+                        yVals1.add(new PieEntry((float) (values[i]), i));
+                    }
+
+                    ArrayList<String> xVals = new ArrayList<String>();//array legend
+
+                    for (int i = 0; i < categoryNames.length; i++) {
+                        xVals.add(categoryNames[i]);
+                        String xVals1 = xVals.toString();
+                        PieDataSet set1 = new PieDataSet(yVals1, xVals1);
+                        set1.setSliceSpace(3f);
+                        set1.setColors(ColorTemplate.createColors(colors));
+
+                        PieData data = new PieData(set1);
+                        set1.setColors(ColorTemplate.COLORFUL_COLORS);
+                        mChart.setData(data);
+                        // undo all highlights
+                        mChart.highlightValues(null);
+                        mChart.invalidate();
+                    }
+                    c.close();
+                    db.close();
+
+                  /*  for (int m = 0; m < count; m++) {
+                        c.moveToNext();
+                        categoryNames[m] = c.getString(0);
+                        values[m] = c.getDouble(1);
+                        colors[m] = c.getInt(2);
 
 
-                //Harish
+                        ArrayList<PieEntry> yVals1 = new ArrayList<PieEntry>();
 
+                        for (int i = 0; i < categoryNames.length; i++) {
+                            yVals1.add(new PieEntry((float) (values[i]), i));
+                        }
 
+                        ArrayList<String> xVals = new ArrayList<String>();//array legend
 
-                Bardataset = new BarDataSet(BARENTRY, "Expenses");
+                        for (int i = 0; i < categoryNames.length; i++){
+                            xVals.add(categoryNames[m % categoryNames.length]);
 
-                BARDATA = new BarData(Bardataset);
+                        PieDataSet set1 = new PieDataSet(yVals1, "Expenses");
+                        set1.setSliceSpace(3f);
+                        set1.setColors(ColorTemplate.createColors(colors));
 
-                Bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
+                        PieData data = new PieData(set1);
+                        //set1.setColors(ColorTemplate.COLORFUL_COLORS);
+                        mChart.setData(data);
+                        // undo all highlights
+                        mChart.highlightValues(null);
+                        mChart.invalidate();
 
-                chart.setData(BARDATA);
+                    }
+                    c.close();
+                    db.close();
+} */
+                } else {
 
-                chart.animateY(3000);
-
+                }
             }
         });
     }
 //Logesh
 
-    public String changeToDateFormat(String date){
+    public String changeToDateFormat(String date) {
         // Mon Jun 03 00:00:00 GMT+02:00 2019
 
-        String month = date.substring(4,7);
-        String dateVal = date.substring(8,10);
-        String year = date.substring(29,34);
+        String month = date.substring(4, 7);
+        String dateVal = date.substring(8, 10);
+        String year = date.substring(29, 34);
 
-        switch (month){
+        switch (month) {
             case "Jan":
                 month = "01";
                 break;
@@ -341,6 +436,16 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             }
         });
 
+        Currency currency = new Currency(this);
+        Cursor currCode = currency.getData();
+
+        if (currCode != null) {
+            if (currCode.moveToFirst()) {
+                String currencySavedInDB = currCode.getString(0).toString();
+                TextView code = (TextView) findViewById(R.id.currencyCode);
+                code.setText(currencySavedInDB);
+            }
+        }
     }
 
     // Event handler for button "Enter Expense"
@@ -377,8 +482,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             }
         });
 
-        DatabaseCurrency databaseCurrency = new DatabaseCurrency(this);
-        Cursor currCode = databaseCurrency.getData();
+        Currency currency = new Currency(this);
+        Cursor currCode = currency.getData();
 
         if (currCode != null) {
             if (currCode.moveToFirst()) {
@@ -508,31 +613,33 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     public void onSetCurrency(View view) {
-        final DatabaseCurrency databaseCurrency = new DatabaseCurrency(this);
+        final Currency currency = new Currency(this);
         final CurrencyPicker picker = CurrencyPicker.newInstance("Select Currency");  // dialog title
         picker.setListener(new CurrencyPickerListener() {
             @Override
             public void onSelectCurrency(String name, String code, String symbol, int flagDrawableResID) {
                 // Implement your code here
                 closeOptionsMenu();
+
                 String currency_selected = code.toString();
 
                 // save this value to DB so that it can be displayed next to Amount
-                Cursor currencyData = databaseCurrency.getData();
+                Cursor currencyData = currency.getData();
                 if (currencyData != null) {
                     if (currencyData.moveToFirst()) {
                         String currencySavedInDB = currencyData.getString(0).toString();
-                        databaseCurrency.modifyData(currency_selected, currencySavedInDB);
+                        currency.modifyData(currency_selected, currencySavedInDB);
                         // harish - 25.05
                         Toast.makeText(getApplicationContext(), "Selected currency unit is set", Toast.LENGTH_SHORT).show();
                         // harish - 25.05
                     } else {
-                        databaseCurrency.addData(currency_selected);
+                        currency.addData(currency_selected);
                         // harish - 25.05
                         Toast.makeText(getApplicationContext(), "Selected currency unit is set", Toast.LENGTH_SHORT).show();
                         // harish - 25.05
                     }
                 }
+                picker.dismiss();
             }
         });
         picker.show(getSupportFragmentManager(), "CURRENCY_PICKER");
@@ -576,94 +683,113 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     public void showSummary(View view) {
 
+        boolean missingMandatoryFields = false;
+
         TextView startDate = (TextView) findViewById(R.id.entryDate);
-        startDateValue = startDate.getText().toString();
-        startDateValue = startDateValue.replaceAll("-","/");
+
+        if (TextUtils.isEmpty(startDate.getText())) {
+            missingMandatoryFields = true;
+            Toast.makeText(getApplicationContext(), "Please set Start Date", Toast.LENGTH_SHORT).show();
+        }
 
         TextView endDate = (TextView) findViewById(R.id.endDate);
-        endDateValue = endDate.getText().toString();
-        endDateValue = endDateValue.replaceAll("-","/");
 
-        SimpleDateFormat Formatter = new SimpleDateFormat("yyyy/MM/dd");
-
-        java.util.Date dateToCheck = null;
-        java.util.Date startdateToCheck = null;
-        java.util.Date enddateToCheck = null;
-
-        try {
-            startdateToCheck = Formatter.parse(startDateValue);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if (TextUtils.isEmpty(endDate.getText())) {
+            missingMandatoryFields = true;
+            Toast.makeText(getApplicationContext(), "Please set End Date", Toast.LENGTH_SHORT).show();
         }
 
-        try {
-            enddateToCheck = Formatter.parse(endDateValue);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        if(missingMandatoryFields == false) {
 
-        //setContentView(R.layout.tablesummary);
-        setContentView(R.layout.listsummary);
+            startDateValue = startDate.getText().toString();
+            startDateValue = startDateValue.replaceAll("-", "/");
 
-        ListView transactions = (ListView) findViewById(R.id.transactionlist);
-        Button deleteTransaction = (Button) findViewById(R.id.deleteTxnBtn);
-        deleteTransaction.setOnClickListener(this);
+            endDateValue = endDate.getText().toString();
+            endDateValue = endDateValue.replaceAll("-", "/");
 
-        /*Button backToSetting = (Button) findViewById(R.id.backToSettings);
-        backToSetting.setOnClickListener(this);*/
+            SimpleDateFormat Formatter = new SimpleDateFormat("yyyy/MM/dd");
 
-        DatabaseIncomeExpense databaseIncomeExpense = new DatabaseIncomeExpense(this);
-        Cursor cursor = databaseIncomeExpense.getData();
-
-       // List<DatabaseIncomeExpense> expenseDetails = new ArrayList<DatabaseIncomeExpense>();
-
-        List<String> transactionList = null;
-        StringBuilder builder = new StringBuilder();
-
-        cursor.moveToFirst();
-        int i = 0;
-        while (!cursor.isAfterLast()) {
-
-            String date = cursor.getString(1);
-            date = date.replaceAll("-","/");
+            java.util.Date dateToCheck = null;
+            java.util.Date startdateToCheck = null;
+            java.util.Date enddateToCheck = null;
 
             try {
-                dateToCheck = Formatter.parse(date);
+                startdateToCheck = Formatter.parse(startDateValue);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
-            if(dateToCheck.before(enddateToCheck) && dateToCheck.after(startdateToCheck)) {
-
-                builder.append(cursor.getString(0)).append(";")
-                       .append(date).append(";")
-                       .append(cursor.getString(2)).append(";")
-                       .append(cursor.getString(4)).append("_");
-
-                i++;
-
+            try {
+                enddateToCheck = Formatter.parse(endDateValue);
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
 
-            cursor.moveToNext();
+            //setContentView(R.layout.tablesummary);
+            setContentView(R.layout.listsummary);
+
+            ListView transactions = (ListView) findViewById(R.id.transactionlist);
+            Button deleteTransaction = (Button) findViewById(R.id.deleteTxnBtn);
+            deleteTransaction.setOnClickListener(this);
+
+        /*Button backToSetting = (Button) findViewById(R.id.backToSettings);
+        backToSetting.setOnClickListener(this);*/
+
+            Transactions databaseIncomeExpense = new Transactions(this);
+            Cursor cursor = databaseIncomeExpense.getData();
+
+            // List<Transactions> expenseDetails = new ArrayList<Transactions>();
+
+            List<String> transactionList = null;
+            StringBuilder builder = new StringBuilder();
+
+            cursor.moveToFirst();
+            int i = 0;
+            while (!cursor.isAfterLast()) {
+
+                String date = cursor.getString(1);
+                String indicator = cursor.getString(6);
+                date = date.replaceAll("-", "/");
+
+                try {
+                    dateToCheck = Formatter.parse(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if(indicator.equals("Expense")) {
+                    if (dateToCheck.before(enddateToCheck) && dateToCheck.after(startdateToCheck)) {
+
+                        builder.append(cursor.getString(0)).append(";")
+                                .append(date).append(";")
+                                .append(cursor.getString(2)).append(";")
+                                .append(cursor.getString(4)).append("_");
+
+                        i++;
+
+                    }
+                }
+                cursor.moveToNext();
+            }
+
+            builder.toString();
+            String st = new String(builder);
+            String[] values = st.split("_");
+
+            for (int row = 0; row < values.length; row++) {
+                values[row] = values[row].replaceAll(";", "\t");
+            }
+
+            ArrayAdapter<String> transactionAdapter = new ArrayAdapter<String>
+                    (this, android.R.layout.simple_list_item_multiple_choice, values);
+            transactions.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            transactions.setAdapter(transactionAdapter);
+
         }
-
-        builder.toString();
-        String st = new String(builder);
-        String[] values = st.split("_");
-
-        for(int row = 0;row < values.length;row++){
-            values[row] = values[row].replaceAll(";","\t");
-        }
-
-        ArrayAdapter<String> transactionAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_list_item_multiple_choice, values);
-        transactions.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        transactions.setAdapter(transactionAdapter);
 
   /*      cursor.moveToFirst();
         int i = 0;
         while (!cursor.isAfterLast()) {
-            DatabaseIncomeExpense dbTransactions = new DatabaseIncomeExpense(this);
+            Transactions dbTransactions = new Transactions(this);
 
             dbTransactions.category = cursor.getString(0);
             dbTransactions.startDate = cursor.getString(1);
@@ -702,7 +828,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 //.append("Note").append("_");
         // harish - 25.05
 
-        for (DatabaseIncomeExpense expense : expenseDetails) {
+        for (Transactions expense : expenseDetails) {
             builder.append(expense.getCategory()).append(";")
                     .append(expense.getStartDate()).append(";")
                     // harish - 25.05 - commented endDate as it is not required
@@ -802,6 +928,68 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     //Logesh - 22.05
 
+    public void saveIncome(View view) {
+
+        Date transactionDateValue = null;
+        int amountValue = 0;
+        String codeValue = "";
+        boolean mandatoryFieldMissing = false;
+
+        TextView transactionDate = (TextView) findViewById(R.id.entryDate);
+        TextView trandateTV = (TextView) findViewById(R.id.enterdate);
+        if (TextUtils.isEmpty(transactionDate.getText())) {
+            mandatoryFieldMissing = true;
+            trandateTV.setTextColor(Color.RED);
+        } else {
+            String dummy = transactionDate.getText().toString();
+            transactionDateValue = Date.valueOf(transactionDate.getText().toString());
+            trandateTV.setTextColor(Color.BLACK);
+        }
+
+        EditText amount = (EditText) findViewById(R.id.amount);
+        TextView amountTV = (TextView) findViewById(R.id.Amount);
+        if (TextUtils.isEmpty(amount.getText())) {
+            mandatoryFieldMissing = true;
+            amountTV.setTextColor(Color.RED);
+        } else {
+            amountValue = Integer.valueOf(amount.getText().toString());
+            amountTV.setTextColor(Color.BLACK);
+        }
+
+        TextView code = (TextView) findViewById(R.id.currencyCode);
+        TextView codeTV = (TextView) findViewById(R.id.Currency);
+        if (TextUtils.isEmpty(code.getText())) {
+            mandatoryFieldMissing = true;
+            codeTV.setTextColor(Color.RED);
+        } else {
+            codeValue = code.getText().toString();
+            codeTV.setTextColor(Color.BLACK);
+        }
+
+        EditText note = (EditText) findViewById(R.id.optionalNote);
+        String noteValue = note.getText().toString();
+
+        String indicatorValue = "Income";
+
+        if (mandatoryFieldMissing == false) {
+
+            Transactions transactions = new Transactions(this);
+
+            //harish-25.05
+            boolean isTransactionSaved = transactions.addData("", transactionDateValue, amountValue,
+                    codeValue, "", noteValue, indicatorValue, "", "", "");
+
+            // display transaction is saved and clear the fields
+            if (isTransactionSaved) {
+                Toast.makeText(getApplicationContext(), "Transaction is saved", Toast.LENGTH_SHORT).show();
+
+                transactionDate.setText("");
+                amount.setText("");
+                note.setText("");
+            }
+        }
+    }
+
     // harish - 25.05 - Fields as mandatory
     public void saveExpense(View view) {
         String categoryValue = "";
@@ -874,7 +1062,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         EditText note = (EditText) findViewById(R.id.optionalNote);
         String noteValue = note.getText().toString();
 
-        TextView recurringTransaction = (TextView) findViewById(R.id.recurringSwitch);
+        Switch recurringTransaction = (Switch) findViewById(R.id.recurringSwitch);
         String recurringTransactionValue = String.valueOf(recurringTransaction.getText().toString());
 
         TextView recurringFrequency = (TextView) findViewById(R.id.recurringValue);
@@ -895,10 +1083,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         if (mandatoryFieldMissing == false) {
             // harish - 25.05
 
-            DatabaseIncomeExpense databaseIncomeExpense = new DatabaseIncomeExpense(this);
+            Transactions transactions = new Transactions(this);
 
             //harish-25.05
-            boolean isTransactionSaved = databaseIncomeExpense.addData(categoryValue, transactionDateValue, amountValue,
+            boolean isTransactionSaved = transactions.addData(categoryValue, transactionDateValue, amountValue,
                     codeValue, paymMethodValue, noteValue, indicatorValue, recurringTransactionValue, recurringFrequencyValue, recurringValueValue);
 
             // display transaction is saved and clear the fields
@@ -926,11 +1114,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 transactionDate.setText("");
                 amount.setText("");
                 note.setText("");
-                recurringTransaction.setText("");
+                recurringTransaction.setChecked(false);
+                //recurringTransaction.setText("");
+
                 recurringFrequency.setText("");
                 recurringValue.setText("");
 
-                DatabaseIncomeExpense txns = new DatabaseIncomeExpense(this);
+                Transactions txns = new Transactions(this);
                 Cursor txnCur = txns.getData();
                 txnCur.moveToFirst();
                 int total = 0;
@@ -954,20 +1144,20 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     String[] values = dummy.split(";");
 
                     if(values[0].equals(categoryValue)){
-                      budgetSetByUser = Integer.valueOf(values[1]);
+                        budgetSetByUser = Integer.valueOf(values[1]);
                     }
                 }
 
 
                 float percentSpent = (float)total/(float)budgetSetByUser;
                 percentSpent = percentSpent * 100;
-                
+
                 int percent = (int)percentSpent;
 
                 NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
                 Notification notify=new Notification.Builder
                         (getApplicationContext()).setContentTitle("Budget notification").setContentText(
-                                "You have spent "+percent+ " % in the category " + categoryValue).
+                        "You have spent "+percent+ " % in the category " + categoryValue).
                         setContentTitle("abc").setSmallIcon(R.drawable.ic_android_black_24dp).build();
 
                 notify.flags |= Notification.FLAG_AUTO_CANCEL;
@@ -1070,7 +1260,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 break;
 
             case R.id.deleteTxnBtn:
-                DatabaseIncomeExpense transactions = new DatabaseIncomeExpense(this);
+                Transactions transactions = new Transactions(this);
                 ListView transactionList = (ListView) findViewById(R.id.transactionlist);
                 SparseBooleanArray isChecked = transactionList.getCheckedItemPositions();
                 ArrayList<String> selectedTxn = new ArrayList<>();
@@ -1121,10 +1311,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 /*Button backToSetting = (Button) findViewById(R.id.backToSettings);
                 backToSetting.setOnClickListener(this);*/
 
-                DatabaseIncomeExpense databaseIncomeExpense = new DatabaseIncomeExpense(this);
+                Transactions databaseIncomeExpense = new Transactions(this);
                 Cursor cursor = databaseIncomeExpense.getData();
 
-                // List<DatabaseIncomeExpense> expenseDetails = new ArrayList<DatabaseIncomeExpense>();
+                // List<Transactions> expenseDetails = new ArrayList<Transactions>();
 
                 List<String> tranList = null;
                 StringBuilder builder = new StringBuilder();
@@ -1462,144 +1652,213 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         submit2.setOnClickListener(this);
     }
 
-        public void backToHome(View view) {
-            setContentView(R.layout.income_or_expense);
+    public void backToHome(View view) {
+        setContentView(R.layout.income_or_expense);
+    }
+
+    public void sendemail(View view){
+
+        String[] to = {"muraliabhivanth@gmail.com"};
+
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL,to);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Transaction details");
+
+        SimpleDateFormat Formatter = new SimpleDateFormat("yyyy/MM/dd");
+
+        java.util.Date dateToCheck = null;
+        java.util.Date startdateToCheck = null;
+        java.util.Date enddateToCheck = null;
+
+        try {
+            startdateToCheck = Formatter.parse(startDateValue);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
-        public void sendemail(View view){
+        try {
+            enddateToCheck = Formatter.parse(endDateValue);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-            String[] to = {"muraliabhivanth@gmail.com"};
-
-            Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            emailIntent.setData(Uri.parse("mailto:"));
-            emailIntent.setType("text/plain");
-
-            emailIntent.putExtra(Intent.EXTRA_EMAIL,to);
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Transaction details");
-
-            SimpleDateFormat Formatter = new SimpleDateFormat("yyyy/MM/dd");
-
-            java.util.Date dateToCheck = null;
-            java.util.Date startdateToCheck = null;
-            java.util.Date enddateToCheck = null;
-
-            try {
-                startdateToCheck = Formatter.parse(startDateValue);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                enddateToCheck = Formatter.parse(endDateValue);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            ListView transactionLV = (ListView) findViewById(R.id.transactionlist);
-            Button deleteTransaction = (Button) findViewById(R.id.deleteTxnBtn);
-            deleteTransaction.setOnClickListener(this);
+        ListView transactionLV = (ListView) findViewById(R.id.transactionlist);
+        Button deleteTransaction = (Button) findViewById(R.id.deleteTxnBtn);
+        deleteTransaction.setOnClickListener(this);
 
                 /*Button backToSetting = (Button) findViewById(R.id.backToSettings);
                 backToSetting.setOnClickListener(this);*/
 
-            DatabaseIncomeExpense databaseIncomeExpense = new DatabaseIncomeExpense(this);
-            Cursor cursor = databaseIncomeExpense.getData();
+        Transactions transactions = new Transactions(this);
+        Cursor cursor = transactions.getData();
 
-            // List<DatabaseIncomeExpense> expenseDetails = new ArrayList<DatabaseIncomeExpense>();
+        // List<Transactions> expenseDetails = new ArrayList<Transactions>();
 
-            List<String> tranList = null;
-            StringBuilder builder = new StringBuilder();
+        List<String> tranList = null;
+        StringBuilder builder = new StringBuilder();
 
-            cursor.moveToFirst();
+        cursor.moveToFirst();
 
-            while (!cursor.isAfterLast()) {
+        while (!cursor.isAfterLast()) {
 
-                String date = cursor.getString(1);
-                date = date.replaceAll("-","/");
-
-                try {
-                    dateToCheck = Formatter.parse(date);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                if(dateToCheck.before(enddateToCheck) && dateToCheck.after(startdateToCheck)) {
-
-                    builder.append(cursor.getString(0)).append(";")
-                            .append(date).append(";")
-                            .append(cursor.getString(2)).append(";")
-                            .append(cursor.getString(4)).append("_");
-
-                }
-
-                cursor.moveToNext();
-            }
-
-            builder.toString();
-            String st = new String(builder);
-            String[] values1 = st.split("_");
-
-            for(int row = 0;row < values1.length;row++){
-                values1[row] = values1[row].replaceAll(";","\t");
-            }
-
-            for(int row = 0;row < values1.length;row++) {
-                emailIntent.putExtra(Intent.EXTRA_TEXT, values1[row]);
-            }
+            String date = cursor.getString(1);
+            date = date.replaceAll("-","/");
 
             try {
-                startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-                finish();
-                Log.i("Finished sending email...", "");
-            } catch (android.content.ActivityNotFoundException ex) {
-                Toast.makeText(MainActivity.this,
-                        "There is no email client installed.", Toast.LENGTH_SHORT).show();
+                dateToCheck = Formatter.parse(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-        }
 
-        public void backToSettings(View view) {
-            setContentView(R.layout.settings);
+                    if (dateToCheck.before(enddateToCheck) && dateToCheck.after(startdateToCheck)) {
 
-            Button categoryDisplay = (Button) findViewById(R.id.edit_categories);
-            categoryDisplay.setOnClickListener(this);
-
-            Button changePinBtn = (Button) findViewById(R.id.changePin);
-            changePinBtn.setOnClickListener(this);
-        }
-
-        public void backToCategory(View view) {
-            setContentView(R.layout.category_popup);
-
-            Button deleteCategory = (Button) findViewById(R.id.deleteCategoryBtn);
-            Button modifyCategory = (Button) findViewById(R.id.modifyCategoryBtn);
-            Button addCategory = (Button) findViewById(R.id.addCategoryBtn);
-
-            deleteCategory = (Button) findViewById(R.id.deleteCategoryBtn);
-            modifyCategory = (Button) findViewById(R.id.modifyCategoryBtn);
-            addCategory = (Button) findViewById(R.id.addCategoryBtn);
-
-            deleteCategory.setOnClickListener(this);
-            modifyCategory.setOnClickListener(this);
-            addCategory.setOnClickListener(this);
-        }
-
-        // Abhivanth , enable switch.
-        public void enableSwitch() {
-            Switch enablepinBtn = (Switch) findViewById(R.id.enablePin);
-
-            dbPinTable = new DatabaseHandler(this);
-            Cursor cursor = dbPinTable.getPinData();
-
-            // check if a value of PIN exists in dbTable - PIN
-            // abhivanth , changed "login_pin" to
-            if (cursor != null) {
-                if (cursor.moveToFirst()) {
-                    enablepinBtn.setChecked(true);
-                } else {
-                    enablepinBtn.setChecked(false);
+                        builder.append(cursor.getString(0)).append(";")
+                                .append(date).append(";")
+                                .append(cursor.getString(2)).append(";")
+                                .append(cursor.getString(4)).append("_");
 
                 }
+            cursor.moveToNext();
+        }
+
+        builder.toString();
+        String st = new String(builder);
+        String[] values1 = st.split("_");
+
+        for(int row = 0;row < values1.length;row++){
+            values1[row] = values1[row].replaceAll(";","\t");
+        }
+
+        for(int row = 0;row < values1.length;row++) {
+            emailIntent.putExtra(Intent.EXTRA_TEXT, values1[row]);
+        }
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            finish();
+            Log.i("Finished sending email...", "");
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(MainActivity.this,
+                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void backToSettings(View view) {
+        setContentView(R.layout.settings);
+
+        Button categoryDisplay = (Button) findViewById(R.id.edit_categories);
+        categoryDisplay.setOnClickListener(this);
+
+        Button changePinBtn = (Button) findViewById(R.id.changePin);
+        changePinBtn.setOnClickListener(this);
+    }
+
+    public void backToCategory(View view) {
+        setContentView(R.layout.category_popup);
+
+        Button deleteCategory = (Button) findViewById(R.id.deleteCategoryBtn);
+        Button modifyCategory = (Button) findViewById(R.id.modifyCategoryBtn);
+        Button addCategory = (Button) findViewById(R.id.addCategoryBtn);
+
+        deleteCategory = (Button) findViewById(R.id.deleteCategoryBtn);
+        modifyCategory = (Button) findViewById(R.id.modifyCategoryBtn);
+        addCategory = (Button) findViewById(R.id.addCategoryBtn);
+
+        deleteCategory.setOnClickListener(this);
+        modifyCategory.setOnClickListener(this);
+        addCategory.setOnClickListener(this);
+
+        ListView categoryList = (ListView) findViewById(R.id.categorylist);
+
+        List<String> categorylist = dbCategories.getData();
+        String[] values = new String[categorylist.size()];
+        for (int i = 0; i < categorylist.size(); i++) {
+            values[i] = categorylist.get(i).toString();
+        }
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_list_item_multiple_choice, values);
+        categoryList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        categoryList.setAdapter(categoryAdapter);
+    }
+
+    // Abhivanth , enable switch.
+    public void enableSwitch() {
+        Switch enablepinBtn = (Switch) findViewById(R.id.enablePin);
+
+        dbPinTable = new DatabaseHandler(this);
+        Cursor cursor = dbPinTable.getPinData();
+
+        // check if a value of PIN exists in dbTable - PIN
+        // abhivanth , changed "login_pin" to
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                enablepinBtn.setChecked(true);
+            } else {
+                enablepinBtn.setChecked(false);
+
             }
         }
     }
+
+
+    private void initIconList() {
+        mCategoryList = new ArrayList<>();
+        mCategoryList.add(new CategoryIcon("Clothing", R.drawable.clothing));
+        mCategoryList.add(new CategoryIcon("Food", R.drawable.food));
+        mCategoryList.add(new CategoryIcon("Groceries", R.drawable.groceries));
+        mCategoryList.add(new CategoryIcon("Shopping", R.drawable.shopping));
+    }
+
+
+    public void setIcons(View view) {
+
+        setContentView(R.layout.set_icons);
+
+        Categories dbCategories = new Categories(this);
+        // Populate Category DDLB
+        Spinner categoryddlb = (Spinner) findViewById(R.id.categoryddlb);
+        List<String> categorylist = dbCategories.getData();
+        categorylist.add(0, "");
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categorylist);
+        categoryAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        categoryddlb.setAdapter(categoryAdapter);
+
+        initIconList();
+
+        Spinner categoryIcons = (Spinner) findViewById(R.id.iconddlb);
+        mAdapter = new IconAdapter(this, mCategoryList);
+        categoryIcons.setAdapter(mAdapter);
+
+        categoryIcons.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CategoryIcon selectedItem = (CategoryIcon) parent.getItemAtPosition(position);
+                String clickedIconName = selectedItem.getmIconName();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    public void saveicons(View view) {
+
+        Spinner category = (Spinner) findViewById(R.id.categoryddlb);
+        String cat = category.getSelectedItem().toString();
+
+        Spinner categoryIcons = (Spinner) findViewById(R.id.iconddlb);
+        CategoryIcon selectedItem = (CategoryIcon) categoryIcons.getSelectedItem();
+        String iconName = selectedItem.getmIconName();
+
+        Categories categories = new Categories(this);
+        categories.modifyIcon(cat,iconName);
+
+        Toast.makeText(getApplicationContext(), "Icon saved", Toast.LENGTH_SHORT).show();
+    }
+}
 

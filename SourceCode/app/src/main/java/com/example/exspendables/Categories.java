@@ -26,10 +26,10 @@ public class Categories extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createQuery = "CREATE TABLE CATEGORIES (catlist TEXT PRIMARY KEY, maxbudget TEXT)" ;
+        String createQuery = "CREATE TABLE CATEGORIES (catlist TEXT PRIMARY KEY, maxbudget TEXT,iconname TEXT)" ;
         db.execSQL(createQuery);
 
-        String insertQuery = "INSERT INTO CATEGORIES VALUES('Shopping','0'), ('Food','0'), ('Rent','0'), ('Entertainment','0')";
+        String insertQuery = "INSERT INTO CATEGORIES VALUES('Shopping','0',''), ('Food','0',''), ('Rent','0',''), ('Entertainment','0','')";
         db.execSQL(insertQuery);
     }
 
@@ -78,6 +78,24 @@ public class Categories extends SQLiteOpenHelper {
         contentValues.put("catlist",new_category);
         //int result = db.update("CATEGORIES",contentValues,"catlist=" + old_category,null);
         int result = db.update("CATEGORIES",contentValues,"catlist=?",new String[]{old_category});
+
+        if(result > 0){
+            db.close();     // harish - 25.05
+            return true;
+        }
+        else
+        {
+            db.close();     // harish - 25.05
+            return false;
+        }
+    }
+
+    public boolean modifyIcon(String category,String iconName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("iconname",iconName);
+
+        int result = db.update("CATEGORIES",contentValues,"catlist=?",new String[]{category});
 
         if(result > 0){
             db.close();     // harish - 25.05
