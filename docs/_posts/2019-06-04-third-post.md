@@ -39,7 +39,7 @@ date: 2019-06-04
 ![Deadline image]({{site.baseurl}}/images/mvc.png "Model View Controller"){:height="50%" width="50%" ali"centre"}
 
 ### Reasons  For Choosing  Model-View-controller
-<p style="font-family:Times;font-size:110%;text-align:justify">The application involves an end user interacting through input actions such as clicks,selection, etc.to process the backend data and the keeping track of money control. Purpose the application is more aligned with the MVC pattern where the model forms the backend data,  forms the user actions and view forms the visual representations 
+<p style="font-family:Times;font-size:110%;text-align:justify">The application involves an end user interacting through input actions such as clicks,selection, etc.to process the backend data and to keep track of money control. Purpose of the application is more aligned with the MVC pattern where the model forms the backend data, controller forms the user actions and view forms the visual representations 
 
 For eg, on click of submit button(controller) in transaction page the data entered by the user in various fields( view) the data gets saved to the database table TRANSACTIONS(model).</p>
 
