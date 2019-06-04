@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                     BarChart chart;
                     ArrayList<BarEntry> BARENTRY;
+                    String label = null;
                     ArrayList<String> BarEntryLabels;
                     BarDataSet Bardataset;
                     BarData BARDATA;
@@ -238,9 +239,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                         if (dateToCheck.after(startdateToCheck) && dateToCheck.before(enddateToCheck)) {
 
+
                             date = date.replaceAll("/", "");
                             i = Integer.valueOf(date);
                             k = Integer.valueOf(amount);
+                            label = date.toString();
                             BARENTRY.add(new BarEntry(i, k));
 
                         }
@@ -251,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     //Harish
 
 
-                    Bardataset = new BarDataSet(BARENTRY, "Expenses");
+                    Bardataset = new BarDataSet(BARENTRY, label);
 
                     BARDATA = new BarData(Bardataset);
 
@@ -263,13 +266,16 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                 }
 
-                else if (spinner.getSelectedItem().equals("By Categories")) {
+                else if (spinner.getSelectedItem().equals("By Categories") & startDate.getText() != "" &  endDate.getText() != "")  {
 
                     setContentView(R.layout.piechart);
 
+                    String startDatePie = startDate.getText().toString();
+                    String endDatePie = endDate.getText().toString();
+
                     PieChart mChart;
                     SQLiteDatabase db = databaseIncomeExpense.getReadableDatabase();
-                    String sql = "Select category, sum(amount), count(category) from TRANSACTIONS GROUP BY category";
+                    String sql = "Select category, sum(amount), count(category) from TRANSACTIONS where startDate between '" +startDatePie+"' and '"+ endDatePie + "'" + "GROUP BY category";
                     mChart = (PieChart) findViewById(R.id.PieChart);
 
                     Cursor c = db.rawQuery(sql, null);
@@ -352,6 +358,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         });
     }
 //Logesh
+
+
 
     public String changeToDateFormat(String date){
         // Mon Jun 03 00:00:00 GMT+02:00 2019
