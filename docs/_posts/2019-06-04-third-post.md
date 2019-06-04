@@ -8,22 +8,22 @@ date: 2019-06-04
 
 ## Overview
 
-<p style="font-family:Times;font-size:110%;text-align:justify">After our successfull implementation of the Basic Prototype, we now have move on to the next phase in our application developement. In this phase, we have received advanced requirements from the Product Owner. The given set of requirements are a must have and also this includes some alterations and changes to be done from the previously implemented prototype. We have adapted ourselves to dynamic requirements and modifying the code accordingly.</p>
+<p style="font-family:Times;font-size:110%;text-align:justify">After our successful implementation of the Basic Prototype, we have moved on to the next phase in our application development. In this phase, we have received further requirements from the Product Owner. The given set of requirements are a must have and also this includes some alterations to be done over the previously implemented prototype. We have adapted ourselves to these dynamic requirements and modified the code accordingly.</p>
 
 ## Design Pattern
 
-<p style="font-family:Times;font-size:110%;text-align:justify">Design patterns  for software development was first proposed by “Gang of Four” in their book “Design Patterns: Elements of Reusable Object-Oriented Software” . Patterns were majorly classified into 3 broad categories.</p>
+<p style="font-family:Times;font-size:110%;text-align:justify">Design patterns  for software development was first proposed by <b>“Gang of Four” </b>in their book <b>“Design Patterns: Elements of Reusable Object-Oriented Software”</b> . Patterns were majorly classified into 3 broad categories.</p>
   
 <ul>
   <li><p style="font-family:Times;font-size:110%;text-align:justify">Creational Pattern</p></li>
   <li><p style="font-family:Times;font-size:110%;text-align:justify">Behavioral Pattern</p></li> 
   <li><p style="font-family:Times;font-size:110%;text-align:justify">Structural Pattern</p></li></ul>
   
-<p style="font-family:Times;font-size:110%;text-align:justify">Many patterns were later formulated by developers based on the patterns proposed by the “Gang of Four”.These patterns provides solution in solving recurring issues related to common software development problems.We have used majorly two design patterns throughout our development. They are Composite Design Pattern and Model View Controller.</p>
+<p style="font-family:Times;font-size:110%;text-align:justify">Many patterns were later formulated by developers based on the patterns proposed by the “Gang of Four”.These patterns provide a solution for solving recurring issues related to common software development problems. We have used majorly two design patterns throughout our development. They are the Composite Design Pattern and Model View Controller.</p>
 
 ### Composite Design Pattern
 
-<p style="font-family:Times;font-size:110%;text-align:justify">This pattern comes under the structural design  pattern as this forms a group of objects into a  tree like structure. This ensures us an effective way of using the the created objects of various classes.</p>
+<p style="font-family:Times;font-size:110%;text-align:justify">This pattern comes under the structural design  pattern as this forms a group of objects into a  tree like structure. This ensures us an effective way of using the created objects of various classes.</p>
 
 ![Deadline image]({{site.baseurl}}/images/cdp.png "Composite Design Pattern"){:height="50%" width="50%" align="centre"} 
 
@@ -72,7 +72,8 @@ date: 2019-06-04
 
 ### Design Solution
 
-<p style="font-family:Times;font-size:110%;text-align:justify"> The below diagram depicts the Epic 4 User Story 2 from the given set of requirements. The sequence of screen shows where the user navigates to the Settings screen from the Home Screen. On landing in to the Setting screen, there is a button "Maximum Budget" which is used to set a Threshold value to particular Category. There is a push notification enabled for every amount entered in to the Category for which a threshold value is set. </p>
+<p style="font-family:Times;font-size:110%;text-align:justify">The below diagram depicts the Epic 4 User Story 2 from the given set of requirements. The sequence of screen shows where the user navigates to the Settings screen from the Home Screen. On landing in to the Setting screen, there is a button "Maximum Budget" which is used to set a Threshold value to particular Category. There is a push notification enabled for every amount entered in to the Category for which a threshold value is set.</p>
+ 
 
 ![Deadline image]({{site.baseurl}}/images/Epic4_Story2.png "Epic4 Story 2"){:height="50%" width="100%"}
 
