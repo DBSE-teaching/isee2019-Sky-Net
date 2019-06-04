@@ -70,7 +70,7 @@ For eg, on click of submit button(controller) in transaction page the data enter
 
 ### Enforcing Coding Conventions 
 
-<p style="font-family:Times;font-size:110%;text-align:justify">The defined conventions were documented and a detailed report containing usage of the conventions was circulated and explained in detail among team members. This made sure that the whole project had a unified naming convention. Additionally, the conventions were ensured to be implemented while proofread while performing stash and commit operations.</p>
+<p style="font-family:Times;font-size:110%;text-align:justify">The defined conventions were documented and a detailed report containing usage of the conventions was circulated and explained in detail among team members. This made sure that the whole project had a unified naming convention. Additionally, the conventions were ensured by proofreading, while performing stash and commit operations.</p>
 
 ### Context of Use
 
