@@ -85,7 +85,7 @@ For eg, on click of submit button(controller) in transaction page the data enter
 <p style="font-family:Times;font-size:110%;text-align:justify"><b>Navigation and User Interface:</b>
 - The basic user interface makes user life easy to easily navigate across screens. The back button is provided in all the screens, which allows the user to navigate to the previous form without any hassles</p>
 
-<p style="font-family:Times;font-size:110%;text-align:justify">User Security:</b>
+<p style="font-family:Times;font-size:110%;text-align:justify"><b>User Security:</b>
 - The user security is provided with an option to enable or disable pin. So, whenever the app is opened, the pin verification is done</p>
 
 <p style="font-family:Times;font-size:110%;text-align:justify"><b>User errors handling:</b>
