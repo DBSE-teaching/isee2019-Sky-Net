@@ -55,7 +55,7 @@ date: 2019-06-04
 ![Deadline image]({{site.baseurl}}/images/lowercase.png "Lower Case"){:height="15%" width="50%"}
 
 <ul>
-   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Own conventions</b> - we used “_” in naming XML pages and Android.id of the XML pages.</p></li></ul>
+   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Own conventions</b> - we used “_” in naming XML pages and Android.id of the XML pages.This convention is utilised when the element name is longer</p></li></ul>
     
 ![Deadline image]({{site.baseurl}}/images/ownconvention.png "Own Convention"){:height="30%" width="50%"}
 
