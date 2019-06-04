@@ -64,13 +64,13 @@ date: 2019-06-04
 <p style="font-family:Times;font-size:110%;text-align:justify">The following are the changes that are added or modified as part of our advanced prototype.</p>
 
 <ul>
-<li><p style="font-family:Times;font-size:110%;text-align:justify">Application User Interface: The look and feel of the application have been changed, with few alignments modified for all the fields throughout the application.</p></li>
-<li><p style="font-family:Times;font-size:110%;text-align:justify">Authentication/Log in: Our basic prototype had the user to set the pin mandatory and every time the user logs in. But, now in the Advanced Prototype, the user is given the option to enable or disable pin in the Pin Settings.</p></li>
-<li><p style="font-family:Times;font-size:110%;text-align:justify">Maximum Budget: A new button has been incorporated in the Home Screen to set a threshold value for individual categories.</p></li>
-<li><p style="font-family:Times;font-size:110%;text-align:justify">Push Notifications: When the user enters an amount for a particular category and the maximum budget for that category has been set, the user will receive a pushdown notification for every transaction that occurs to that category.</p></li>
-<li><p style="font-family:Times;font-size:110%;text-align:justify">View Summary: Overview or history of a transaction is now displayed in a tabular format. It is filtered on the basis of Date Range. The user is given an option to delete the transaction recorded.</p></li>
-<li><p style="font-family:Times;font-size:110%;text-align:justify">Graph Summary:  For all the transactions recorded, there is a graphical representation implemented on Date and Category filter basis.</p></li>
-<li><p style="font-family:Times;font-size:110%;text-align:justify">Email: The user is now able to send an email with the saved transaction details.</p></li></ul>
+<li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Application User Interface</b>: The look and feel of the application have been changed, with few alignments modified for all the fields throughout the application.</p></li>
+<li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Authentication/Log in</b>: Our basic prototype had the user to set the pin mandatory and every time the user logs in. But, now in the Advanced Prototype, the user is given the option to enable or disable pin in the Pin Settings.</p></li>
+<li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Maximum Budget</b>: A new button has been incorporated in the Home Screen to set a threshold value for individual categories.</p></li>
+<li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Push Notifications</b>: When the user enters an amount for a particular category and the maximum budget for that category has been set, the user will receive a pushdown notification for every transaction that occurs to that category.</p></li>
+<li><p style="font-family:Times;font-size:110%;text-align:justify"><b>View Summary</b>: Overview or history of a transaction is now displayed in a tabular format. It is filtered on the basis of Date Range. The user is given an option to delete the transaction recorded.</p></li>
+<li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Graph Summary</b>:  For all the transactions recorded, there is a graphical representation implemented on Date and Category filter basis.</p></li>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Email</b>: The user is now able to send an email with the saved transaction details.</p></li></ul>
 
 ![Deadline image]({{site.baseurl}}/images/olduserstories.png "Old User Stories"){:height="50%" width="100%"}
 
