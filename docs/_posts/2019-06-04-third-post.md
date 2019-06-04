@@ -103,7 +103,7 @@ For eg, on click of submit button(controller) in transaction page the data enter
 
 ![Deadline image]({{site.baseurl}}/images/newuserstories.png "New User Stories"){:height="50%" width="100%"}
 
-![Deadline image]({{site.baseurl}}/images/classdiagranew.png "class diagram new"){:height="50%" width="100%"}
+![Deadline image]({{site.baseurl}}/images/classdiagramnew.png "class diagram new"){:height="50%" width="100%"}
 
 
 
