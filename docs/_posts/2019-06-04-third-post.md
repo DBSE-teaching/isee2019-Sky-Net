@@ -80,12 +80,27 @@ For eg, on click of submit button(controller) in transaction page the data enter
 
 ### Design Solution
 
-<p style="font-family:Times;font-size:110%;text-align:justify">The below diagram depicts the Epic 4 User Story 2 from the given set of requirements. The sequence of screen shows where the user navigates to the Settings screen from the Home Screen. On landing in to the Setting screen, there is a button "Maximum Budget" which is used to set a Threshold value to particular Category. There is a push notification enabled for every amount entered in to the Category for which a threshold value is set.</p>
+<p style="font-family:Times;font-size:110%;text-align:justify">Our design solution is to provide the user with all the essential and required functionalities with simple and basic user interface</p>
+
+<p style="font-family:Times;font-size:110%;text-align:justify"><b>Navigation and User Interface:</b>
+- The basic user interface makes user life easy to easily navigate across screens. The back button is provided in all the screens, which allows the user to navigate to the previous form without any hassles</p>
+
+<p style="font-family:Times;font-size:110%;text-align:justify">User Security:</b>
+- The user security is provided with an option to enable or disable pin. So, whenever the app is opened, the pin verification is done</p>
+
+<p style="font-family:Times;font-size:110%;text-align:justify"><b>User errors handling:</b>
+- The error messages are displayed to highlight the user with the errors. The mandatory fields are highlighted, to let the user know about the required details which needs to be entered</p>
+
+<p style="font-family:Times;font-size:110%;text-align:justify"><b>Acknowledging the user:</b>
+- The acknowledgement messages are displayed to let the user know that, the details entered are saved or modified or deleted</p>
+
+
+<p style="font-family:Times;font-size:110%;text-align:justify">The below diagram depicts the Epic 4 User Story 2 from the given set of requirements. The sequence of screen shows where the user navigates to the 'Settings' screen from the Home Screen. After navigating to the 'Settings' screen, there is a button "Maximum Budget" which is used to set a threshold value to particular category. There is a push notification enabled for every amount entered in to the category for which a threshold value is set.</p>
  
 
 ![Deadline image]({{site.baseurl}}/images/Epic4_Story2.png "Epic4 Story 2"){:height="50%" width="100%"}
 
-<p style="font-family:Times;font-size:110%;text-align:justify"> The below diagram depicts the Epic 4 User Story 3 from the given set of requirements. The sequence of screen shows where the user navigates to the View Summary screen from the Home Screen. On landing in to the View Summary screen, the user gets to enter a date range for which the transaction saved during that period will be displayed. Individual records can be deleted by selecting the check box and clicking on the delete button. </p>
+<p style="font-family:Times;font-size:110%;text-align:justify"> The below diagram depicts the Epic 4 User Story 3 from the given set of requirements. The sequence of screen shows where the user navigates to the 'View Summary' screen from the Home Screen. On landing in to the 'View Summary' screen, the user gets to enter a date range for which the transaction saved during that period will be displayed. Individual records can be deleted by selecting the check box and clicking on the delete button. </p>
 
 ![Deadline image]({{site.baseurl}}/images/Epic4_Story3.png "Epic4 Story 3"){:height="50%" width="100%"}
 
