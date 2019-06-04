@@ -103,15 +103,15 @@ For eg, on click of submit button(controller) in transaction page the data enter
 <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Graph Summary</b>:  For all the transactions recorded, there is a graphical representation implemented on Date and Category filter basis.</p></li>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Email</b>: The user is now able to send an email with the saved transaction details.</p></li></ul>
   
- ### User Story - Basic prototype 
+### User Story - Basic prototype 
 
 ![Deadline image]({{site.baseurl}}/images/olduserstories.png "Old User Stories"){:height="50%" width="100%"}
 
- ### User Story - Advanced prototype
+### User Story - Advanced prototype
 
 ![Deadline image]({{site.baseurl}}/images/newuserstories.png "New User Stories"){:height="50%" width="100%"}
 
- ### Updated Class diagram
+### Updated Class diagram
 
 ![Deadline image]({{site.baseurl}}/images/classdiagramnew.png "class diagram new"){:height="50%" width="100%"}
 
@@ -128,7 +128,7 @@ For eg, on click of submit button(controller) in transaction page the data enter
 <p style="font-family:Times;font-size:120%;text-align:justify"> &nbsp;&nbsp;&nbsp;Category Icon &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View Summary filter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; View Graph by Category &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pie Chart </p>
 ![Deadline image]({{site.baseurl}}/images/AdvancedPrototype2.png "Img 5, Img 6, Img 7, Img 8"){:height="50%" width="100%"}
 
-<p style="font-family:Times;font-size:140%;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thanks for visiting our Blog!!</p>
+<p style="font-family:Times;font-size:160%;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thanks for visiting our Blog!!</p>
 
 ### Resourses 
 
