@@ -9,8 +9,8 @@ import android.util.Log;
 
 import static android.content.ContentValues.TAG;
 
-public class DatabaseCurrency extends SQLiteOpenHelper {
-    public DatabaseCurrency(Context context) {
+public class Currency extends SQLiteOpenHelper {
+    public Currency(Context context) {
         super(context, "CURRENCY", null, 1);
     }
 
