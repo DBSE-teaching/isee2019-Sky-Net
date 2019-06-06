@@ -31,7 +31,9 @@
 </ul>
 
 <ul> <p> <b> Learned: </b> </p>
-<li>     </li>
+<li> Learned how to integrate push notifications with our application</li>
+<li> Learned to add icons with categories as drawables </li>
+<li>rned how to integrate g-mail with our application</li>
 </ul>
 
 <ul> <p> <b> Problems: </b> </p>
@@ -41,18 +43,18 @@
 
 <td>
 <ul>
-<li> Integrating the icons for the category section - Abivanth </li>
-<li> Display graphical summary view based on the added filters - Logesh </li>
-<li> Budget planning - Shudarsan </li>
+<li> To implement pending functionality - Harish & shudarsan</li>
+<li> optimization and stabilising the application - Logesh & Abhivanth</li>
+<li> list nice to have features to be implemented -All</li>
 <li> E-mail summary of the transactions - Harish </li>
-<li> Advance Prototype presentation and Blog creation - All </li>
+
 </ul>
 </td>
 
 <td>
 <ul>
-<li> Demo of the advance prototype and receive feedback</li>
-<li> To discuss on the next set of requirements</li>
+<li> To discuss about the nice to have features</li>
+<li> To receive feedback on the stabilized application and blog</li>
 </ul>
 </td>
 
