@@ -44,5 +44,13 @@
         <item>Select Filter</item>
         <item>By Date</item>
         <item>By Categories</item>
+        <item>By Payment Method</item>
+        <item>By Amount</item>
+    </string-array>
+
+    <string-array name="operators">
+        <item> </item>
+        <item>Greater than</item>
+        <item>Lesser than</item>
     </string-array>
 </resources>
