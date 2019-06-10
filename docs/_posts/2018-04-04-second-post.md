@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: "ISEE 2019 -- Team & Project Introduction"
 date: 2019-04-16
 ---
