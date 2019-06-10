@@ -36,12 +36,12 @@
             android:onClick="sendemail" />
 
         <Button
-            android:id="@+id/backToSettings"
+            android:id="@+id/backToFilter"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:text="Back"
-            android:onClick="backToHome"/>
+            android:onClick="backToFilter"/>
 
     </LinearLayout>
 </ScrollView>

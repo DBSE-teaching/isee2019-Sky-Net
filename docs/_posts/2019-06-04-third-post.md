@@ -39,7 +39,7 @@ date: 2019-06-04
 ![Deadline image]({{site.baseurl}}/images/mvc.png "Model View Controller"){:height="50%" width="50%" ali"centre"}
 
 ### Reasons  For Choosing  Model-View-controller
-<p style="font-family:Times;font-size:110%;text-align:justify">The application involves an end user interacting through input actions such as clicks,selection, etc.to process the backend data and the keeping track of money control. Purpose the application is more aligned with the MVC pattern where the model forms the backend data,  forms the user actions and view forms the visual representations 
+<p style="font-family:Times;font-size:110%;text-align:justify">The application involves an end user interacting through input actions such as clicks,selection, etc.to process the backend data and to keep track of money control. Purpose of the application is more aligned with the MVC pattern where the model forms the backend data, controller forms the user actions and view forms the visual representations 
 
 For eg, on click of submit button(controller) in transaction page the data entered by the user in various fields( view) the data gets saved to the database table TRANSACTIONS(model).</p>
 
@@ -70,7 +70,7 @@ For eg, on click of submit button(controller) in transaction page the data enter
 
 ### Enforcing Coding Conventions 
 
-<p style="font-family:Times;font-size:110%;text-align:justify">The defined conventions were documented and a detailed report containing usage of the conventions was circulated and explained in detail among team members. This made sure that the whole project had a unified naming convention. Additionally, the conventions were ensured to be implemented while proofread while performing stash and commit operations.</p>
+<p style="font-family:Times;font-size:110%;text-align:justify">The defined conventions were documented and a detailed report containing usage of the conventions was circulated and explained in detail among team members. This made sure that the whole project had a unified naming convention. Additionally, the conventions were ensured by proofreading, while performing stash and commit operations.</p>
 
 ### Context of Use
 
@@ -137,10 +137,9 @@ For eg, on click of submit button(controller) in transaction page the data enter
 <p style="font-family:Times;font-size:110%;text-align:justify"> Click below link to download APK file.</p>
 <p style="font-family:Times;font-size:110%;text-align:justify"><a href="https://github.com/DBSE-teaching/isee2019-Sky-Net/blob/Application/AdvancedPrototype/AdvancedPrototype.apk?raw=true" style="color: rgb(0,0,255)">ExSpendables.apk</a></p>
 
-<p style="font-family:Times;font-size:120%;text-align:justify"> &nbsp;&nbsp;&nbsp;Home Screen &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enable/Disable Pin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date Selection &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Category dropdown </p>
 ![Deadline image]({{site.baseurl}}/images/AdvancedPrototype1.png "Img 1, Img 2, Img 3, Img 4"){:height="50%" width="100%"}
 
-<p style="font-family:Times;font-size:120%;text-align:justify"> &nbsp;&nbsp;&nbsp;Category Icon &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View Summary filter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; View Graph by Category &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pie Chart </p>
+
 ![Deadline image]({{site.baseurl}}/images/AdvancedPrototype2.png "Img 5, Img 6, Img 7, Img 8"){:height="50%" width="100%"}
 
 <p style="font-family:Times;font-size:160%;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thanks for visiting our Blog!!</p>
