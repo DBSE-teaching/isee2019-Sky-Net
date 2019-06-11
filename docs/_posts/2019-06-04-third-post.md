@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: "ISEE 2019 -- Advanced Prototype"
 date: 2019-06-04
 ---
@@ -39,7 +39,7 @@ date: 2019-06-04
 ![Deadline image]({{site.baseurl}}/images/mvc.png "Model View Controller"){:height="50%" width="50%" ali"centre"}
 
 ### Reasons  For Choosing  Model-View-controller
-<p style="font-family:Times;font-size:110%;text-align:justify">The application involves an end user interacting through input actions such as clicks,selection, etc.to process the backend data and the keeping track of money control. Purpose the application is more aligned with the MVC pattern where the model forms the backend data,  forms the user actions and view forms the visual representations 
+<p style="font-family:Times;font-size:110%;text-align:justify">The application involves an end user interacting through input actions such as clicks,selection, etc.to process the backend data and to keep track of money control. Purpose of the application is more aligned with the MVC pattern where the model forms the backend data, controller forms the user actions and view forms the visual representations 
 
 For eg, on click of submit button(controller) in transaction page the data entered by the user in various fields( view) the data gets saved to the database table TRANSACTIONS(model).</p>
 
@@ -68,20 +68,39 @@ For eg, on click of submit button(controller) in transaction page the data enter
     
 ![Deadline image]({{site.baseurl}}/images/ownconvention.png "Own Convention"){:height="30%" width="50%"}
 
+### Enforcing Coding Conventions 
+
+<p style="font-family:Times;font-size:110%;text-align:justify">The defined conventions were documented and a detailed report containing usage of the conventions was circulated and explained in detail among team members. This made sure that the whole project had a unified naming convention. Additionally, the conventions were ensured by proofreading, while performing stash and commit operations.</p>
+
 ### Context of Use
 
-<p style="font-family:Times;font-size:110%;text-align:justify">The below images are from two different users perspective on why exactly they need a money tracker application.</p>
+<p style="font-family:Times;font-size:110%;text-align:justify">This process is to identify the target audience of our application. Two personas were created based on different demographics ranging from geographic location, age, sex, marital status and income. This process enables us to find the wants and needs of the users.The below images are from two different users perspective on why exactly they need a money tracker application.</p>
 
 ![Deadline image]({{site.baseurl}}/images/Personas.png "Personas"){:height="50%" width="100%"}
 
 ### Design Solution
 
-<p style="font-family:Times;font-size:110%;text-align:justify">The below diagram depicts the Epic 4 User Story 2 from the given set of requirements. The sequence of screen shows where the user navigates to the Settings screen from the Home Screen. On landing in to the Setting screen, there is a button "Maximum Budget" which is used to set a Threshold value to particular Category. There is a push notification enabled for every amount entered in to the Category for which a threshold value is set.</p>
+<p style="font-family:Times;font-size:110%;text-align:justify">Our design solution is to provide the user with all the essential and required functionalities with simple and basic user interface</p>
+
+<p style="font-family:Times;font-size:110%;text-align:justify"><b>Navigation and User Interface:</b>
+- The basic user interface makes user life easy to easily navigate across screens. The back button is provided in all the screens, which allows the user to navigate to the previous form without any hassles</p>
+
+<p style="font-family:Times;font-size:110%;text-align:justify"><b>User Security:</b>
+- The user security is provided with an option to enable or disable pin. So, whenever the app is opened, the pin verification is done</p>
+
+<p style="font-family:Times;font-size:110%;text-align:justify"><b>User errors handling:</b>
+- The error messages are displayed to highlight the user with the errors. The mandatory fields are highlighted, to let the user know about the required details which needs to be entered</p>
+
+<p style="font-family:Times;font-size:110%;text-align:justify"><b>Acknowledging the user:</b>
+- The acknowledgement messages are displayed to let the user know that, the details entered are saved or modified or deleted</p>
+
+
+<p style="font-family:Times;font-size:110%;text-align:justify">The below diagram depicts the Epic 4 User Story 2 from the given set of requirements. The sequence of screen shows where the user navigates to the 'Settings' screen from the Home Screen. After navigating to the 'Settings' screen, there is a button "Maximum Budget" which is used to set a threshold value to particular category. There is a push notification enabled for every amount entered in to the category for which a threshold value is set.</p>
  
 
 ![Deadline image]({{site.baseurl}}/images/Epic4_Story2.png "Epic4 Story 2"){:height="50%" width="100%"}
 
-<p style="font-family:Times;font-size:110%;text-align:justify"> The below diagram depicts the Epic 4 User Story 3 from the given set of requirements. The sequence of screen shows where the user navigates to the View Summary screen from the Home Screen. On landing in to the View Summary screen, the user gets to enter a date range for which the transaction saved during that period will be displayed. Individual records can be deleted by selecting the check box and clicking on the delete button. </p>
+<p style="font-family:Times;font-size:110%;text-align:justify"> The below diagram depicts the Epic 4 User Story 3 from the given set of requirements. The sequence of screen shows where the user navigates to the 'View Summary' screen from the Home Screen. On landing in to the 'View Summary' screen, the user gets to enter a date range for which the transaction saved during that period will be displayed. Individual records can be deleted by selecting the check box and clicking on the delete button. </p>
 
 ![Deadline image]({{site.baseurl}}/images/Epic4_Story3.png "Epic4 Story 3"){:height="50%" width="100%"}
 
@@ -98,9 +117,35 @@ For eg, on click of submit button(controller) in transaction page the data enter
 <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>View Summary</b>: Overview or history of a transaction is now displayed in a tabular format. It is filtered on the basis of Date Range. The user is given an option to delete the transaction recorded.</p></li>
 <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Graph Summary</b>:  For all the transactions recorded, there is a graphical representation implemented on Date and Category filter basis.</p></li>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Email</b>: The user is now able to send an email with the saved transaction details.</p></li></ul>
+  
+### User Story - Basic prototype 
 
 ![Deadline image]({{site.baseurl}}/images/olduserstories.png "Old User Stories"){:height="50%" width="100%"}
 
+### User Story - Advanced prototype
+
 ![Deadline image]({{site.baseurl}}/images/newuserstories.png "New User Stories"){:height="50%" width="100%"}
 
+### Updated Class diagram
+
+![Deadline image]({{site.baseurl}}/images/classdiagramnew.png "class diagram new"){:height="50%" width="100%"}
+
+
+
 ## Working Prototype
+
+<p style="font-family:Times;font-size:110%;text-align:justify"> Click below link to download APK file.</p>
+<p style="font-family:Times;font-size:110%;text-align:justify"><a href="https://github.com/DBSE-teaching/isee2019-Sky-Net/blob/Application/AdvancedPrototype/AdvancedPrototype.apk?raw=true" style="color: rgb(0,0,255)">ExSpendables.apk</a></p>
+
+![Deadline image]({{site.baseurl}}/images/AdvancedPrototype1.png "Img 1, Img 2, Img 3, Img 4"){:height="50%" width="100%"}
+
+
+![Deadline image]({{site.baseurl}}/images/AdvancedPrototype2.png "Img 5, Img 6, Img 7, Img 8"){:height="50%" width="100%"}
+
+<p style="font-family:Times;font-size:160%;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thanks for visiting our Blog!!</p>
+
+### Resourses 
+
+<p style="font-family:Times;font-size:110%;text-align:justify"><a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller#/media/File:MVC-Process.svg" style="color: rgb(0,0,255)">https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller#/media/File:MVC-Process.svg</a></p>
+
+

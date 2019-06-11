@@ -747,41 +747,93 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
 
     public void openSummaryPage(View view) {
-        setContentView(R.layout.summary);
 
-        Button button = (Button) findViewById(R.id.selectDate);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void checkButtonStat() {
-                isEntryDateClicked = true;
-                isEndDateClicked = false;
+        setContentView(R.layout.prompt_filter_ddlb);
+
+        loadFilters();
+    }
+
+    private void loadFilters() {
+        Spinner spinner = (Spinner) findViewById(R.id.selectfilter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Spinner spinner = (Spinner) findViewById(R.id.selectfilter);
+                int indexSelected = spinner.getSelectedItemPosition();
+                switch (indexSelected){
+                    case 1: //date range
+                        setContentView(R.layout.prompt_filter_date);
+
+                        Button button = (Button) findViewById(R.id.selectDate);
+                        button.setOnClickListener(new View.OnClickListener() {
+                            public void checkButtonStat() {
+                                isEntryDateClicked = true;
+                                isEndDateClicked = false;
+                            }
+
+                            @Override
+                            public void onClick(View v) {
+                                checkButtonStat();
+                                DialogFragment datePicker = new com.example.exspendables.DatePicker();
+                                datePicker.show(getSupportFragmentManager(), "date picker");
+                            }
+                        });
+
+
+                        Button buttonEndDate = (Button) findViewById(R.id.selectEndDate);
+                        buttonEndDate.setOnClickListener(new View.OnClickListener() {
+                            public void checkButtonStat() {
+                                isEntryDateClicked = false;
+                                isEndDateClicked = true;
+                            }
+
+                            @Override
+                            public void onClick(View v) {
+                                checkButtonStat();
+                                DialogFragment datePicker = new com.example.exspendables.DatePicker();
+                                datePicker.show(getSupportFragmentManager(), "date picker");
+                            }
+                        });
+
+                        break;
+
+                    case 2: // categories
+                        setContentView(R.layout.prompt_filter_category);
+
+                        Categories dbCategories;
+                        dbCategories = new Categories(MainActivity.this);
+                        // Populate Category DDLB
+                        Spinner categoryddlb = (Spinner) findViewById(R.id.selectCategory);
+                        List<String> categorylist = dbCategories.getData();
+                        categorylist.add(0, "");
+                        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item, categorylist);
+                        categoryAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                        categoryddlb.setAdapter(categoryAdapter);
+
+                        break;
+
+                    case 3: //payment Method
+                        setContentView(R.layout.prompt_filter_paym);
+
+                        break;
+
+                    case 4: //Amount
+
+                        setContentView(R.layout.prompt_filter_amount);
+
+                        break;
+
+                }
             }
 
             @Override
-            public void onClick(View v) {
-                checkButtonStat();
-                DialogFragment datePicker = new com.example.exspendables.DatePicker();
-                datePicker.show(getSupportFragmentManager(), "date picker");
-            }
-        });
+            public void onNothingSelected(AdapterView<?> parent) {
 
-
-        Button buttonEndDate = (Button) findViewById(R.id.selectEndDate);
-        buttonEndDate.setOnClickListener(new View.OnClickListener() {
-            public void checkButtonStat() {
-                isEntryDateClicked = false;
-                isEndDateClicked = true;
-            }
-
-            @Override
-            public void onClick(View v) {
-                checkButtonStat();
-                DialogFragment datePicker = new com.example.exspendables.DatePicker();
-                datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
     }
 
-    public void showSummary(View view) {
+    public void showSummaryByDate(View view) {
 
         boolean missingMandatoryFields = false;
 
@@ -832,8 +884,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             Button deleteTransaction = (Button) findViewById(R.id.deleteTxnBtn);
             deleteTransaction.setOnClickListener(this);
 
-        /*Button backToSetting = (Button) findViewById(R.id.backToSettings);
-        backToSetting.setOnClickListener(this);*/
 
             Transactions databaseIncomeExpense = new Transactions(this);
             Cursor cursor = databaseIncomeExpense.getData();
@@ -885,96 +935,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             transactions.setAdapter(transactionAdapter);
 
         }
-
-  /*      cursor.moveToFirst();
-        int i = 0;
-        while (!cursor.isAfterLast()) {
-            Transactions dbTransactions = new Transactions(this);
-
-            dbTransactions.category = cursor.getString(0);
-            dbTransactions.startDate = cursor.getString(1);
-            // harish - 25.05 - commented endDate as it is not required and altered column index further
-            //databaseIncomeExpense.endDate       = cursor.getString(2);
-            dbTransactions.amount = cursor.getString(2);
-            //databaseIncomeExpense.code = cursor.getString(3);
-            dbTransactions.paymentMethod = cursor.getString(4);
-            //databaseIncomeExpense.note = cursor.getString(5);
-            //databaseIncomeExpense.indicator = cursor.getString(6);
-            // harish - 25.05
-            dbTransactions.startDate = dbTransactions.startDate.replaceAll("-","/");
-
-            try {
-                dateToCheck = Formatter.parse(dbTransactions.startDate);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            if(dateToCheck.before(enddateToCheck) && dateToCheck.after(startdateToCheck)) {
-
-                expenseDetails.add(dbTransactions);
-                i++;
-            }
-            cursor.moveToNext();
-        }
-
-        StringBuilder builder = new StringBuilder();
-
-        // harish - 25.05
-        builder.append("Category").append(";")
-                .append("Date").append(";")
-                .append("Amount").append(";")
-                //.append("Currency").append(";")
-                .append("Payment").append(";");
-                //.append("Note").append("_");
-        // harish - 25.05
-
-        for (Transactions expense : expenseDetails) {
-            builder.append(expense.getCategory()).append(";")
-                    .append(expense.getStartDate()).append(";")
-                    // harish - 25.05 - commented endDate as it is not required
-                    //.append(expense.getEndDate()).append(";")
-                    .append(expense.getAmount()).append(";")
-                    //.append(expense.getCode()).append(";")
-                    .append(expense.getPaymentMethod()).append(";");
-                    //.append(expense.getNote()).append("_");
-        }
-
-        builder.toString();
-        String st = new String(builder);
-        String[] rows = st.split("_");
-
-        TableLayout tableLayout = (TableLayout) findViewById(R.id.tab);
-        tableLayout.removeAllViews();
-        String row;
-        for (int rowCount = 0; rowCount < rows.length; rowCount++) {
-            //   Log.d("Rows",rows[i]);
-            row = rows[rowCount];
-            TableRow tableRow = new TableRow(getApplicationContext());
-            tableRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
-            final String[] cols = row.split(";");
-
-            Handler handler = null;
-           *//* TableRow tableRowHead = (TableRow) findViewById(R.id.tableHeading);
-            TableRow tableDataRow = (TableRow) findViewById(R.id.tableData);*//*
-
-            for (int j = 0; j < cols.length; j++) {
-                final String col = cols[j];
-                TextView columsView = new TextView(getApplicationContext());
-                columsView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-                //columsView.setTextColor(android.R.color.black);
-                columsView.setText(String.format("%7s", col));
-                //Log.d("Cols", String.format("%7s", col));
-                if (rowCount == 0) {
-                    tableRow.setClickable(false);
-                    tableRow.setBackgroundColor(Color.CYAN);
-                } else {
-                    tableRow.setBackgroundColor(Color.LTGRAY);
-                    tableRow.setClickable(true);
-                }
-                tableRow.addView(columsView);
-            }
-            tableLayout.addView(tableRow);
-        }*/
     }
 
     public void openSettingsPage(View view) {
@@ -1375,11 +1335,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                         String[] tableValues = valueToDelete.split("\\t");
                         boolean result = transactions.deleteData(tableValues[0],tableValues[1],tableValues[2],tableValues[3]);
-
-                        if(result){
-
-                        }
-
                         Toast.makeText(getApplicationContext(), "Transaction deleted", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -1458,7 +1413,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         (this, android.R.layout.simple_list_item_multiple_choice, values1);
                 transactionLV.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
                 transactionLV.setAdapter(tranAdapter);
-
 
                 break;
 
@@ -1767,7 +1721,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         emailIntent.putExtra(Intent.EXTRA_EMAIL,to);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Transaction details");
 
-        SimpleDateFormat Formatter = new SimpleDateFormat("yyyy/MM/dd");
+        /*SimpleDateFormat Formatter = new SimpleDateFormat("yyyy/MM/dd");
 
         java.util.Date dateToCheck = null;
         java.util.Date startdateToCheck = null;
@@ -1783,16 +1737,25 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             enddateToCheck = Formatter.parse(endDateValue);
         } catch (ParseException e) {
             e.printStackTrace();
-        }
+        }*/
 
         ListView transactionLV = (ListView) findViewById(R.id.transactionlist);
         Button deleteTransaction = (Button) findViewById(R.id.deleteTxnBtn);
         deleteTransaction.setOnClickListener(this);
 
+        int count = transactionLV.getCount();
+        for(int index = 0;index < count;index++){
+
+            String temp = transactionLV.getItemAtPosition(index).toString();
+            temp = temp.replaceAll(";","\t");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, temp);
+
+        }
+
                 /*Button backToSetting = (Button) findViewById(R.id.backToSettings);
                 backToSetting.setOnClickListener(this);*/
 
-        Transactions transactions = new Transactions(this);
+      /*  Transactions transactions = new Transactions(this);
         Cursor cursor = transactions.getData();
 
         // List<Transactions> expenseDetails = new ArrayList<Transactions>();
@@ -1813,14 +1776,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 e.printStackTrace();
             }
 
-                    if (dateToCheck.before(enddateToCheck) && dateToCheck.after(startdateToCheck)) {
+            if (dateToCheck.before(enddateToCheck) && dateToCheck.after(startdateToCheck)) {
 
-                        builder.append(cursor.getString(0)).append(";")
-                                .append(date).append(";")
-                                .append(cursor.getString(2)).append(";")
-                                .append(cursor.getString(4)).append("_");
+                builder.append(cursor.getString(0)).append(";")
+                        .append(date).append(";")
+                        .append(cursor.getString(2)).append(";")
+                        .append(cursor.getString(4)).append("_");
 
-                }
+            }
             cursor.moveToNext();
         }
 
@@ -1834,7 +1797,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         for(int row = 0;row < values1.length;row++) {
             emailIntent.putExtra(Intent.EXTRA_TEXT, values1[row]);
-        }
+        }*/
 
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
@@ -1959,6 +1922,242 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         categories.modifyIcon(cat,iconName);
 
         Toast.makeText(getApplicationContext(), "Icon saved", Toast.LENGTH_SHORT).show();
+    }
+
+    public void backToFilter(View view) {
+        setContentView(R.layout.prompt_filter_ddlb);
+
+        loadFilters();
+    }
+
+    public void showSummaryByAmount(View view) {
+
+        boolean missingMandatoryFields = false;
+
+        String operatorValue = "";
+        int amountValue = 0;
+
+        Spinner operator = (Spinner) findViewById(R.id.selectOperator);
+        TextView operatorTV = (TextView) findViewById(R.id.promptOperator);
+
+        EditText amount = (EditText) findViewById(R.id.enterAmount);
+        TextView amountTV = (TextView) findViewById(R.id.promptAmount);
+
+        int selectedOpItem = operator.getSelectedItemPosition();
+        if (selectedOpItem > 0) {
+            operatorValue = operator.getSelectedItem().toString();
+            operatorTV.setTextColor(Color.BLACK);
+        } else {
+            missingMandatoryFields = true;
+            operatorTV.setTextColor(Color.RED);
+        }
+
+        if (TextUtils.isEmpty(amount.getText())) {
+            missingMandatoryFields = true;
+            amountTV.setTextColor(Color.RED);
+        } else {
+            amountValue = Integer.valueOf(amount.getText().toString());
+            amountTV.setTextColor(Color.BLACK);
+        }
+
+        if(missingMandatoryFields == false) {
+
+            //setContentView(R.layout.tablesummary);
+            setContentView(R.layout.listsummary);
+
+            ListView transactions = (ListView) findViewById(R.id.transactionlist);
+            Button deleteTransaction = (Button) findViewById(R.id.deleteTxnBtn);
+            deleteTransaction.setOnClickListener(this);
+
+            Transactions databaseIncomeExpense = new Transactions(this);
+            Cursor cursor = databaseIncomeExpense.getData();
+
+            List<String> transactionList = null;
+            StringBuilder builder = new StringBuilder();
+
+            cursor.moveToFirst();
+            int i = 0;
+            while (!cursor.isAfterLast()) {
+
+                int amountFromDB = Integer.valueOf(cursor.getString(2));
+                String indicator = cursor.getString(6);
+
+                if(indicator.equals("Expense")) {
+
+                    if(operatorValue.equals("Greater than")){
+                        if(amountFromDB > amountValue){
+                            builder.append(cursor.getString(0)).append(";")
+                                    .append(cursor.getString(1)).append(";")
+                                    .append(cursor.getString(2)).append(";")
+                                    .append(cursor.getString(4)).append("_");
+                            i++;
+                        }
+                    }else{
+                        if(amountFromDB < amountValue){
+                            builder.append(cursor.getString(0)).append(";")
+                                    .append(cursor.getString(1)).append(";")
+                                    .append(cursor.getString(2)).append(";")
+                                    .append(cursor.getString(4)).append("_");
+                            i++;
+                        }
+                    }
+                }
+                cursor.moveToNext();
+            }
+
+            builder.toString();
+            String st = new String(builder);
+            String[] values = st.split("_");
+
+            for (int row = 0; row < values.length; row++) {
+                values[row] = values[row].replaceAll(";", "\t");
+            }
+
+            ArrayAdapter<String> transactionAdapter = new ArrayAdapter<String>
+                    (this, android.R.layout.simple_list_item_multiple_choice, values);
+            transactions.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            transactions.setAdapter(transactionAdapter);
+
+        }
+
+    }
+
+    public void showSummaryByCategory(View view) {
+
+        boolean missingMandatoryFields = false;
+
+        String categoryValue = "";
+
+        Spinner category = (Spinner) findViewById(R.id.selectCategory);
+        TextView categoryTV = (TextView) findViewById(R.id.promptCategory);
+
+        int selectedcategory = category.getSelectedItemPosition();
+        if (selectedcategory > 0) {
+            categoryValue = category.getSelectedItem().toString();
+            categoryTV.setTextColor(Color.BLACK);
+        } else {
+            missingMandatoryFields = true;
+            categoryTV.setTextColor(Color.RED);
+        }
+
+        if(missingMandatoryFields == false) {
+
+            //setContentView(R.layout.tablesummary);
+            setContentView(R.layout.listsummary);
+
+            ListView transactions = (ListView) findViewById(R.id.transactionlist);
+            Button deleteTransaction = (Button) findViewById(R.id.deleteTxnBtn);
+            deleteTransaction.setOnClickListener(this);
+
+            Transactions databaseIncomeExpense = new Transactions(this);
+            Cursor cursor = databaseIncomeExpense.getData();
+
+            List<String> transactionList = null;
+            StringBuilder builder = new StringBuilder();
+
+            cursor.moveToFirst();
+            int i = 0;
+            while (!cursor.isAfterLast()) {
+
+                String categoryFromDB = cursor.getString(0);
+                String indicator = cursor.getString(6);
+
+
+                if(indicator.equals("Expense")) {
+                    if(categoryFromDB.equals(categoryValue)){
+                        builder.append(cursor.getString(0)).append(";")
+                                .append(cursor.getString(1)).append(";")
+                                .append(cursor.getString(2)).append(";")
+                                .append(cursor.getString(4)).append("_");
+                        i++;
+                    }
+                }
+                cursor.moveToNext();
+            }
+
+            builder.toString();
+            String st = new String(builder);
+            String[] values = st.split("_");
+
+            for (int row = 0; row < values.length; row++) {
+                values[row] = values[row].replaceAll(";", "\t");
+            }
+
+            ArrayAdapter<String> transactionAdapter = new ArrayAdapter<String>
+                    (this, android.R.layout.simple_list_item_multiple_choice, values);
+            transactions.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            transactions.setAdapter(transactionAdapter);
+
+        }
+    }
+
+    public void showSummaryByPaym(View view) {
+
+        boolean missingMandatoryFields = false;
+
+        String paymentValue = "";
+
+        Spinner payment = (Spinner) findViewById(R.id.selectPayMethod);
+        TextView paymentTV = (TextView) findViewById(R.id.promptPayM);
+
+        int selectedPayment = payment.getSelectedItemPosition();
+        if (selectedPayment > 0) {
+            paymentValue = payment.getSelectedItem().toString();
+            paymentTV.setTextColor(Color.BLACK);
+        } else {
+            missingMandatoryFields = true;
+            paymentTV.setTextColor(Color.RED);
+        }
+
+        if(missingMandatoryFields == false) {
+
+            //setContentView(R.layout.tablesummary);
+            setContentView(R.layout.listsummary);
+
+            ListView transactions = (ListView) findViewById(R.id.transactionlist);
+            Button deleteTransaction = (Button) findViewById(R.id.deleteTxnBtn);
+            deleteTransaction.setOnClickListener(this);
+
+            Transactions databaseIncomeExpense = new Transactions(this);
+            Cursor cursor = databaseIncomeExpense.getData();
+
+            List<String> transactionList = null;
+            StringBuilder builder = new StringBuilder();
+
+            cursor.moveToFirst();
+            int i = 0;
+            while (!cursor.isAfterLast()) {
+
+                String paymentFromDB = cursor.getString(4);
+                String indicator = cursor.getString(6);
+
+
+                if(indicator.equals("Expense")) {
+                    if(paymentFromDB.equals(paymentValue)){
+                        builder.append(cursor.getString(0)).append(";")
+                                .append(cursor.getString(1)).append(";")
+                                .append(cursor.getString(2)).append(";")
+                                .append(cursor.getString(4)).append("_");
+                        i++;
+                    }
+                }
+                cursor.moveToNext();
+            }
+
+            builder.toString();
+            String st = new String(builder);
+            String[] values = st.split("_");
+
+            for (int row = 0; row < values.length; row++) {
+                values[row] = values[row].replaceAll(";", "\t");
+            }
+
+            ArrayAdapter<String> transactionAdapter = new ArrayAdapter<String>
+                    (this, android.R.layout.simple_list_item_multiple_choice, values);
+            transactions.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            transactions.setAdapter(transactionAdapter);
+
+        }
     }
 }
 
