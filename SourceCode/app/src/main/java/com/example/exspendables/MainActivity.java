@@ -873,11 +873,16 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 e.printStackTrace();
             }
 
+            startdateToCheck.setDate(startdateToCheck.getDate()-1);
+
             try {
                 enddateToCheck = Formatter.parse(endDateValue);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+
+            startdateToCheck.setDate(startdateToCheck.getDate()-1);
+            enddateToCheck.setDate(enddateToCheck.getDate()-1);
 
             //setContentView(R.layout.tablesummary);
             setContentView(R.layout.listsummary);
