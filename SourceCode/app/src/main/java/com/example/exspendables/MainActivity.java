@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.renderscript.Sampler;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -36,18 +37,23 @@ import android.util.SparseBooleanArray;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.mynameismidori.currencypicker.CurrencyPicker;
 import com.mynameismidori.currencypicker.CurrencyPickerListener;
 
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -156,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
 
                     BarChart chart;
-                    ArrayList<BarEntry> BARENTRY;
+                    final ArrayList<BarEntry> BARENTRY;
                     String label = null;
                     ArrayList<String> BarEntryLabels;
                     BarDataSet Bardataset;
@@ -167,8 +173,90 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     BARENTRY = new ArrayList<>();
                     BarEntryLabels = new ArrayList<String>();
 
+                    SQLiteDatabase sdb = transactions.getReadableDatabase();
+                    String sql = "Select startDate, amount, category from TRANSACTIONS " +
+                                  "where startDate between '" +startDateValue+"' and '"+ endDateValue + "'" + " " + "GROUP BY category" + " "+ "ORDER BY startDate" ;
 
-                    SQLiteDatabase db = transactions.getReadableDatabase();
+                    Cursor c = sdb.rawQuery(sql, null);
+                    final int count = c.getCount();
+                    c.moveToFirst();
+                    String date;
+                    int amount;
+                    String cat;
+
+                    for (int m = 0; m < count; m++) {
+                        date = c.getString(0);
+                        //Date date1 = Date.valueOf(date);
+                        amount = c.getInt(1);
+                        cat = c.getString(2);
+                        date = date.replaceAll("-", "");
+                        int j = Integer.valueOf(date);
+                        String p = date.substring(date.length() - 6) ;
+                        Long i = Long.valueOf(p);
+                        BARENTRY.add(new BarEntry(i, amount));
+                        c.moveToNext();
+                    }
+
+                    Bardataset = new BarDataSet(BARENTRY, "Expenses");
+                    BARDATA = new BarData(Bardataset);
+                    Bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
+                    chart.setData(BARDATA);
+                    chart.animateXY(3000, 3000);
+                    chart.getAxisLeft().setAxisMinimum(0);
+                    chart.getAxisRight().setAxisMinimum(0);
+                    chart.setPinchZoom(false);
+                    float barWidth = 0.25f;
+                    chart.setFitBars(true);
+                    BARDATA.setBarWidth(barWidth);
+
+
+                    final XAxis xAxis = chart.getXAxis();
+                    xAxis.setGranularity(1f);
+                    //xAxis.setLabelCount(count);
+                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                    xAxis.setLabelRotationAngle(-90);
+
+                    xAxis.setValueFormatter(new IAxisValueFormatter() {
+
+                        SimpleDateFormat mFormat = new SimpleDateFormat("yyMMdd");
+                        SimpleDateFormat mFormat1 = new SimpleDateFormat("MMM dd");
+
+
+                        @Override
+                        public String getFormattedValue(float value, AxisBase axis) {
+                            // "value" represents the position of the label on the axis (x or y)
+
+
+                                int g = Math.round(value);
+                                String f = String.valueOf(g);
+                                java.util.Date dateValue = null;
+                                //java.util.Date dateValue1 = null;
+
+
+                                try {
+                                    dateValue = (java.util.Date) mFormat.parse(f);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                                // String s = dateValue.toString();
+
+                                //java.util.Date date = Date.valueOf(f);
+                                // DecimalFormat df = new DecimalFormat("00000000");
+
+                                return mFormat1.format(dateValue);
+
+
+                                // return String.valueOf((int) g);
+
+                            }
+
+                    });
+
+                    chart.invalidate();
+
+                  /*  SQLiteDatabase db = transactions.getReadableDatabase();
 
                     Cursor cur;
 
@@ -237,12 +325,16 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                             date = date.replaceAll("/", "");
                             i = Integer.valueOf(date);
                             k = Integer.valueOf(amount);
+                            String o = String.valueOf(i);
+                            String p = o.substring(o.length() - 4) ;
+                            int q = Integer.valueOf(p);
                             label = date.toString();
-                            BARENTRY.add(new BarEntry(i, k));
+                            BARENTRY.add(new BarEntry(q, k));
 
                         }
                         cur.moveToNext();
                     }
+
 
 
                     //Harish
@@ -256,7 +348,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                     chart.setData(BARDATA);
 
-                    chart.animateY(3000);
+                    chart.animateXY(2000, 2000);
+
+                    chart.getAxisLeft().setAxisMinimum(0);
+                    chart.getAxisRight().setAxisMinimum(0);
+                    float barWidth = 0.25f;
+
+                    BARDATA.setBarWidth(barWidth); */
 
                 }
 
@@ -307,6 +405,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         mChart.setData(data);
                         // undo all highlights
                         mChart.highlightValues(null);
+                        mChart.setCenterTextSize(20f);
+                        mChart.setEntryLabelTextSize(20f);
                         mChart.invalidate();
                     }
                     c.close();
@@ -1612,7 +1712,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     public void sendemail(View view){
 
-        String[] to = {"muraliabhivanth@gmail.com"};
+        String[] to = {"shudarsan20@gmail.com"};
 
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setData(Uri.parse("mailto:"));
