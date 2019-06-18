@@ -181,13 +181,15 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     final int count = c.getCount();
                     c.moveToFirst();
                     String date;
-                    int amount;
+                    //int amount;
+                    float amount;
                     String cat;
 
                     for (int m = 0; m < count; m++) {
                         date = c.getString(0);
                         //Date date1 = Date.valueOf(date);
-                        amount = c.getInt(1);
+                        //amount = c.getInt(1);
+                        amount = c.getFloat(1);
                         cat = c.getString(2);
                         date = date.replaceAll("-", "");
                         int j = Integer.valueOf(date);
@@ -991,7 +993,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     public void saveIncome(View view) {
 
         Date transactionDateValue = null;
-        int amountValue = 0;
+        //int amountValue = 0;
+        float amountValue = 0;
         String codeValue = "";
         boolean mandatoryFieldMissing = false;
 
@@ -1012,7 +1015,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             mandatoryFieldMissing = true;
             amountTV.setTextColor(Color.RED);
         } else {
-            amountValue = Integer.valueOf(amount.getText().toString());
+            //amountValue = Integer.valueOf(amount.getText().toString());
+            amountValue = Float.valueOf(amount.getText().toString());
             amountTV.setTextColor(Color.BLACK);
         }
 
@@ -1055,7 +1059,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         String categoryValue = "";
         String indicatorValue = "";
         Date transactionDateValue = null;
-        int amountValue = 0;
+        //int amountValue = 0;
+        float amountValue = 0;
         String codeValue = "";
         String paymMethodValue = "";
         boolean mandatoryFieldMissing = false;
@@ -1093,7 +1098,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             mandatoryFieldMissing = true;
             amountTV.setTextColor(Color.RED);
         } else {
-            amountValue = Integer.valueOf(amount.getText().toString());
+            //amountValue = Integer.valueOf(amount.getText().toString());
+            amountValue = Float.valueOf(amount.getText().toString());
             amountTV.setTextColor(Color.BLACK);
         }
 
@@ -1189,7 +1195,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     String cat = txnCur.getString(0);
                     if(cat.equals(categoryValue)){
                         String amountStr = txnCur.getString(2);
-                        total += Integer.valueOf(amountStr);
+                        //total += Integer.valueOf(amountStr);
+                        total += Float.valueOf(amountStr);
                     }
                     txnCur.moveToNext();
                 }
@@ -1870,7 +1877,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         boolean missingMandatoryFields = false;
 
         String operatorValue = "";
-        int amountValue = 0;
+        //int amountValue = 0;
+        float amountValue = 0;
 
         Spinner operator = (Spinner) findViewById(R.id.selectOperator);
         TextView operatorTV = (TextView) findViewById(R.id.promptOperator);
@@ -1891,7 +1899,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             missingMandatoryFields = true;
             amountTV.setTextColor(Color.RED);
         } else {
-            amountValue = Integer.valueOf(amount.getText().toString());
+            //amountValue = Integer.valueOf(amount.getText().toString());
+            amountValue = Float.valueOf(amount.getText().toString());
             amountTV.setTextColor(Color.BLACK);
         }
 
@@ -1914,7 +1923,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             int i = 0;
             while (!cursor.isAfterLast()) {
 
-                int amountFromDB = Integer.valueOf(cursor.getString(2));
+                //int amountFromDB = Integer.valueOf(cursor.getString(2));
+                float amountFromDB = Float.valueOf(cursor.getString(2));
                 String indicator = cursor.getString(6);
 
                 if(indicator.equals("Expense")) {
