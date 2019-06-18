@@ -1621,24 +1621,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         emailIntent.putExtra(Intent.EXTRA_EMAIL,to);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Transaction details");
 
-        /*SimpleDateFormat Formatter = new SimpleDateFormat("yyyy/MM/dd");
-
-        java.util.Date dateToCheck = null;
-        java.util.Date startdateToCheck = null;
-        java.util.Date enddateToCheck = null;
-
-        try {
-            startdateToCheck = Formatter.parse(startDateValue);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            enddateToCheck = Formatter.parse(endDateValue);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }*/
-
         ListView transactionLV = (ListView) findViewById(R.id.transactionlist);
         Button deleteTransaction = (Button) findViewById(R.id.deleteTxnBtn);
         deleteTransaction.setOnClickListener(this);
@@ -1651,53 +1633,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             emailIntent.putExtra(Intent.EXTRA_TEXT, temp);
 
         }
-
-                /*Button backToSetting = (Button) findViewById(R.id.backToSettings);
-                backToSetting.setOnClickListener(this);*/
-
-      /*  Transactions transactions = new Transactions(this);
-        Cursor cursor = transactions.getData();
-
-        // List<Transactions> expenseDetails = new ArrayList<Transactions>();
-
-        List<String> tranList = null;
-        StringBuilder builder = new StringBuilder();
-
-        cursor.moveToFirst();
-
-        while (!cursor.isAfterLast()) {
-
-            String date = cursor.getString(1);
-            date = date.replaceAll("-","/");
-
-            try {
-                dateToCheck = Formatter.parse(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            if (dateToCheck.before(enddateToCheck) && dateToCheck.after(startdateToCheck)) {
-
-                builder.append(cursor.getString(0)).append(";")
-                        .append(date).append(";")
-                        .append(cursor.getString(2)).append(";")
-                        .append(cursor.getString(4)).append("_");
-
-            }
-            cursor.moveToNext();
-        }
-
-        builder.toString();
-        String st = new String(builder);
-        String[] values1 = st.split("_");
-
-        for(int row = 0;row < values1.length;row++){
-            values1[row] = values1[row].replaceAll(";","\t");
-        }
-
-        for(int row = 0;row < values1.length;row++) {
-            emailIntent.putExtra(Intent.EXTRA_TEXT, values1[row]);
-        }*/
 
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
