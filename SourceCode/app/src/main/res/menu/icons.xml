@@ -6,7 +6,7 @@
     <item
 
         android:id="@+id/iconid"
-        android:icon="@drawable/ic_android_black_24dp"
+        android:icon="@drawable/logoapp"
         android:title="Icon"
         app:showAsAction="always"
 

@@ -12,6 +12,8 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentContainer;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -24,6 +26,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +35,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioGroup;
@@ -81,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     private ArrayList<CategoryIcon> mCategoryList;
     private IconAdapter mAdapter;
-    private DrawerLayout drawer;
+    protected DrawerLayout drawer;
 
 
     // main() method of UI
@@ -91,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         dbPinTable = new DatabaseHandler(this);
         Cursor cursor = dbPinTable.getPinData();
+
 
 
 
@@ -104,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             } else {
                 // changed income/expense to activity main - abhivanth
                 // if PIN does not exist, launch first time login page
-                setContentView(R.layout.income_or_expense);
+                setContentView(R.layout.activity_main);
                 Toolbar toolbar = findViewById(R.id.toolbar);
                 setSupportActionBar(toolbar);
 
@@ -163,9 +168,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     // Graph Summary - Logesh
 
     public void openGraphSummaryPage(View view) {
-        setContentView(R.layout.view_summary);
+        //setContentView(R.layout.view_summary);
 
-        Button buttonStartDate = (Button) findViewById(R.id.filterStartDate);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container); //Remember this is the FrameLayout area within your activity_main.xml
+        getLayoutInflater().inflate(R.layout.view_summary, contentFrameLayout);
+
+        Button buttonStartDate = findViewById(R.id.filterStartDate);
         buttonStartDate.setOnClickListener(new View.OnClickListener() {
             public void checkButtonStat() {
                 isEntryDateClicked = true;
@@ -181,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         });
 
 
-        Button buttonEndDate = (Button) findViewById(R.id.filterEndDate);
+        Button buttonEndDate = findViewById(R.id.filterEndDate);
         buttonEndDate.setOnClickListener(new View.OnClickListener() {
             public void checkButtonStat() {
                 isEntryDateClicked = false;
@@ -206,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                 //changeToDateFormat("Mon Jun 03 00:00:00 GMT+02:00 2019");
 
-                Spinner spinner = (Spinner) findViewById(R.id.filter);
+                Spinner spinner = findViewById(R.id.filter);
                 TextView startDate = findViewById(R.id.entryDate);
                 SimpleDateFormat Formatter = new SimpleDateFormat("yyyy/MM/dd");
 
@@ -228,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     ArrayList<String> BarEntryLabels;
                     BarDataSet Bardataset;
                     BarData BARDATA;
-                    chart = (BarChart) findViewById(R.id.barGraph);
+                    chart = findViewById(R.id.barGraph);
 
 
                     BARENTRY = new ArrayList<>();
@@ -300,7 +308,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                                 java.util.Date dateValue = null;
 
                                 try {
-                                    dateValue = (java.util.Date) mFormat.parse(f);
+                                    dateValue = mFormat.parse(f);
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -324,7 +332,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     PieChart mChart;
                     SQLiteDatabase db = transactions.getReadableDatabase();
                     String sql = "Select category, sum(amount), count(category) from TRANSACTIONS where startDate between '" +startDatePie+"' and '"+ endDatePie + "'" + "GROUP BY category";
-                    mChart = (PieChart) findViewById(R.id.PieChart);
+                    mChart = findViewById(R.id.PieChart);
 
                     Cursor c = db.rawQuery(sql, null);
                     int count = c.getCount();
@@ -379,7 +387,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     PieChart mChart;
                     SQLiteDatabase db = transactions.getReadableDatabase();
                     String sql = "Select paymentMethod, sum(amount), count(category) from TRANSACTIONS where startDate between '" +startDatePie+"' and '"+ endDatePie + "'" + "GROUP BY paymentMethod";
-                    mChart = (PieChart) findViewById(R.id.PieChart1);
+                    mChart = findViewById(R.id.PieChart1);
 
                     Cursor c = db.rawQuery(sql, null);
                     int count = c.getCount();
@@ -494,9 +502,16 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     // Event handler for button "Enter Income"
     public void openIncomePage(View view) {
-        setContentView(R.layout.income);
 
-        Button button = (Button) findViewById(R.id.selectDate);
+        //setContentView(R.layout.income);
+
+        //FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);//Remember this is the FrameLayout area within your activity_main.xml
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
+                incomeFragment()).commit();
+        //getLayoutInflater().inflate(R.layout.income, contentFrameLayout);
+
+
+        Button button = findViewById(R.id.selectDate);
         button.setOnClickListener(new View.OnClickListener() {
             public void checkButtonStat() {
                 isEntryDateClicked = true;
@@ -516,8 +531,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         if (currCode != null) {
             if (currCode.moveToFirst()) {
-                String currencySavedInDB = currCode.getString(0).toString();
-                TextView code = (TextView) findViewById(R.id.currencyCode);
+                String currencySavedInDB = currCode.getString(0);
+                TextView code = findViewById(R.id.currencyCode);
                 code.setText(currencySavedInDB);
             }
         }
@@ -525,12 +540,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     // Event handler for button "Enter Expense"
     public void openExpensePage(View view) {
+
         setContentView(R.layout.expense);
 
         Categories dbCategories;
         dbCategories = new Categories(this);
         // Populate Category DDLB
-        Spinner categoryddlb = (Spinner) findViewById(R.id.categoryddlb);
+        Spinner categoryddlb = findViewById(R.id.categoryddlb);
         List<String> categorylist = dbCategories.getData();
         categorylist.add(0, "");
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categorylist);
@@ -542,7 +558,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             categoryAdapter.notifyDataSetChanged();
         }*/
 
-        Button button = (Button) findViewById(R.id.selectDate);
+        Button button = findViewById(R.id.selectDate);
         button.setOnClickListener(new View.OnClickListener() {
             public void checkButtonStat() {
                 isEntryDateClicked = true;
@@ -562,21 +578,21 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         if (currCode != null) {
             if (currCode.moveToFirst()) {
-                String currencySavedInDB = currCode.getString(0).toString();
-                TextView code = (TextView) findViewById(R.id.currencyCode);
+                String currencySavedInDB = currCode.getString(0);
+                TextView code = findViewById(R.id.currencyCode);
                 code.setText(currencySavedInDB);
             }
         }
 
         //Logesh - 20.05
 
-        final Switch recurringSwitch = (Switch) findViewById(R.id.recurringSwitch);
+        final Switch recurringSwitch = findViewById(R.id.recurringSwitch);
         final CharSequence[] items = {"Daily", "Weekly", "Monthly", "Other"};
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText editText = new EditText(this);
-        final TextView textView = (TextView) findViewById(R.id.recurringValue);
-        final TextView textView1 = (TextView) findViewById(R.id.recurringValue1);
+        final TextView textView = findViewById(R.id.recurringValue);
+        final TextView textView1 = findViewById(R.id.recurringValue1);
 
         builder.setView(editText);
         editText.setVisibility(View.INVISIBLE);
@@ -696,13 +712,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 // Implement your code here
                 closeOptionsMenu();
 
-                String currency_selected = code.toString();
+                String currency_selected = code;
 
                 // save this value to DB so that it can be displayed next to Amount
                 Cursor currencyData = currency.getData();
                 if (currencyData != null) {
                     if (currencyData.moveToFirst()) {
-                        String currencySavedInDB = currencyData.getString(0).toString();
+                        String currencySavedInDB = currencyData.getString(0);
                         currency.modifyData(currency_selected, currencySavedInDB);
                         // harish - 25.05
                         Toast.makeText(getApplicationContext(), "Selected currency unit is set", Toast.LENGTH_SHORT).show();
@@ -729,17 +745,17 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     private void loadFilters() {
-        Spinner spinner = (Spinner) findViewById(R.id.selectfilter);
+        Spinner spinner = findViewById(R.id.selectfilter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Spinner spinner = (Spinner) findViewById(R.id.selectfilter);
+                Spinner spinner = findViewById(R.id.selectfilter);
                 int indexSelected = spinner.getSelectedItemPosition();
                 switch (indexSelected){
                     case 1: //date range
                         setContentView(R.layout.prompt_filter_date);
 
-                        Button button = (Button) findViewById(R.id.selectDate);
+                        Button button = findViewById(R.id.selectDate);
                         button.setOnClickListener(new View.OnClickListener() {
                             public void checkButtonStat() {
                                 isEntryDateClicked = true;
@@ -755,7 +771,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         });
 
 
-                        Button buttonEndDate = (Button) findViewById(R.id.selectEndDate);
+                        Button buttonEndDate = findViewById(R.id.selectEndDate);
                         buttonEndDate.setOnClickListener(new View.OnClickListener() {
                             public void checkButtonStat() {
                                 isEntryDateClicked = false;
@@ -778,7 +794,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         Categories dbCategories;
                         dbCategories = new Categories(MainActivity.this);
                         // Populate Category DDLB
-                        Spinner categoryddlb = (Spinner) findViewById(R.id.selectCategory);
+                        Spinner categoryddlb = findViewById(R.id.selectCategory);
                         List<String> categorylist = dbCategories.getData();
                         categorylist.add(0, "");
                         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item, categorylist);
@@ -812,14 +828,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         boolean missingMandatoryFields = false;
 
-        TextView startDate = (TextView) findViewById(R.id.entryDate);
+        TextView startDate = findViewById(R.id.entryDate);
 
         if (TextUtils.isEmpty(startDate.getText())) {
             missingMandatoryFields = true;
             Toast.makeText(getApplicationContext(), "Please set Start Date", Toast.LENGTH_SHORT).show();
         }
 
-        TextView endDate = (TextView) findViewById(R.id.endDate);
+        TextView endDate = findViewById(R.id.endDate);
 
         if (TextUtils.isEmpty(endDate.getText())) {
             missingMandatoryFields = true;
@@ -860,8 +876,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             //setContentView(R.layout.tablesummary);
             setContentView(R.layout.listsummary);
 
-            ListView transactions = (ListView) findViewById(R.id.transactionlist);
-            Button deleteTransaction = (Button) findViewById(R.id.deleteTxnBtn);
+            ListView transactions = findViewById(R.id.transactionlist);
+            Button deleteTransaction = findViewById(R.id.deleteTxnBtn);
             deleteTransaction.setOnClickListener(this);
 
 
@@ -920,10 +936,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     public void openSettingsPage(View view) {
         setContentView(R.layout.settings);
 
-        Button categoryDisplay = (Button) findViewById(R.id.edit_categories);
+        Button categoryDisplay = findViewById(R.id.edit_categories);
         categoryDisplay.setOnClickListener(this);
 
-        Button changePinBtn = (Button) findViewById(R.id.changePin);
+        Button changePinBtn = findViewById(R.id.changePin);
         changePinBtn.setOnClickListener(this);
 
     }
@@ -958,10 +974,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
 
         if (isEntryDateClicked == true) {
-            TextView entryDate = (TextView) findViewById(R.id.entryDate);
+            TextView entryDate = findViewById(R.id.entryDate);
             entryDate.setText(currentDateString);
         } else if (isEndDateClicked == true) {
-            TextView endDate = (TextView) findViewById(R.id.endDate);
+            TextView endDate = findViewById(R.id.endDate);
             endDate.setText(currentDateString);
         }
     }
@@ -976,8 +992,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         String codeValue = "";
         boolean mandatoryFieldMissing = false;
 
-        TextView transactionDate = (TextView) findViewById(R.id.entryDate);
-        TextView trandateTV = (TextView) findViewById(R.id.enterdate);
+        TextView transactionDate = findViewById(R.id.entryDate);
+        TextView trandateTV = findViewById(R.id.enterdate);
         if (TextUtils.isEmpty(transactionDate.getText())) {
             mandatoryFieldMissing = true;
             trandateTV.setTextColor(Color.RED);
@@ -987,8 +1003,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             trandateTV.setTextColor(Color.BLACK);
         }
 
-        EditText amount = (EditText) findViewById(R.id.amount);
-        TextView amountTV = (TextView) findViewById(R.id.Amount);
+        EditText amount = findViewById(R.id.amount);
+        TextView amountTV = findViewById(R.id.Amount);
         if (TextUtils.isEmpty(amount.getText())) {
             mandatoryFieldMissing = true;
             amountTV.setTextColor(Color.RED);
@@ -998,8 +1014,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             amountTV.setTextColor(Color.BLACK);
         }
 
-        TextView code = (TextView) findViewById(R.id.currencyCode);
-        TextView codeTV = (TextView) findViewById(R.id.Currency);
+        TextView code = findViewById(R.id.currencyCode);
+        TextView codeTV = findViewById(R.id.Currency);
         if (TextUtils.isEmpty(code.getText())) {
             mandatoryFieldMissing = true;
             codeTV.setTextColor(Color.RED);
@@ -1008,7 +1024,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             codeTV.setTextColor(Color.BLACK);
         }
 
-        EditText note = (EditText) findViewById(R.id.optionalNote);
+        EditText note = findViewById(R.id.optionalNote);
         String noteValue = note.getText().toString();
 
         String indicatorValue = "Income";
@@ -1043,8 +1059,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         String paymMethodValue = "";
         boolean mandatoryFieldMissing = false;
 
-        Spinner category = (Spinner) findViewById(R.id.categoryddlb);
-        TextView categoryTV = (TextView) findViewById(R.id.category);
+        Spinner category = findViewById(R.id.categoryddlb);
+        TextView categoryTV = findViewById(R.id.category);
         int selectedCategoryItem = category.getSelectedItemPosition();
         if (selectedCategoryItem > 0) {
             categoryValue = category.getSelectedItem().toString();
@@ -1054,8 +1070,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             categoryTV.setTextColor(Color.RED);
         }
 
-        TextView transactionDate = (TextView) findViewById(R.id.entryDate);
-        TextView trandateTV = (TextView) findViewById(R.id.date);
+        TextView transactionDate = findViewById(R.id.entryDate);
+        TextView trandateTV = findViewById(R.id.date);
         if (TextUtils.isEmpty(transactionDate.getText())) {
             mandatoryFieldMissing = true;
             trandateTV.setTextColor(Color.RED);
@@ -1070,8 +1086,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         /*TextView endDate = (TextView) findViewById(R.id.endDate);
         Date endDateValue = Date.valueOf(endDate.getText().toString());*/
 
-        EditText amount = (EditText) findViewById(R.id.amount);
-        TextView amountTV = (TextView) findViewById(R.id.amountenter);
+        EditText amount = findViewById(R.id.amount);
+        TextView amountTV = findViewById(R.id.amountenter);
         if (TextUtils.isEmpty(amount.getText())) {
             mandatoryFieldMissing = true;
             amountTV.setTextColor(Color.RED);
@@ -1081,8 +1097,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             amountTV.setTextColor(Color.BLACK);
         }
 
-        TextView code = (TextView) findViewById(R.id.currencyCode);
-        TextView codeTV = (TextView) findViewById(R.id.currencytype);
+        TextView code = findViewById(R.id.currencyCode);
+        TextView codeTV = findViewById(R.id.currencytype);
         if (TextUtils.isEmpty(code.getText())) {
             mandatoryFieldMissing = true;
             codeTV.setTextColor(Color.RED);
@@ -1091,8 +1107,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             codeTV.setTextColor(Color.BLACK);
         }
 
-        Spinner paymentMethod = (Spinner) findViewById(R.id.paymList);
-        TextView paymentTV = (TextView) findViewById(R.id.payment);
+        Spinner paymentMethod = findViewById(R.id.paymList);
+        TextView paymentTV = findViewById(R.id.payment);
         int selectedPaymentItem = paymentMethod.getSelectedItemPosition();
         if (selectedPaymentItem > 0) {
             paymMethodValue = paymentMethod.getSelectedItem().toString();
@@ -1103,20 +1119,20 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         }
         // harish - 25.05
 
-        EditText note = (EditText) findViewById(R.id.optionalNote);
+        EditText note = findViewById(R.id.optionalNote);
         String noteValue = note.getText().toString();
 
-        Switch recurringTransaction = (Switch) findViewById(R.id.recurringSwitch);
-        String recurringTransactionValue = String.valueOf(recurringTransaction.getText().toString());
+        Switch recurringTransaction = findViewById(R.id.recurringSwitch);
+        String recurringTransactionValue = recurringTransaction.getText().toString();
 
-        TextView recurringFrequency = (TextView) findViewById(R.id.recurringValue);
-        String recurringFrequencyValue = String.valueOf(recurringFrequency.getText().toString());
+        TextView recurringFrequency = findViewById(R.id.recurringValue);
+        String recurringFrequencyValue = recurringFrequency.getText().toString();
 
-        TextView recurringValue = (TextView) findViewById(R.id.recurringValue);
-        String recurringValueValue = String.valueOf(recurringValue.getText().toString());
+        TextView recurringValue = findViewById(R.id.recurringValue);
+        String recurringValueValue = recurringValue.getText().toString();
 
         // harish - 25.05
-        RadioGroup transactiontype = (RadioGroup) findViewById(R.id.radioTransactionType);
+        RadioGroup transactiontype = findViewById(R.id.radioTransactionType);
         if (transactiontype.getCheckedRadioButtonId() == R.id.radioIncome) {
             indicatorValue = "Income";
         } else {
@@ -1224,7 +1240,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         // if same redirect to Income/Expense/Summary page
         // else display an error message
 
-        EditText pinToAuth = (EditText) findViewById(R.id.pinTextBox);
+        EditText pinToAuth = findViewById(R.id.pinTextBox);
         String pinToCheck = pinToAuth.getText().toString();
 
         dbPinTable = new DatabaseHandler(this);
@@ -1233,11 +1249,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         // check if a value of PIN exists in dbTable - PIN
         if (cursor != null) {
             if (cursor.moveToFirst()) {
-                String pinSavedInDB = cursor.getString(0).toString();
+                String pinSavedInDB = cursor.getString(0);
                 if (pinSavedInDB.equals(pinToCheck)) {
                     setContentView(R.layout.income_or_expense);
                 } else {
-                    TextView incorrectPin = (TextView) findViewById(R.id.incorrectPin);
+                    TextView incorrectPin = findViewById(R.id.incorrectPin);
                     incorrectPin.setText("PIN entered is wrong, please check");
                 }
             }
@@ -1254,8 +1270,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 // harish - 25.05
                 Toast.makeText(this, "Button clicked", Toast.LENGTH_SHORT).show();
                 // harish - 25.05
-                EditText pinValue = (EditText) findViewById(R.id.set_Pin_textbox);
-                EditText reEnterPinValue = (EditText) findViewById(R.id.confirm_Pin_textbox);
+                EditText pinValue = findViewById(R.id.set_Pin_textbox);
+                EditText reEnterPinValue = findViewById(R.id.confirm_Pin_textbox);
 
                 String pin = pinValue.getText().toString();
                 String pinToConfirm = reEnterPinValue.getText().toString();
@@ -1272,7 +1288,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                 } else {
                     // PIN does not match, display an error message next to Text box
-                    TextView pin_no_match = (TextView) findViewById(R.id.pin_no_match);
+                    TextView pin_no_match = findViewById(R.id.pin_no_match);
                     pin_no_match.setText("PIN do not match, please re-enter");
 
                 }
@@ -1282,17 +1298,17 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                 setContentView(R.layout.category_popup);
 
-                ListView categoryList = (ListView) findViewById(R.id.categorylist);
-                Button deleteCategory = (Button) findViewById(R.id.deleteCategoryBtn);
-                Button modifyCategory = (Button) findViewById(R.id.modifyCategoryBtn);
-                Button addCategory = (Button) findViewById(R.id.addCategoryBtn);
+                ListView categoryList = findViewById(R.id.categorylist);
+                Button deleteCategory = findViewById(R.id.deleteCategoryBtn);
+                Button modifyCategory = findViewById(R.id.modifyCategoryBtn);
+                Button addCategory = findViewById(R.id.addCategoryBtn);
 
                 dbCategories = new Categories(this);
                 // Populate Category List View
                 List<String> categorylist = dbCategories.getData();
                 String[] values = new String[categorylist.size()];
                 for (int i = 0; i < categorylist.size(); i++) {
-                    values[i] = categorylist.get(i).toString();
+                    values[i] = categorylist.get(i);
                 }
                 ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>
                         (this, android.R.layout.simple_list_item_multiple_choice, values);
@@ -1306,7 +1322,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
             case R.id.deleteTxnBtn:
                 Transactions transactions = new Transactions(this);
-                ListView transactionList = (ListView) findViewById(R.id.transactionlist);
+                ListView transactionList = findViewById(R.id.transactionlist);
                 SparseBooleanArray isChecked = transactionList.getCheckedItemPositions();
                 ArrayList<String> selectedTxn = new ArrayList<>();
 
@@ -1344,8 +1360,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     e.printStackTrace();
                 }
 
-                ListView transactionLV = (ListView) findViewById(R.id.transactionlist);
-                Button deleteTransaction = (Button) findViewById(R.id.deleteTxnBtn);
+                ListView transactionLV = findViewById(R.id.transactionlist);
+                Button deleteTransaction = findViewById(R.id.deleteTxnBtn);
                 deleteTransaction.setOnClickListener(this);
 
                 /*Button backToSetting = (Button) findViewById(R.id.backToSettings);
@@ -1403,14 +1419,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
             case R.id.deleteCategoryBtn:
                 dbCategories = new Categories(this);
-                categoryList = (ListView) findViewById(R.id.categorylist);
+                categoryList = findViewById(R.id.categorylist);
                 SparseBooleanArray checked = categoryList.getCheckedItemPositions();
                 ArrayList<String> selectedItems = new ArrayList<String>();
 
                 categorylist = dbCategories.getData();
                 values = new String[categorylist.size()];
                 for (int i = 0; i < categorylist.size(); i++) {
-                    values[i] = categorylist.get(i).toString();
+                    values[i] = categorylist.get(i);
                 }
                 categoryAdapter = new ArrayAdapter<String>
                         (this, android.R.layout.simple_list_item_multiple_choice, values);
@@ -1422,7 +1438,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     if (checked.valueAt(i)) {
                         //          String dummy1 = selectedItems.get(i).toString();
                         //         String dummy2 = selectedItems.get(position).toString();
-                        dbCategories.deleteData(categoryAdapter.getItem(position).toString());
+                        dbCategories.deleteData(categoryAdapter.getItem(position));
 
                     }
                 }
@@ -1436,14 +1452,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 // harish - 25.05
 
                 //refresh the list with new value
-                categoryList = (ListView) findViewById(R.id.categorylist);
+                categoryList = findViewById(R.id.categorylist);
 
                 dbCategories = new Categories(this);
                 // Populate Category List View
                 categorylist = dbCategories.getData();
                 values = new String[categorylist.size()];
                 for (int i = 0; i < categorylist.size(); i++) {
-                    values[i] = categorylist.get(i).toString();
+                    values[i] = categorylist.get(i);
                 }
 
                 categoryAdapter = new ArrayAdapter<String>
@@ -1456,13 +1472,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             case R.id.addCategoryBtn:
                 // create a layout with a EditText and OK button on click on "add"
                 setContentView(R.layout.add_category);
-                Button okAddCategory = (Button) findViewById(R.id.btnOKAddCategory);
+                Button okAddCategory = findViewById(R.id.btnOKAddCategory);
                 okAddCategory.setOnClickListener(this);
                 break;
 
             case R.id.btnOKAddCategory:
                 dbCategories = new Categories(this);
-                EditText newCategoryValue = (EditText) findViewById(R.id.add_cat_textbox);
+                EditText newCategoryValue = findViewById(R.id.add_cat_textbox);
                 dbCategories.addData(newCategoryValue.getText().toString());
                 // harish - 25.05
                 Toast.makeText(getApplicationContext(), "New category added", Toast.LENGTH_SHORT).show();
@@ -1470,11 +1486,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 setContentView(R.layout.category_popup);
 
                 //refresh the list with new value
-                categoryList = (ListView) findViewById(R.id.categorylist);
+                categoryList = findViewById(R.id.categorylist);
 
-                deleteCategory = (Button) findViewById(R.id.deleteCategoryBtn);
-                modifyCategory = (Button) findViewById(R.id.modifyCategoryBtn);
-                addCategory = (Button) findViewById(R.id.addCategoryBtn);
+                deleteCategory = findViewById(R.id.deleteCategoryBtn);
+                modifyCategory = findViewById(R.id.modifyCategoryBtn);
+                addCategory = findViewById(R.id.addCategoryBtn);
 
                 deleteCategory.setOnClickListener(this);
                 modifyCategory.setOnClickListener(this);
@@ -1485,7 +1501,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 categorylist = dbCategories.getData();
                 values = new String[categorylist.size()];
                 for (int i = 0; i < categorylist.size(); i++) {
-                    values[i] = categorylist.get(i).toString();
+                    values[i] = categorylist.get(i);
                 }
 
                 categoryAdapter = new ArrayAdapter<String>
@@ -1498,7 +1514,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 // create a layout with a EditText and OK button on click on "Modify"
 
                 dbCategories = new Categories(this);
-                categoryList = (ListView) findViewById(R.id.categorylist);
+                categoryList = findViewById(R.id.categorylist);
                 checked = categoryList.getCheckedItemPositions();
                 //selectedItems = new ArrayList<String>();
 
@@ -1508,7 +1524,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 categorylist = dbCategories.getData();
                 values = new String[categorylist.size()];
                 for (int i = 0; i < categorylist.size(); i++) {
-                    values[i] = categorylist.get(i).toString();
+                    values[i] = categorylist.get(i);
                 }
                 categoryAdapter = new ArrayAdapter<String>
                         (this, android.R.layout.simple_list_item_multiple_choice, values);
@@ -1520,22 +1536,22 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     if (checked.valueAt(i)) {
                         //          String dummy1 = selectedItems.get(i).toString();
                         //         String dummy2 = selectedItems.get(position).toString();
-                        oldValue = categoryAdapter.getItem(position).toString();
+                        oldValue = categoryAdapter.getItem(position);
                         break;
                     }
                 }
 
                 setContentView(R.layout.modify_category);
-                EditText valueToBeModified = (EditText) findViewById(R.id.modify_cat_textbox);
+                EditText valueToBeModified = findViewById(R.id.modify_cat_textbox);
                 valueToBeModified.setText(oldValue);
 
-                Button okModifyButton = (Button) findViewById(R.id.btnOKModifyCategory);
+                Button okModifyButton = findViewById(R.id.btnOKModifyCategory);
                 okModifyButton.setOnClickListener(this);
                 break;
 
             case R.id.btnOKModifyCategory:
 
-                EditText newValue = (EditText) findViewById(R.id.modify_cat_textbox);
+                EditText newValue = findViewById(R.id.modify_cat_textbox);
                 dbCategories = new Categories(this);
                 dbCategories.modifyData(newValue.getText().toString(), oldValue);
                 // harish - 25.05
@@ -1543,11 +1559,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 // harish - 25.05
                 setContentView(R.layout.category_popup);
                 //refresh the list with new value
-                categoryList = (ListView) findViewById(R.id.categorylist);
+                categoryList = findViewById(R.id.categorylist);
 
-                deleteCategory = (Button) findViewById(R.id.deleteCategoryBtn);
-                modifyCategory = (Button) findViewById(R.id.modifyCategoryBtn);
-                addCategory = (Button) findViewById(R.id.addCategoryBtn);
+                deleteCategory = findViewById(R.id.deleteCategoryBtn);
+                modifyCategory = findViewById(R.id.modifyCategoryBtn);
+                addCategory = findViewById(R.id.addCategoryBtn);
 
                 deleteCategory.setOnClickListener(this);
                 modifyCategory.setOnClickListener(this);
@@ -1558,7 +1574,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 categorylist = dbCategories.getData();
                 values = new String[categorylist.size()];
                 for (int i = 0; i < categorylist.size(); i++) {
-                    values[i] = categorylist.get(i).toString();
+                    values[i] = categorylist.get(i);
                 }
                 categoryAdapter = new ArrayAdapter<String>
                         (this, android.R.layout.simple_list_item_multiple_choice, values);
@@ -1568,7 +1584,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 // abhivanth,changed "change_pin" to switch_pin
             case R.id.changePin:
                 setContentView(R.layout.switch_pin);
-                Switch enablePin = (Switch) findViewById(R.id.enablePin);
+                Switch enablePin = findViewById(R.id.enablePin);
                 enablePin.setOnClickListener(this);
 
                 enableSwitch();
@@ -1579,10 +1595,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
             case R.id.enablePin:
 
-                enablePin = (Switch) findViewById(R.id.enablePin);
+                enablePin = findViewById(R.id.enablePin);
                 if (enablePin.isChecked()) {
                     setContentView(R.layout.change_pin);
-                    Button changePinOkBtn = (Button) findViewById(R.id.change_pin_ok);
+                    Button changePinOkBtn = findViewById(R.id.change_pin_ok);
                     changePinOkBtn.setOnClickListener(this);
                 } else {
                     dbPinTable.deleteData();
@@ -1592,8 +1608,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             case R.id.change_pin_ok:
 
 
-                pinValue = (EditText) findViewById(R.id.set_Pin_textbox);
-                reEnterPinValue = (EditText) findViewById(R.id.confirm_Pin_textbox);
+                pinValue = findViewById(R.id.set_Pin_textbox);
+                reEnterPinValue = findViewById(R.id.confirm_Pin_textbox);
 
                 pin = pinValue.getText().toString();
                 pinToConfirm = reEnterPinValue.getText().toString();
@@ -1607,16 +1623,16 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     // check if a value of PIN exists in dbTable - PIN
                     if (pinCursor != null) {
                         if (pinCursor.moveToFirst()) {
-                            String pinSavedInDB = pinCursor.getString(0).toString();
+                            String pinSavedInDB = pinCursor.getString(0);
                             dbPinTable.modifyData(pin, pinSavedInDB);
                             // harish - 25.05
                             Toast.makeText(getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
                             // harish - 25.05
                             setContentView(R.layout.settings);
-                            Button categoryDisplay = (Button) findViewById(R.id.edit_categories);
+                            Button categoryDisplay = findViewById(R.id.edit_categories);
                             categoryDisplay.setOnClickListener(this);
 
-                            Button changePinBtn = (Button) findViewById(R.id.changePin);
+                            Button changePinBtn = findViewById(R.id.changePin);
                             changePinBtn.setOnClickListener(this);
 
 
@@ -1627,16 +1643,16 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                             Toast.makeText(getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
                             setContentView(R.layout.settings);
 
-                            Button categoryDisplay = (Button) findViewById(R.id.edit_categories);
+                            Button categoryDisplay = findViewById(R.id.edit_categories);
                             categoryDisplay.setOnClickListener(this);
 
-                            Button changePinBtn = (Button) findViewById(R.id.changePin);
+                            Button changePinBtn = findViewById(R.id.changePin);
                             changePinBtn.setOnClickListener(this);
                         }
                     }
                 } else {
                     // PIN does not match, display an error message next to Text box
-                    TextView pin_no_match = (TextView) findViewById(R.id.pin_no_match);
+                    TextView pin_no_match = findViewById(R.id.pin_no_match);
                     pin_no_match.setText("PIN do not match, please re-enter");
                     break;
                 }
@@ -1644,10 +1660,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
 
             case R.id.submit2:
-                Spinner categoryBudget = (Spinner) findViewById(R.id.categorybudget);
+                Spinner categoryBudget = findViewById(R.id.categorybudget);
                 String categorySelected = categoryBudget.getSelectedItem().toString();
 
-                EditText budgetamount = (EditText) findViewById(R.id.budgetamount);
+                EditText budgetamount = findViewById(R.id.budgetamount);
                 String budgetValue = budgetamount.getText().toString();
 
                 dbCategories = new Categories(this);
@@ -1668,7 +1684,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     public void maxbudget(View view) {
-        Button button = (Button) findViewById(R.id.maxbudget);
+        Button button = findViewById(R.id.maxbudget);
         setContentView(R.layout.maxbudget);
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -1680,19 +1696,19 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         Categories dbCategories = new Categories(MainActivity.this);
         // Populate Category DDLB
-        Spinner categorybudget = (Spinner) findViewById(R.id.categorybudget);
+        Spinner categorybudget = findViewById(R.id.categorybudget);
         List<String> categorylist = dbCategories.getData();
         categorylist.add(0, "");
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item, categorylist);
         categoryAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         categorybudget.setAdapter(categoryAdapter);
 
-        Button submit2 = (Button) findViewById(R.id.submit2);
+        Button submit2 = findViewById(R.id.submit2);
         submit2.setOnClickListener(this);
     }
 
     public void backToHome(View view) {
-        setContentView(R.layout.income_or_expense);
+       setContentView(R.layout.activity_main);
     }
 
     public void sendemail(View view){
@@ -1706,8 +1722,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         emailIntent.putExtra(Intent.EXTRA_EMAIL,to);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Transaction details");
 
-        ListView transactionLV = (ListView) findViewById(R.id.transactionlist);
-        Button deleteTransaction = (Button) findViewById(R.id.deleteTxnBtn);
+        ListView transactionLV = findViewById(R.id.transactionlist);
+        Button deleteTransaction = findViewById(R.id.deleteTxnBtn);
         deleteTransaction.setOnClickListener(this);
 
         int count = transactionLV.getCount();
@@ -1732,34 +1748,34 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     public void backToSettings(View view) {
         setContentView(R.layout.settings);
 
-        Button categoryDisplay = (Button) findViewById(R.id.edit_categories);
+        Button categoryDisplay = findViewById(R.id.edit_categories);
         categoryDisplay.setOnClickListener(this);
 
-        Button changePinBtn = (Button) findViewById(R.id.changePin);
+        Button changePinBtn = findViewById(R.id.changePin);
         changePinBtn.setOnClickListener(this);
     }
 
     public void backToCategory(View view) {
         setContentView(R.layout.category_popup);
 
-        Button deleteCategory = (Button) findViewById(R.id.deleteCategoryBtn);
-        Button modifyCategory = (Button) findViewById(R.id.modifyCategoryBtn);
-        Button addCategory = (Button) findViewById(R.id.addCategoryBtn);
+        Button deleteCategory = findViewById(R.id.deleteCategoryBtn);
+        Button modifyCategory = findViewById(R.id.modifyCategoryBtn);
+        Button addCategory = findViewById(R.id.addCategoryBtn);
 
-        deleteCategory = (Button) findViewById(R.id.deleteCategoryBtn);
-        modifyCategory = (Button) findViewById(R.id.modifyCategoryBtn);
-        addCategory = (Button) findViewById(R.id.addCategoryBtn);
+        deleteCategory = findViewById(R.id.deleteCategoryBtn);
+        modifyCategory = findViewById(R.id.modifyCategoryBtn);
+        addCategory = findViewById(R.id.addCategoryBtn);
 
         deleteCategory.setOnClickListener(this);
         modifyCategory.setOnClickListener(this);
         addCategory.setOnClickListener(this);
 
-        ListView categoryList = (ListView) findViewById(R.id.categorylist);
+        ListView categoryList = findViewById(R.id.categorylist);
 
         List<String> categorylist = dbCategories.getData();
         String[] values = new String[categorylist.size()];
         for (int i = 0; i < categorylist.size(); i++) {
-            values[i] = categorylist.get(i).toString();
+            values[i] = categorylist.get(i);
         }
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_list_item_multiple_choice, values);
@@ -1769,7 +1785,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     // Abhivanth , enable switch.
     public void enableSwitch() {
-        Switch enablepinBtn = (Switch) findViewById(R.id.enablePin);
+        Switch enablepinBtn = findViewById(R.id.enablePin);
 
         dbPinTable = new DatabaseHandler(this);
         Cursor cursor = dbPinTable.getPinData();
@@ -1802,7 +1818,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         Categories dbCategories = new Categories(this);
         // Populate Category DDLB
-        Spinner categoryddlb = (Spinner) findViewById(R.id.categoryddlb);
+        Spinner categoryddlb = findViewById(R.id.categoryddlb);
         List<String> categorylist = dbCategories.getData();
         categorylist.add(0, "");
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categorylist);
@@ -1811,7 +1827,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         initIconList();
 
-        Spinner categoryIcons = (Spinner) findViewById(R.id.iconddlb);
+        Spinner categoryIcons = findViewById(R.id.iconddlb);
         mAdapter = new IconAdapter(this, mCategoryList);
         categoryIcons.setAdapter(mAdapter);
 
@@ -1831,10 +1847,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     public void saveicons(View view) {
 
-        Spinner category = (Spinner) findViewById(R.id.categoryddlb);
+        Spinner category = findViewById(R.id.categoryddlb);
         String cat = category.getSelectedItem().toString();
 
-        Spinner categoryIcons = (Spinner) findViewById(R.id.iconddlb);
+        Spinner categoryIcons = findViewById(R.id.iconddlb);
         CategoryIcon selectedItem = (CategoryIcon) categoryIcons.getSelectedItem();
         String iconName = selectedItem.getmIconName();
 
@@ -1858,11 +1874,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         //int amountValue = 0;
         float amountValue = 0;
 
-        Spinner operator = (Spinner) findViewById(R.id.selectOperator);
-        TextView operatorTV = (TextView) findViewById(R.id.promptOperator);
+        Spinner operator = findViewById(R.id.selectOperator);
+        TextView operatorTV = findViewById(R.id.promptOperator);
 
-        EditText amount = (EditText) findViewById(R.id.enterAmount);
-        TextView amountTV = (TextView) findViewById(R.id.promptAmount);
+        EditText amount = findViewById(R.id.enterAmount);
+        TextView amountTV = findViewById(R.id.promptAmount);
 
         int selectedOpItem = operator.getSelectedItemPosition();
         if (selectedOpItem > 0) {
@@ -1887,8 +1903,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             //setContentView(R.layout.tablesummary);
             setContentView(R.layout.listsummary);
 
-            ListView transactions = (ListView) findViewById(R.id.transactionlist);
-            Button deleteTransaction = (Button) findViewById(R.id.deleteTxnBtn);
+            ListView transactions = findViewById(R.id.transactionlist);
+            Button deleteTransaction = findViewById(R.id.deleteTxnBtn);
             deleteTransaction.setOnClickListener(this);
 
             Transactions databaseIncomeExpense = new Transactions(this);
@@ -1951,8 +1967,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         String categoryValue = "";
 
-        Spinner category = (Spinner) findViewById(R.id.selectCategory);
-        TextView categoryTV = (TextView) findViewById(R.id.promptCategory);
+        Spinner category = findViewById(R.id.selectCategory);
+        TextView categoryTV = findViewById(R.id.promptCategory);
 
         int selectedcategory = category.getSelectedItemPosition();
         if (selectedcategory > 0) {
@@ -1968,8 +1984,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             //setContentView(R.layout.tablesummary);
             setContentView(R.layout.listsummary);
 
-            ListView transactions = (ListView) findViewById(R.id.transactionlist);
-            Button deleteTransaction = (Button) findViewById(R.id.deleteTxnBtn);
+            ListView transactions = findViewById(R.id.transactionlist);
+            Button deleteTransaction = findViewById(R.id.deleteTxnBtn);
             deleteTransaction.setOnClickListener(this);
 
             Transactions databaseIncomeExpense = new Transactions(this);
@@ -2020,8 +2036,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         String paymentValue = "";
 
-        Spinner payment = (Spinner) findViewById(R.id.selectPayMethod);
-        TextView paymentTV = (TextView) findViewById(R.id.promptPayM);
+        Spinner payment = findViewById(R.id.selectPayMethod);
+        TextView paymentTV = findViewById(R.id.promptPayM);
 
         int selectedPayment = payment.getSelectedItemPosition();
         if (selectedPayment > 0) {
@@ -2037,8 +2053,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             //setContentView(R.layout.tablesummary);
             setContentView(R.layout.listsummary);
 
-            ListView transactions = (ListView) findViewById(R.id.transactionlist);
-            Button deleteTransaction = (Button) findViewById(R.id.deleteTxnBtn);
+            ListView transactions = findViewById(R.id.transactionlist);
+            Button deleteTransaction = findViewById(R.id.deleteTxnBtn);
             deleteTransaction.setOnClickListener(this);
 
             Transactions databaseIncomeExpense = new Transactions(this);

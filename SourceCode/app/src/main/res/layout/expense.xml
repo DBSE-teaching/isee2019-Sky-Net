@@ -30,6 +30,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:checked="true"
+            android:onClick="openExpensePage"
             android:text="@string/radio_Expense"
             android:textStyle="bold"
             tools:layout_editor_absoluteY="5dp" />

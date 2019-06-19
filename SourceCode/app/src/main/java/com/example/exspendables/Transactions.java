@@ -164,11 +164,6 @@ public class Transactions extends SQLiteOpenHelper {
                         " AND " + "amount = " + "'"+ amount + "'" +
                         " AND " + "paymentMethod = "+ "'"+ payment + "'",null);
 
-        if(result > 0){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return result > 0;
     }
 }
