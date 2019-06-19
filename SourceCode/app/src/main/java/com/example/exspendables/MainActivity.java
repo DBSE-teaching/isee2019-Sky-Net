@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     // Graph Summary - Logesh
 
     public void openGraphSummaryPage(View view) {
-        setContentView(R.layout.view_summary);
+        setContentView(R.layout.graph_summary);
 
         Button buttonStartDate = (Button) findViewById(R.id.filterStartDate);
         buttonStartDate.setOnClickListener(new View.OnClickListener() {
@@ -235,14 +235,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                         @Override
                         public String getFormattedValue(float value, AxisBase axis) {
-                            // "value" represents the position of the label on the axis (x or y)
-
 
                                 int g = Math.round(value);
                                 String f = String.valueOf(g);
                                 java.util.Date dateValue = null;
-                                //java.util.Date dateValue1 = null;
-
 
                                 try {
                                     dateValue = (java.util.Date) mFormat.parse(f);
@@ -250,125 +246,15 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                                     e.printStackTrace();
                                 }
 
-
-                                // String s = dateValue.toString();
-
-                                //java.util.Date date = Date.valueOf(f);
-                                // DecimalFormat df = new DecimalFormat("00000000");
-
                                 return mFormat1.format(dateValue);
-
-
-                                // return String.valueOf((int) g);
 
                             }
 
                     });
 
                     chart.invalidate();
-
-                  /*  SQLiteDatabase db = transactions.getReadableDatabase();
-
-                    Cursor cur;
-
-                    String startDateVal = startDate.getText().toString();
-                    String endDateVal = endDate.getText().toString();
-
-                    startDateVal = startDateVal.replaceAll("-", "/");
-                    endDateVal = endDateVal.replaceAll("-", "/");
-
-                    java.util.Date startDate1 = null;
-                    java.util.Date endDate1 = null;
-
-                    //SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                    try {
-                        startDate1 = (java.util.Date) Formatter.parse(startDateVal);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-                    try {
-                        endDate1 = (java.util.Date) Formatter.parse(endDateVal);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-
-                    cur = db.rawQuery("SELECT amount,startDate FROM TRANSACTIONS", null);
-
-                    //Harish
-
-                    java.util.Date dateToCheck = null;
-                    java.util.Date startdateToCheck = null;
-                    java.util.Date enddateToCheck = null;
-                    int i = 0;
-                    int k = 0;
-
-
-                    cur.moveToFirst();
-                    while (!cur.isAfterLast()) {
-                        String amount = cur.getString(0);
-                        String date = cur.getString(1);
-
-                        date = date.replaceAll("-", "/");
-
-                        try {
-                            dateToCheck = Formatter.parse(date);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        try {
-                            startdateToCheck = Formatter.parse(startDateVal);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        try {
-                            enddateToCheck = Formatter.parse(endDateVal);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        if (dateToCheck.after(startdateToCheck) && dateToCheck.before(enddateToCheck)) {
-
-
-                            date = date.replaceAll("/", "");
-                            i = Integer.valueOf(date);
-                            k = Integer.valueOf(amount);
-                            String o = String.valueOf(i);
-                            String p = o.substring(o.length() - 4) ;
-                            int q = Integer.valueOf(p);
-                            label = date.toString();
-                            BARENTRY.add(new BarEntry(q, k));
-
-                        }
-                        cur.moveToNext();
-                    }
-
-
-
-                    //Harish
-
-
-                    Bardataset = new BarDataSet(BARENTRY, "Expenses");
-
-                    BARDATA = new BarData(Bardataset);
-
-                    Bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
-
-                    chart.setData(BARDATA);
-
-                    chart.animateXY(2000, 2000);
-
-                    chart.getAxisLeft().setAxisMinimum(0);
-                    chart.getAxisRight().setAxisMinimum(0);
-                    float barWidth = 0.25f;
-
-                    BARDATA.setBarWidth(barWidth); */
-
                 }
-
+                //No change
                 else if (spinner.getSelectedItem().equals("By Categories") & startDate.getText() != "" &  endDate.getText() != "")  {
 
                     setContentView(R.layout.piechart);
@@ -408,6 +294,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         xVals.add(categoryNames[i]);
                         String xVals1 = xVals.toString();
                         PieDataSet set1 = new PieDataSet(yVals1, xVals1);
+                        set1.setValueTextSize(15f);
                         set1.setSliceSpace(3f);
                         set1.setColors(ColorTemplate.createColors(colors));
 
@@ -416,48 +303,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         mChart.setData(data);
                         // undo all highlights
                         mChart.highlightValues(null);
-                        mChart.setCenterTextSize(20f);
-                        mChart.setEntryLabelTextSize(20f);
                         mChart.invalidate();
                     }
                     c.close();
                     db.close();
 
-                  /*  for (int m = 0; m < count; m++) {
-                        c.moveToNext();
-                        categoryNames[m] = c.getString(0);
-                        values[m] = c.getDouble(1);
-                        colors[m] = c.getInt(2);
-
-
-                        ArrayList<PieEntry> yVals1 = new ArrayList<PieEntry>();
-
-                        for (int i = 0; i < categoryNames.length; i++) {
-                            yVals1.add(new PieEntry((float) (values[i]), i));
-                        }
-
-                        ArrayList<String> xVals = new ArrayList<String>();//array legend
-
-                        for (int i = 0; i < categoryNames.length; i++){
-                            xVals.add(categoryNames[m % categoryNames.length]);
-
-                        PieDataSet set1 = new PieDataSet(yVals1, "Expenses");
-                        set1.setSliceSpace(3f);
-                        set1.setColors(ColorTemplate.createColors(colors));
-
-                        PieData data = new PieData(set1);
-                        //set1.setColors(ColorTemplate.COLORFUL_COLORS);
-                        mChart.setData(data);
-                        // undo all highlights
-                        mChart.highlightValues(null);
-                        mChart.invalidate();
-
-                    }
-                    c.close();
-                    db.close();
-
-
-} */
 
                   //Logesh - 19.06
                 } else if (spinner.getSelectedItem().equals("By Payment Method") & startDate.getText() != "" &  endDate.getText() != ""){
@@ -500,6 +350,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         String xVals1 = xVals.toString();
                         PieDataSet set1 = new PieDataSet(yVals1, xVals1);
                         set1.setSliceSpace(3f);
+                        set1.setValueTextSize(15f);
                         set1.setColors(ColorTemplate.createColors(colors));
 
                         PieData data = new PieData(set1);
@@ -581,8 +432,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         return year+"/"+month+"/"+dateVal;
 
     }
-
-
 
     // Event handler for button "Enter Income"
     public void openIncomePage(View view) {
