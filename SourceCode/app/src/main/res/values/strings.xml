@@ -50,6 +50,14 @@
         <item>By Amount</item>
     </string-array>
 
+    <string-array name="graphview">
+        <!--<item>@string/noselection</item>-->
+        <item>Select the option</item>
+        <item>By Date</item>
+        <item>By Categories</item>
+        <item>By Payment Method</item>
+    </string-array>
+
     <string-array name="operators">
         <item> </item>
         <item>Greater than</item>
