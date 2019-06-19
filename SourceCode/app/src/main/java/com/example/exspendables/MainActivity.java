@@ -9,16 +9,22 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
-import android.renderscript.Sampler;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -61,7 +67,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     DatabaseHandler dbPinTable;     // database table for storing PIN
     Categories dbCategories;
@@ -75,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     private ArrayList<CategoryIcon> mCategoryList;
     private IconAdapter mAdapter;
+    private DrawerLayout drawer;
 
 
     // main() method of UI
@@ -85,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         dbPinTable = new DatabaseHandler(this);
         Cursor cursor = dbPinTable.getPinData();
 
+
+
         // check if a value of PIN exists in dbTable - PIN
         // abhivanth , changed "login_pin" to
         if (cursor != null) {
@@ -93,18 +102,68 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 setContentView(R.layout.login_page);
 
             } else {
+                // changed income/expense to activity main - abhivanth
                 // if PIN does not exist, launch first time login page
                 setContentView(R.layout.income_or_expense);
-                // btnSavePin = (Button) findViewById(R.id.set_btn);
+                Toolbar toolbar = findViewById(R.id.toolbar);
+                setSupportActionBar(toolbar);
+
+                drawer = findViewById(R.id.drawer_layout);
+                NavigationView navigationView = findViewById(R.id.nav_view);
+                navigationView.setNavigationItemSelectedListener(this);
+
+
+                ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                        R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                drawer.addDrawerListener(toggle);
+                toggle.syncState();
+                if (savedInstanceState == null) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
+                            transactionFragment()).commit();
+                    navigationView.setCheckedItem(R.id.nav_transaction);
+                }                // btnSavePin = (Button) findViewById(R.id.set_btn);
                 //btnSavePin.setOnClickListener(this);
             }
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.nav_transaction:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
+                        transactionFragment()).commit();
+                break;
+            case R.id.nav_summary:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
+                        summaryFragment()).commit();
+                break;
+            case R.id.nav_settings:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
+                        settingsFragment()).commit();
+                break;
+            case R.id.nav_graph:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
+                        graphFragment()).commit();
+                break;
+        }
+        drawer.closeDrawer(GravityCompat.START);
+            return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.closeDrawer(GravityCompat.START);
+        }else {
+        super.onBackPressed();
         }
     }
 
     // Graph Summary - Logesh
 
     public void openGraphSummaryPage(View view) {
-        setContentView(R.layout.graph_summary);
+        setContentView(R.layout.view_summary);
 
         Button buttonStartDate = (Button) findViewById(R.id.filterStartDate);
         buttonStartDate.setOnClickListener(new View.OnClickListener() {
