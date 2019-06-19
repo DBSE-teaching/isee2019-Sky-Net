@@ -51,6 +51,7 @@ import com.mynameismidori.currencypicker.CurrencyPicker;
 import com.mynameismidori.currencypicker.CurrencyPickerListener;
 
 
+import java.sql.Array;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -163,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                     BarChart chart;
                     final ArrayList<BarEntry> BARENTRY;
+                    final ArrayList<Integer> Entries = new ArrayList<>();
                     String label = null;
                     ArrayList<String> BarEntryLabels;
                     BarDataSet Bardataset;
@@ -183,6 +185,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     String date;
                     int amount;
                     String cat;
+                    final XAxis xAxis = chart.getXAxis();
+
 
                     for (int m = 0; m < count; m++) {
                         date = c.getString(0);
@@ -192,8 +196,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         date = date.replaceAll("-", "");
                         int j = Integer.valueOf(date);
                         String p = date.substring(date.length() - 6) ;
-                        Long i = Long.valueOf(p);
+                        int i = Integer.valueOf(p);
                         BARENTRY.add(new BarEntry(i, amount));
+                        /*xAxis.mEntries = new float[
+                                Entries.add(i, m[i]) ]; */
                         c.moveToNext();
                     }
 
@@ -201,6 +207,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     BARDATA = new BarData(Bardataset);
                     Bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
                     chart.setData(BARDATA);
+
                     chart.animateXY(3000, 3000);
                     chart.getAxisLeft().setAxisMinimum(0);
                     chart.getAxisRight().setAxisMinimum(0);
@@ -208,14 +215,16 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     float barWidth = 0.25f;
                     chart.setFitBars(true);
                     BARDATA.setBarWidth(barWidth);
-
-
-                    final XAxis xAxis = chart.getXAxis();
+                    //final XAxis xAxis = chart.getXAxis();
                     xAxis.setGranularity(1f);
+                    xAxis.mEntryCount = count;
+                    xAxis.mAxisRange = 1f;
+                    chart.invalidate();
                     //xAxis.setLabelCount(count);
                     xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                     xAxis.setLabelRotationAngle(-90);
 
+                    chart.invalidate();
                     xAxis.setValueFormatter(new IAxisValueFormatter() {
 
                         SimpleDateFormat mFormat = new SimpleDateFormat("yyMMdd");
@@ -444,10 +453,66 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     }
                     c.close();
                     db.close();
-} */
-                } else {
 
-                }
+
+} */
+
+                  //Logesh - 19.06
+                } else if (spinner.getSelectedItem().equals("By Payment Method") & startDate.getText() != "" &  endDate.getText() != ""){
+
+                    setContentView(R.layout.piechart_paymethod);
+
+                    String startDatePie = startDate.getText().toString();
+                    String endDatePie = endDate.getText().toString();
+
+                    PieChart mChart;
+                    SQLiteDatabase db = transactions.getReadableDatabase();
+                    String sql = "Select paymentMethod, sum(amount), count(category) from TRANSACTIONS where startDate between '" +startDatePie+"' and '"+ endDatePie + "'" + "GROUP BY paymentMethod";
+                    mChart = (PieChart) findViewById(R.id.PieChart1);
+
+                    Cursor c = db.rawQuery(sql, null);
+                    int count = c.getCount();
+                    c.moveToFirst();
+
+                    double[] values = new double[count];
+                    String[] pMethods = new String[count];
+                    int[] colors = new int[count];
+
+                    for (int m = 0; m < count; m++) {
+                        pMethods[m] = c.getString(0);
+                        values[m] = c.getDouble(1);
+                        colors[m] = c.getInt(2);
+                        c.moveToNext();
+                    }
+
+                    ArrayList<PieEntry> yVals1 = new ArrayList<PieEntry>();
+
+                    for (int i = 0; i < pMethods.length; i++) {
+                        yVals1.add(new PieEntry((float) (values[i]), i));
+                    }
+
+                    ArrayList<String> xVals = new ArrayList<String>();//array legend
+
+                    for (int i = 0; i < pMethods.length; i++) {
+                        xVals.add(pMethods[i]);
+                        String xVals1 = xVals.toString();
+                        PieDataSet set1 = new PieDataSet(yVals1, xVals1);
+                        set1.setSliceSpace(3f);
+                        set1.setColors(ColorTemplate.createColors(colors));
+
+                        PieData data = new PieData(set1);
+                        set1.setColors(ColorTemplate.COLORFUL_COLORS);
+                        mChart.setData(data);
+                        // undo all highlights
+                        mChart.highlightValues(null);
+                        mChart.setCenterTextSize(20f);
+                        mChart.setEntryLabelTextSize(20f);
+                        mChart.invalidate();
+                    }
+                    c.close();
+                    db.close();
+
+                                  }
             }
         });
     }
