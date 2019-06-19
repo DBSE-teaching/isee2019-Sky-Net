@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">ExSpendables</string>
+    <string name="navigation_drawer_open">open navigation drawer</string>
+    <string name="navigation_drawer_close">close navigation drawer</string>
     <string name="infoFirstTimeUserMsg">First time user, please set PIN</string>
     <string name="setPin">Set PIN</string>
     <string name="retypePin">Confirm PIN</string>
