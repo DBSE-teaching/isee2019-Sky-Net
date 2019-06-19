@@ -57,7 +57,7 @@ public class Transactions extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData(String category, Date startDate, int amount,
+    public boolean addData(String category, Date startDate, float amount,
                            String code, String paymentMethod, String note, String indicator, String recurringTransaction,
                            String recurringFrequency, String recurringValue) {
 
