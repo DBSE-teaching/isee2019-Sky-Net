@@ -109,9 +109,23 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             if (cursor.moveToFirst()) {
                 //launch authenticate PIN page
                 //setContentView(R.layout.login_page);
+                setContentView(R.layout.activity_main);
+                Toolbar toolbar = findViewById(R.id.toolbar);
+                setSupportActionBar(toolbar);
+
+                drawer = findViewById(R.id.drawer_layout);
+                NavigationView navigationView = findViewById(R.id.nav_view);
+                navigationView.setNavigationItemSelectedListener(this);
+
+                ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                drawer.addDrawerListener(toggle);
+                toggle.syncState();
+                drawer.setDrawerLockMode(1);
+                View view1= null;
                 FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
                 contentFrameLayout.removeAllViewsInLayout();
                 getLayoutInflater().inflate(R.layout.login_page, contentFrameLayout);
+
 
             } else {
                 // changed income/expense to activity main - abhivanth
@@ -1333,9 +1347,27 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 String pinSavedInDB = cursor.getString(0);
                 if (pinSavedInDB.equals(pinToCheck)) {
                     //setContentView(R.layout.income_or_expense);
-                    FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
-                    contentFrameLayout.removeAllViewsInLayout();
-                    getLayoutInflater().inflate(R.layout.income_or_expense, contentFrameLayout);
+
+                    Toolbar toolbar = findViewById(R.id.toolbar);
+                    setSupportActionBar(toolbar);
+
+                    drawer = findViewById(R.id.drawer_layout);
+                    NavigationView navigationView = findViewById(R.id.nav_view);
+                    navigationView.setNavigationItemSelectedListener(this);
+
+                    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                    drawer.addDrawerListener(toggle);
+                    toggle.syncState();
+                    drawer.setDrawerLockMode(0);
+
+                        View view1= null;
+                        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                        contentFrameLayout.removeAllViewsInLayout();
+                        this.openExpensePage(view1);
+                        //getLayoutInflater().inflate(R.layout.expense, contentFrameLayout);
+                        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
+                        //      transactionFragment()).commit();
+                        navigationView.setCheckedItem(R.id.nav_transaction);
                 } else {
                     TextView incorrectPin = findViewById(R.id.incorrectPin);
                     incorrectPin.setText("PIN entered is wrong, please check");
@@ -1371,7 +1403,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     //setContentView(R.layout.income_or_expense);
                     FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
                     contentFrameLayout.removeAllViewsInLayout();
-                    getLayoutInflater().inflate(R.layout.income_or_expense, contentFrameLayout);
+                    getLayoutInflater().inflate(R.layout.expense, contentFrameLayout);
 
                 } else {
                     // PIN does not match, display an error message next to Text box
