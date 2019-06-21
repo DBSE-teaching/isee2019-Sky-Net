@@ -1,5 +1,6 @@
 package com.example.exspendables;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -12,8 +13,11 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentContainer;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -104,7 +108,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 //launch authenticate PIN page
-                setContentView(R.layout.login_page);
+                //setContentView(R.layout.login_page);
+                FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                contentFrameLayout.removeAllViewsInLayout();
+                getLayoutInflater().inflate(R.layout.login_page, contentFrameLayout);
 
             } else {
                 // changed income/expense to activity main - abhivanth
@@ -123,8 +130,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 drawer.addDrawerListener(toggle);
                 toggle.syncState();
                 if (savedInstanceState == null) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
-                            transactionFragment()).commit();
+                    View view= null;
+                    FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                    contentFrameLayout.removeAllViewsInLayout();
+                    this.openExpensePage(view);
+                    //getLayoutInflater().inflate(R.layout.expense, contentFrameLayout);
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
+                      //      transactionFragment()).commit();
                     navigationView.setCheckedItem(R.id.nav_transaction);
                 }                // btnSavePin = (Button) findViewById(R.id.set_btn);
                 //btnSavePin.setOnClickListener(this);
@@ -134,22 +146,46 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
         switch (menuItem.getItemId()) {
             case R.id.nav_transaction:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
-                        transactionFragment()).commit();
+                View view= null;
+
+                FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                contentFrameLayout.removeAllViewsInLayout();
+                //getLayoutInflater().inflate(R.layout.expense, contentFrameLayout);
+                this.openExpensePage(view);
+
+
+                        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
+                        //transactionFragment()).commit();
                 break;
             case R.id.nav_summary:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
-                        summaryFragment()).commit();
+                View view1= null;
+                FrameLayout contentFrameLayout1 = (FrameLayout) findViewById(R.id.fragment_container);
+                contentFrameLayout1.removeAllViewsInLayout();
+                this.openSummaryPage(view1);
+                //getLayoutInflater().inflate(R.layout.prompt_filter_ddlb, contentFrameLayout1);
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
+                  //      summaryFragment()).commit();
                 break;
             case R.id.nav_settings:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
-                        settingsFragment()).commit();
+                View view2= null;
+                FrameLayout contentFrameLayout2 = (FrameLayout) findViewById(R.id.fragment_container);
+                contentFrameLayout2.removeAllViewsInLayout();
+                this.openSettingsPage(view2);
+                //getLayoutInflater().inflate(R.layout.settings, contentFrameLayout2);
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
+                  //      settingsFragment()).commit();
                 break;
             case R.id.nav_graph:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
-                        graphFragment()).commit();
+                View view3= null;
+                FrameLayout contentFrameLayout3 = (FrameLayout) findViewById(R.id.fragment_container);
+                contentFrameLayout3.removeAllViewsInLayout();
+                this.openGraphSummaryPage(view3);
+                //getLayoutInflater().inflate(R.layout.view_summary, contentFrameLayout3);
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
+                  //      graphFragment()).commit();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
@@ -170,7 +206,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     public void openGraphSummaryPage(View view) {
         //setContentView(R.layout.view_summary);
 
-        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container); //Remember this is the FrameLayout area within your activity_main.xml
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+        contentFrameLayout.removeAllViewsInLayout();
         getLayoutInflater().inflate(R.layout.view_summary, contentFrameLayout);
 
         Button buttonStartDate = findViewById(R.id.filterStartDate);
@@ -185,6 +222,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 checkButtonStat();
                 DialogFragment datePicker = new com.example.exspendables.DatePicker();
                 datePicker.show(getSupportFragmentManager(), "date picker");
+
             }
         });
 
@@ -223,7 +261,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                 if (spinner.getSelectedItem().equals("By Date") & startDate.getText() != "" & endDate.getText() != "") {
 
-                    setContentView(R.layout.barchart);
+                    //setContentView(R.layout.barchart);
+                    FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                    contentFrameLayout.removeAllViewsInLayout();
+                    getLayoutInflater().inflate(R.layout.barchart, contentFrameLayout);
 
                     String startDateValue = startDate.getText().toString();
                     String endDateValue = endDate.getText().toString();
@@ -324,7 +365,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 //No change
                 else if (spinner.getSelectedItem().equals("By Categories") & startDate.getText() != "" &  endDate.getText() != "")  {
 
-                    setContentView(R.layout.piechart);
+                    //setContentView(R.layout.piechart);
+
+                    FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                    contentFrameLayout.removeAllViewsInLayout();
+                    getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
 
                     String startDatePie = startDate.getText().toString();
                     String endDatePie = endDate.getText().toString();
@@ -379,7 +424,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                   //Logesh - 19.06
                 } else if (spinner.getSelectedItem().equals("By Payment Method") & startDate.getText() != "" &  endDate.getText() != ""){
 
-                    setContentView(R.layout.piechart_paymethod);
+                    //setContentView(R.layout.piechart_paymethod);
+
+                    FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                    contentFrameLayout.removeAllViewsInLayout();
+                    getLayoutInflater().inflate(R.layout.piechart_paymethod, contentFrameLayout);
 
                     String startDatePie = startDate.getText().toString();
                     String endDatePie = endDate.getText().toString();
@@ -506,9 +555,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         //setContentView(R.layout.income);
 
         //FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);//Remember this is the FrameLayout area within your activity_main.xml
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
-                incomeFragment()).commit();
+        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
+               // incomeFragment()).commit();
         //getLayoutInflater().inflate(R.layout.income, contentFrameLayout);
+
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+        contentFrameLayout.removeAllViewsInLayout();
+        getLayoutInflater().inflate(R.layout.income, contentFrameLayout);
 
 
         Button button = findViewById(R.id.selectDate);
@@ -539,9 +592,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     // Event handler for button "Enter Expense"
-    public void openExpensePage(View view) {
+    public void openExpensePage(View view)  {
 
-        setContentView(R.layout.expense);
+        //setContentView(R.layout.expense);
+
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+        contentFrameLayout.removeAllViewsInLayout();
+        getLayoutInflater().inflate(R.layout.expense, contentFrameLayout);
+        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new transactionFragment()).commit();
 
         Categories dbCategories;
         dbCategories = new Categories(this);
@@ -739,7 +797,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     public void openSummaryPage(View view) {
 
-        setContentView(R.layout.prompt_filter_ddlb);
+        //setContentView(R.layout.prompt_filter_ddlb);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+        contentFrameLayout.removeAllViewsInLayout();
+        getLayoutInflater().inflate(R.layout.prompt_filter_ddlb, contentFrameLayout);
 
         loadFilters();
     }
@@ -753,7 +814,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 int indexSelected = spinner.getSelectedItemPosition();
                 switch (indexSelected){
                     case 1: //date range
-                        setContentView(R.layout.prompt_filter_date);
+                        //setContentView(R.layout.prompt_filter_date);
+                        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                        contentFrameLayout.removeAllViewsInLayout();
+                        getLayoutInflater().inflate(R.layout.prompt_filter_date, contentFrameLayout);
 
                         Button button = findViewById(R.id.selectDate);
                         button.setOnClickListener(new View.OnClickListener() {
@@ -789,7 +853,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         break;
 
                     case 2: // categories
-                        setContentView(R.layout.prompt_filter_category);
+                        //setContentView(R.layout.prompt_filter_category);
+                        FrameLayout contentFrameLayout1 = (FrameLayout) findViewById(R.id.fragment_container);
+                        contentFrameLayout1.removeAllViewsInLayout();
+                        getLayoutInflater().inflate(R.layout.prompt_filter_category, contentFrameLayout1);
 
                         Categories dbCategories;
                         dbCategories = new Categories(MainActivity.this);
@@ -804,13 +871,21 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         break;
 
                     case 3: //payment Method
-                        setContentView(R.layout.prompt_filter_paym);
+                        //setContentView(R.layout.prompt_filter_paym);
+
+                        FrameLayout contentFrameLayout2 = (FrameLayout) findViewById(R.id.fragment_container);
+                        contentFrameLayout2.removeAllViewsInLayout();
+                        getLayoutInflater().inflate(R.layout.prompt_filter_paym, contentFrameLayout2);
 
                         break;
 
                     case 4: //Amount
 
-                        setContentView(R.layout.prompt_filter_amount);
+                        //setContentView(R.layout.prompt_filter_amount);
+
+                        FrameLayout contentFrameLayout3 = (FrameLayout) findViewById(R.id.fragment_container);
+                        contentFrameLayout3.removeAllViewsInLayout();
+                        getLayoutInflater().inflate(R.layout.prompt_filter_amount, contentFrameLayout3);
 
                         break;
 
@@ -874,7 +949,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             enddateToCheck.setDate(enddateToCheck.getDate()-1);
 
             //setContentView(R.layout.tablesummary);
-            setContentView(R.layout.listsummary);
+            //setContentView(R.layout.listsummary);
+            FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+            contentFrameLayout.removeAllViewsInLayout();
+            getLayoutInflater().inflate(R.layout.listsummary, contentFrameLayout);
 
             ListView transactions = findViewById(R.id.transactionlist);
             Button deleteTransaction = findViewById(R.id.deleteTxnBtn);
@@ -934,7 +1012,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     public void openSettingsPage(View view) {
-        setContentView(R.layout.settings);
+        //setContentView(R.layout.settings);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+        contentFrameLayout.removeAllViewsInLayout();
+        getLayoutInflater().inflate(R.layout.settings, contentFrameLayout);
 
         Button categoryDisplay = findViewById(R.id.edit_categories);
         categoryDisplay.setOnClickListener(this);
@@ -1251,7 +1332,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             if (cursor.moveToFirst()) {
                 String pinSavedInDB = cursor.getString(0);
                 if (pinSavedInDB.equals(pinToCheck)) {
-                    setContentView(R.layout.income_or_expense);
+                    //setContentView(R.layout.income_or_expense);
+                    FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                    contentFrameLayout.removeAllViewsInLayout();
+                    getLayoutInflater().inflate(R.layout.income_or_expense, contentFrameLayout);
                 } else {
                     TextView incorrectPin = findViewById(R.id.incorrectPin);
                     incorrectPin.setText("PIN entered is wrong, please check");
@@ -1284,7 +1368,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     // harish - 25.05
                     // Redirect to activity where user is prompted to
                     // 1. Enter income 2. Expense 3. View summary
-                    setContentView(R.layout.income_or_expense);
+                    //setContentView(R.layout.income_or_expense);
+                    FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                    contentFrameLayout.removeAllViewsInLayout();
+                    getLayoutInflater().inflate(R.layout.income_or_expense, contentFrameLayout);
 
                 } else {
                     // PIN does not match, display an error message next to Text box
@@ -1296,7 +1383,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
             case R.id.edit_categories:
 
-                setContentView(R.layout.category_popup);
+                //setContentView(R.layout.category_popup);
+
+                FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                contentFrameLayout.removeAllViewsInLayout();
+                getLayoutInflater().inflate(R.layout.category_popup, contentFrameLayout);
 
                 ListView categoryList = findViewById(R.id.categorylist);
                 Button deleteCategory = findViewById(R.id.deleteCategoryBtn);
@@ -1471,7 +1562,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
             case R.id.addCategoryBtn:
                 // create a layout with a EditText and OK button on click on "add"
-                setContentView(R.layout.add_category);
+                //setContentView(R.layout.add_category);
+                FrameLayout contentFrameLayout1 = (FrameLayout) findViewById(R.id.fragment_container);
+                contentFrameLayout1.removeAllViewsInLayout();
+                getLayoutInflater().inflate(R.layout.add_category, contentFrameLayout1);
+
                 Button okAddCategory = findViewById(R.id.btnOKAddCategory);
                 okAddCategory.setOnClickListener(this);
                 break;
@@ -1483,7 +1578,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 // harish - 25.05
                 Toast.makeText(getApplicationContext(), "New category added", Toast.LENGTH_SHORT).show();
                 // harish - 25.05
-                setContentView(R.layout.category_popup);
+                //setContentView(R.layout.category_popup);
+
+                FrameLayout contentFrameLayout2 = (FrameLayout) findViewById(R.id.fragment_container);
+                contentFrameLayout2.removeAllViewsInLayout();
+                getLayoutInflater().inflate(R.layout.category_popup, contentFrameLayout2);
 
                 //refresh the list with new value
                 categoryList = findViewById(R.id.categorylist);
@@ -1541,7 +1640,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     }
                 }
 
-                setContentView(R.layout.modify_category);
+                //setContentView(R.layout.modify_category);
+                FrameLayout contentFrameLayout3 = (FrameLayout) findViewById(R.id.fragment_container);
+                contentFrameLayout3.removeAllViewsInLayout();
+                getLayoutInflater().inflate(R.layout.modify_category, contentFrameLayout3);
+
                 EditText valueToBeModified = findViewById(R.id.modify_cat_textbox);
                 valueToBeModified.setText(oldValue);
 
@@ -1557,7 +1660,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 // harish - 25.05
                 Toast.makeText(getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
                 // harish - 25.05
-                setContentView(R.layout.category_popup);
+                //setContentView(R.layout.category_popup);
+                FrameLayout contentFrameLayout4 = (FrameLayout) findViewById(R.id.fragment_container);
+                contentFrameLayout4.removeAllViewsInLayout();
+                getLayoutInflater().inflate(R.layout.category_popup, contentFrameLayout4);
+
                 //refresh the list with new value
                 categoryList = findViewById(R.id.categorylist);
 
@@ -1583,7 +1690,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 break;
 // abhivanth,changed "change_pin" to switch_pin
             case R.id.changePin:
-                setContentView(R.layout.switch_pin);
+                //setContentView(R.layout.switch_pin);
+
+                FrameLayout contentFrameLayout5 = (FrameLayout) findViewById(R.id.fragment_container);
+                contentFrameLayout5.removeAllViewsInLayout();
+                getLayoutInflater().inflate(R.layout.switch_pin, contentFrameLayout5);
+
+
                 Switch enablePin = findViewById(R.id.enablePin);
                 enablePin.setOnClickListener(this);
 
@@ -1597,7 +1710,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                 enablePin = findViewById(R.id.enablePin);
                 if (enablePin.isChecked()) {
-                    setContentView(R.layout.change_pin);
+                    //setContentView(R.layout.change_pin);
+                    FrameLayout contentFrameLayout6 = (FrameLayout) findViewById(R.id.fragment_container);
+                    contentFrameLayout6.removeAllViewsInLayout();
+                    getLayoutInflater().inflate(R.layout.change_pin, contentFrameLayout6);
+
                     Button changePinOkBtn = findViewById(R.id.change_pin_ok);
                     changePinOkBtn.setOnClickListener(this);
                 } else {
@@ -1628,7 +1745,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                             // harish - 25.05
                             Toast.makeText(getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
                             // harish - 25.05
-                            setContentView(R.layout.settings);
+                            //setContentView(R.layout.settings);
+                            FrameLayout contentFrameLayout6 = (FrameLayout) findViewById(R.id.fragment_container);
+                            contentFrameLayout6.removeAllViewsInLayout();
+                            getLayoutInflater().inflate(R.layout.settings, contentFrameLayout6);
+
                             Button categoryDisplay = findViewById(R.id.edit_categories);
                             categoryDisplay.setOnClickListener(this);
 
@@ -1641,7 +1762,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                             dbPinTable.addData(pin);
                             Toast.makeText(getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
-                            setContentView(R.layout.settings);
+                            //setContentView(R.layout.settings);
+                            FrameLayout contentFrameLayout6 = (FrameLayout) findViewById(R.id.fragment_container);
+                            contentFrameLayout6.removeAllViewsInLayout();
+                            getLayoutInflater().inflate(R.layout.settings, contentFrameLayout6);
 
                             Button categoryDisplay = findViewById(R.id.edit_categories);
                             categoryDisplay.setOnClickListener(this);
@@ -1685,12 +1809,18 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     public void maxbudget(View view) {
         Button button = findViewById(R.id.maxbudget);
-        setContentView(R.layout.maxbudget);
+        //setContentView(R.layout.maxbudget);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+        contentFrameLayout.removeAllViewsInLayout();
+        getLayoutInflater().inflate(R.layout.maxbudget, contentFrameLayout);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.maxbudget);
+               // setContentView(R.layout.maxbudget);
+                FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                contentFrameLayout.removeAllViewsInLayout();
+                getLayoutInflater().inflate(R.layout.maxbudget, contentFrameLayout);
             }
         });
 
@@ -1708,7 +1838,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     public void backToHome(View view) {
-       setContentView(R.layout.activity_main);
+
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+        contentFrameLayout.removeAllViewsInLayout();
+        this.openExpensePage(view);
+
     }
 
     public void sendemail(View view){
@@ -1746,7 +1880,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     public void backToSettings(View view) {
-        setContentView(R.layout.settings);
+        //setContentView(R.layout.settings);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+        contentFrameLayout.removeAllViewsInLayout();
+        getLayoutInflater().inflate(R.layout.settings, contentFrameLayout);
 
         Button categoryDisplay = findViewById(R.id.edit_categories);
         categoryDisplay.setOnClickListener(this);
@@ -1756,7 +1893,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     public void backToCategory(View view) {
-        setContentView(R.layout.category_popup);
+        //setContentView(R.layout.category_popup);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+        contentFrameLayout.removeAllViewsInLayout();
+        getLayoutInflater().inflate(R.layout.category_popup, contentFrameLayout);
 
         Button deleteCategory = findViewById(R.id.deleteCategoryBtn);
         Button modifyCategory = findViewById(R.id.modifyCategoryBtn);
@@ -1814,7 +1954,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     public void setIcons(View view) {
 
-        setContentView(R.layout.set_icons);
+        //setContentView(R.layout.set_icons);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+        contentFrameLayout.removeAllViewsInLayout();
+        getLayoutInflater().inflate(R.layout.set_icons, contentFrameLayout);
 
         Categories dbCategories = new Categories(this);
         // Populate Category DDLB
@@ -1861,7 +2004,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     public void backToFilter(View view) {
-        setContentView(R.layout.prompt_filter_ddlb);
+        //setContentView(R.layout.prompt_filter_ddlb);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+        contentFrameLayout.removeAllViewsInLayout();
+        getLayoutInflater().inflate(R.layout.prompt_filter_ddlb, contentFrameLayout);
 
         loadFilters();
     }
@@ -1901,7 +2047,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         if(missingMandatoryFields == false) {
 
             //setContentView(R.layout.tablesummary);
-            setContentView(R.layout.listsummary);
+            //setContentView(R.layout.listsummary);
+            FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+            contentFrameLayout.removeAllViewsInLayout();
+            getLayoutInflater().inflate(R.layout.listsummary, contentFrameLayout);
 
             ListView transactions = findViewById(R.id.transactionlist);
             Button deleteTransaction = findViewById(R.id.deleteTxnBtn);
@@ -1982,7 +2131,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         if(missingMandatoryFields == false) {
 
             //setContentView(R.layout.tablesummary);
-            setContentView(R.layout.listsummary);
+           // setContentView(R.layout.listsummary);
+            FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+            contentFrameLayout.removeAllViewsInLayout();
+            getLayoutInflater().inflate(R.layout.listsummary, contentFrameLayout);
 
             ListView transactions = findViewById(R.id.transactionlist);
             Button deleteTransaction = findViewById(R.id.deleteTxnBtn);
@@ -2051,7 +2203,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         if(missingMandatoryFields == false) {
 
             //setContentView(R.layout.tablesummary);
-            setContentView(R.layout.listsummary);
+            //setContentView(R.layout.listsummary);
+            FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+            contentFrameLayout.removeAllViewsInLayout();
+            getLayoutInflater().inflate(R.layout.listsummary, contentFrameLayout);
 
             ListView transactions = findViewById(R.id.transactionlist);
             Button deleteTransaction = findViewById(R.id.deleteTxnBtn);
