@@ -43,7 +43,7 @@
         app:layout_constraintHorizontal_bias="0.381"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.216"></Spinner>
+        app:layout_constraintVertical_bias="0.216"/>
 
     <TextView
         android:id="@+id/promptAmount"
@@ -68,7 +68,7 @@
         app:layout_constraintHorizontal_bias="0.973"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.222"></EditText>
+        app:layout_constraintVertical_bias="0.222"/>
 
     <Button
         android:id="@+id/filterByAmtBtn"
@@ -105,6 +105,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.395" />
 
-    />
+
 
 </android.support.constraint.ConstraintLayout>

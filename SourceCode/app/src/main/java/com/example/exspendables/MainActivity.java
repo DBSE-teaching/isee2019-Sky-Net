@@ -222,7 +222,16 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
         contentFrameLayout.removeAllViewsInLayout();
-        getLayoutInflater().inflate(R.layout.view_summary, contentFrameLayout);
+        getLayoutInflater().inflate(R.layout.graph_summary, contentFrameLayout);
+
+        Categories dbCategories;
+        dbCategories = new Categories(this);
+        final Spinner categoryList = findViewById(R.id.categoryList);
+        final List<String> categorylist = dbCategories.getData();
+        categorylist.add(0, "");
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categorylist);
+        categoryAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        categoryList.setAdapter(categoryAdapter);
 
         Button buttonStartDate = findViewById(R.id.filterStartDate);
         buttonStartDate.setOnClickListener(new View.OnClickListener() {
@@ -268,12 +277,18 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                 Spinner spinner = findViewById(R.id.filter);
                 TextView startDate = findViewById(R.id.entryDate);
+                TextView byDate = findViewById(R.id.byDate);
                 SimpleDateFormat Formatter = new SimpleDateFormat("yyyy/MM/dd");
 
 
                 TextView endDate = findViewById(R.id.endDate);
+                TextView byCategory = findViewById(R.id.byCategory);
+                TextView byPaymentMethod = findViewById(R.id.byPaymentMethod);
+                Spinner selectPaymentMethod = findViewById(R.id.selectPaymentMethod);
+                String catList = String.valueOf(categoryList.getSelectedItem());
 
-                if (spinner.getSelectedItem().equals("By Date") & startDate.getText() != "" & endDate.getText() != "") {
+
+                if (byDate.getText().equals("By Date") & startDate.getText() != "" & endDate.getText() != "") {
 
                     //setContentView(R.layout.barchart);
                     FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
@@ -377,7 +392,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     chart.invalidate();
                 }
                 //No change
-                else if (spinner.getSelectedItem().equals("By Categories") & startDate.getText() != "" &  endDate.getText() != "")  {
+                else if (byCategory.getText().equals("By Category") & startDate.getText() != "" &  endDate.getText() != "")  {
 
                     //setContentView(R.layout.piechart);
 
@@ -436,7 +451,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
 
                   //Logesh - 19.06
-                } else if (spinner.getSelectedItem().equals("By Payment Method") & startDate.getText() != "" &  endDate.getText() != ""){
+                } else if (byPaymentMethod.getText().equals("By Payment Method") & startDate.getText() != "" &  endDate.getText() != ""){
 
                     //setContentView(R.layout.piechart_paymethod);
 
@@ -496,6 +511,69 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     db.close();
 
                                   }
+
+
+               /* else if (catList !="" & startDate.getText() != "" &
+                        endDate.getText() != "" & selectPaymentMethod.getSelectedItem() !=""){
+
+                    //setContentView(R.layout.piechart_paymethod);
+
+                    FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                    contentFrameLayout.removeAllViewsInLayout();
+                    getLayoutInflater().inflate(R.layout.piechart_paymethod, contentFrameLayout);
+
+                    String startDatePie = startDate.getText().toString();
+                    String endDatePie = endDate.getText().toString();
+
+                    PieChart mChart;
+                    SQLiteDatabase db = transactions.getReadableDatabase();
+                    String sql = "Select paymentMethod, sum(amount), count(category) from TRANSACTIONS where startDate between '" +startDatePie+"' and '"+ endDatePie + "' and category = '"catList"' + "GROUP BY paymentMethod" ;
+                    mChart = findViewById(R.id.PieChart1);
+
+                    Cursor c = db.rawQuery(sql, null);
+                    int count = c.getCount();
+                    c.moveToFirst();
+
+                    double[] values = new double[count];
+                    String[] pMethods = new String[count];
+                    int[] colors = new int[count];
+
+                    for (int m = 0; m < count; m++) {
+                        pMethods[m] = c.getString(0);
+                        values[m] = c.getDouble(1);
+                        colors[m] = c.getInt(2);
+                        c.moveToNext();
+                    }
+
+                    ArrayList<PieEntry> yVals1 = new ArrayList<PieEntry>();
+
+                    for (int i = 0; i < pMethods.length; i++) {
+                        yVals1.add(new PieEntry((float) (values[i]), i));
+                    }
+
+                    ArrayList<String> xVals = new ArrayList<String>();//array legend
+
+                    for (int i = 0; i < pMethods.length; i++) {
+                        xVals.add(pMethods[i]);
+                        String xVals1 = xVals.toString();
+                        PieDataSet set1 = new PieDataSet(yVals1, xVals1);
+                        set1.setSliceSpace(3f);
+                        set1.setValueTextSize(15f);
+                        set1.setColors(ColorTemplate.createColors(colors));
+
+                        PieData data = new PieData(set1);
+                        set1.setColors(ColorTemplate.COLORFUL_COLORS);
+                        mChart.setData(data);
+                        // undo all highlights
+                        mChart.highlightValues(null);
+                        mChart.setCenterTextSize(20f);
+                        mChart.setEntryLabelTextSize(20f);
+                        mChart.invalidate();
+                    }
+                    c.close();
+                    db.close();
+
+                } */
             }
         });
     }
