@@ -19,8 +19,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
+        app:layout_constraintVertical_bias="0.011">
 
 
         <RadioButton
@@ -42,7 +41,6 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:checked="false"
-            android:onClick="openIncomePage"
             android:text="@string/radio_Income"
             android:textStyle="bold"
             tools:layout_editor_absoluteY="5dp" />

@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     this.openExpensePage(view);
                     //getLayoutInflater().inflate(R.layout.expense, contentFrameLayout);
                     //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
-                      //      transactionFragment()).commit();
+                    //      transactionFragment()).commit();
                     navigationView.setCheckedItem(R.id.nav_transaction);
                 }                // btnSavePin = (Button) findViewById(R.id.set_btn);
                 //btnSavePin.setOnClickListener(this);
@@ -171,8 +171,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 this.openExpensePage(view);
 
 
-                        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
-                        //transactionFragment()).commit();
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
+                //transactionFragment()).commit();
                 break;
             case R.id.nav_summary:
                 View view1= null;
@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 this.openSummaryPage(view1);
                 //getLayoutInflater().inflate(R.layout.prompt_filter_ddlb, contentFrameLayout1);
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
-                  //      summaryFragment()).commit();
+                //      summaryFragment()).commit();
                 break;
             case R.id.nav_settings:
                 View view2= null;
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 this.openSettingsPage(view2);
                 //getLayoutInflater().inflate(R.layout.settings, contentFrameLayout2);
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
-                  //      settingsFragment()).commit();
+                //      settingsFragment()).commit();
                 break;
             case R.id.nav_graph:
                 View view3= null;
@@ -199,11 +199,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 this.openGraphSummaryPage(view3);
                 //getLayoutInflater().inflate(R.layout.view_summary, contentFrameLayout3);
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
-                  //      graphFragment()).commit();
+                //      graphFragment()).commit();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
-            return true;
+        return true;
     }
 
     @Override
@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
         }else {
-        super.onBackPressed();
+            super.onBackPressed();
         }
     }
 
@@ -295,90 +295,90 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
 
                 loop:{
-                if (startDate.getText() != "" && endDate.getText() != "" & catList.equals("") && payList.equals("") && operatorList.equals("") && amountValue.equals("") ) {
+                    if (startDate.getText() != "" && endDate.getText() != "" & catList.equals("") && payList.equals("") && operatorList.equals("") && amountValue.equals("") ) {
 
-                    //setContentView(R.layout.barchart);
-                    FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
-                    contentFrameLayout.removeAllViewsInLayout();
-                    getLayoutInflater().inflate(R.layout.barchart, contentFrameLayout);
+                        //setContentView(R.layout.barchart);
+                        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                        contentFrameLayout.removeAllViewsInLayout();
+                        getLayoutInflater().inflate(R.layout.barchart, contentFrameLayout);
 
-                    String startDateValue = startDate.getText().toString();
-                    String endDateValue = endDate.getText().toString();
-
-
-                    BarChart chart;
-                    final ArrayList<BarEntry> BARENTRY;
-                    final ArrayList<Integer> Entries = new ArrayList<>();
-                    String label = null;
-                    ArrayList<String> BarEntryLabels;
-                    BarDataSet Bardataset;
-                    BarData BARDATA;
-                    chart = findViewById(R.id.barGraph);
+                        String startDateValue = startDate.getText().toString();
+                        String endDateValue = endDate.getText().toString();
 
 
-                    BARENTRY = new ArrayList<>();
-                    BarEntryLabels = new ArrayList<String>();
-
-                    SQLiteDatabase sdb = transactions.getReadableDatabase();
-                    String sql = "Select startDate, amount, category from TRANSACTIONS " +
-                                  "where startDate between '" +startDateValue+"' and '"+ endDateValue + "'" + "ORDER BY startDate" ;
-
-                    Cursor c = sdb.rawQuery(sql, null);
-                    final int count = c.getCount();
-                    c.moveToFirst();
-                    String date;
-                    //int amount;
-                    float amount;
-                    String cat;
-                    final XAxis xAxis = chart.getXAxis();
+                        BarChart chart;
+                        final ArrayList<BarEntry> BARENTRY;
+                        final ArrayList<Integer> Entries = new ArrayList<>();
+                        String label = null;
+                        ArrayList<String> BarEntryLabels;
+                        BarDataSet Bardataset;
+                        BarData BARDATA;
+                        chart = findViewById(R.id.barGraph);
 
 
-                    for (int m = 0; m < count; m++) {
-                        date = c.getString(0);
-                        //Date date1 = Date.valueOf(date);
-                        //amount = c.getInt(1);
-                        amount = c.getFloat(1);
-                        cat = c.getString(2);
-                        date = date.replaceAll("-", "");
-                        int j = Integer.valueOf(date);
-                        String p = date.substring(date.length() - 6) ;
-                        int i = Integer.valueOf(p);
-                        BARENTRY.add(new BarEntry(i, amount));
+                        BARENTRY = new ArrayList<>();
+                        BarEntryLabels = new ArrayList<String>();
+
+                        SQLiteDatabase sdb = transactions.getReadableDatabase();
+                        String sql = "Select startDate, amount, category from TRANSACTIONS " +
+                                "where startDate between '" +startDateValue+"' and '"+ endDateValue + "'" + "ORDER BY startDate" ;
+
+                        Cursor c = sdb.rawQuery(sql, null);
+                        final int count = c.getCount();
+                        c.moveToFirst();
+                        String date;
+                        //int amount;
+                        float amount;
+                        String cat;
+                        final XAxis xAxis = chart.getXAxis();
+
+
+                        for (int m = 0; m < count; m++) {
+                            date = c.getString(0);
+                            //Date date1 = Date.valueOf(date);
+                            //amount = c.getInt(1);
+                            amount = c.getFloat(1);
+                            cat = c.getString(2);
+                            date = date.replaceAll("-", "");
+                            int j = Integer.valueOf(date);
+                            String p = date.substring(date.length() - 6) ;
+                            int i = Integer.valueOf(p);
+                            BARENTRY.add(new BarEntry(i, amount));
                         /*xAxis.mEntries = new float[
                                 Entries.add(i, m[i]) ]; */
-                        c.moveToNext();
-                    }
+                            c.moveToNext();
+                        }
 
-                    Bardataset = new BarDataSet(BARENTRY, "Expenses");
-                    BARDATA = new BarData(Bardataset);
-                    Bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
-                    chart.setData(BARDATA);
+                        Bardataset = new BarDataSet(BARENTRY, "Expenses");
+                        BARDATA = new BarData(Bardataset);
+                        Bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
+                        chart.setData(BARDATA);
 
-                    chart.animateXY(3000, 3000);
-                    chart.getAxisLeft().setAxisMinimum(0);
-                    chart.getAxisRight().setAxisMinimum(0);
-                    chart.setPinchZoom(false);
-                    float barWidth = 0.25f;
-                    chart.setFitBars(true);
-                    BARDATA.setBarWidth(barWidth);
-                    //final XAxis xAxis = chart.getXAxis();
-                    xAxis.setGranularity(1f);
-                    xAxis.mEntryCount = count;
-                    xAxis.mAxisRange = 1f;
-                    chart.invalidate();
-                    //xAxis.setLabelCount(count);
-                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                    xAxis.setLabelRotationAngle(-90);
+                        chart.animateXY(3000, 3000);
+                        chart.getAxisLeft().setAxisMinimum(0);
+                        chart.getAxisRight().setAxisMinimum(0);
+                        chart.setPinchZoom(false);
+                        float barWidth = 0.25f;
+                        chart.setFitBars(true);
+                        BARDATA.setBarWidth(barWidth);
+                        //final XAxis xAxis = chart.getXAxis();
+                        xAxis.setGranularity(1f);
+                        xAxis.mEntryCount = count;
+                        xAxis.mAxisRange = 1f;
+                        chart.invalidate();
+                        //xAxis.setLabelCount(count);
+                        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                        xAxis.setLabelRotationAngle(-90);
 
-                    chart.invalidate();
-                    xAxis.setValueFormatter(new IAxisValueFormatter() {
+                        chart.invalidate();
+                        xAxis.setValueFormatter(new IAxisValueFormatter() {
 
-                        SimpleDateFormat mFormat = new SimpleDateFormat("yyMMdd");
-                        SimpleDateFormat mFormat1 = new SimpleDateFormat("MMM dd");
+                            SimpleDateFormat mFormat = new SimpleDateFormat("yyMMdd");
+                            SimpleDateFormat mFormat1 = new SimpleDateFormat("MMM dd");
 
 
-                        @Override
-                        public String getFormattedValue(float value, AxisBase axis) {
+                            @Override
+                            public String getFormattedValue(float value, AxisBase axis) {
 
                                 int g = Math.round(value);
                                 String f = String.valueOf(g);
@@ -394,27 +394,27 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                             }
 
-                    });
+                        });
 
-                    chart.invalidate();
-                }
-                else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("")&& payList.equals("") && operatorList.equals("") && amountValue.equals("")){
+                        chart.invalidate();
+                    }
+                    else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("")&& payList.equals("") && operatorList.equals("") && amountValue.equals("")){
 
-                    Toast.makeText(getApplicationContext(), "Select any value to display chart", Toast.LENGTH_LONG).show();
-                }
+                        Toast.makeText(getApplicationContext(), "Select any value to display chart", Toast.LENGTH_LONG).show();
+                    }
 
-                else if ((startDate.getText() != "" && endDate.getText().equals("")) || (startDate.getText().equals("") && endDate.getText() !="")){
+                    else if ((startDate.getText() != "" && endDate.getText().equals("")) || (startDate.getText().equals("") && endDate.getText() !="")){
 
-                    Toast.makeText(getApplicationContext(), "Select both start date & end date", Toast.LENGTH_LONG).show();
-                }
+                        Toast.makeText(getApplicationContext(), "Select both start date & end date", Toast.LENGTH_LONG).show();
+                    }
 
-                else if ((!operatorList.equals("") && amountValue.equals("")) || (operatorList.equals("") && !amountValue.equals(""))){
+                    else if ((!operatorList.equals("") && amountValue.equals("")) || (operatorList.equals("") && !amountValue.equals(""))){
 
-                    Toast.makeText(getApplicationContext(), "Select both operator and amount value", Toast.LENGTH_LONG).show();
-                }
+                        Toast.makeText(getApplicationContext(), "Select both operator and amount value", Toast.LENGTH_LONG).show();
+                    }
 
 
-                else if (!catList.equals("") || startDate.getText() != "" || endDate.getText() != "" || !payList.equals("") || operatorList.equals("Greater than") || operatorList.equals("Lesser than") || !amountValue.equals("")) {
+                    else if (!catList.equals("") || startDate.getText() != "" || endDate.getText() != "" || !payList.equals("") || operatorList.equals("Greater than") || operatorList.equals("Lesser than") || !amountValue.equals("")) {
 
                         //setContentView(R.layout.piechart_paymethod);
 
@@ -430,102 +430,102 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                         String sql = null;
 
-                    if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
-                        sql = "Select category, amount from TRANSACTIONS where category ='" + catList + "'";
-                        getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart);
+                        if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where category ='" + catList + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
 
-                    }else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && payList.equals("") && operatorList.equals("Greater than") && 		!amountValue.equals("")) {
-                        sql = "Select category, amount from TRANSACTIONS where amount > '" + amountValue + "'";
-                        getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart);
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && payList.equals("") && operatorList.equals("Greater than") && 		!amountValue.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where amount > '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
 
-                    }else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && payList.equals("") && operatorList.equals("Lesser than") && 		!amountValue.equals("")) {
-                        sql = "Select category, amount from TRANSACTIONS where amount < '" + amountValue + "'";
-                        getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart);
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && payList.equals("") && operatorList.equals("Lesser than") && 		!amountValue.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where amount < '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
 
-                    }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
-                        sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "'";
-                        getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart);
+                        }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
 
-                    }else if (startDate.getText() != "" && endDate.getText() != "" && catList.equals("") && operatorList.equals("Greater than") && !amountValue.equals("") ) {
-                        sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and amount > '" + amountValue + "'";
-                        getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart);
+                        }else if (startDate.getText() != "" && endDate.getText() != "" && catList.equals("") && operatorList.equals("Greater than") && !amountValue.equals("") ) {
+                            sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and amount > '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
 
-                    }else if (startDate.getText() != "" && endDate.getText() != "" && catList.equals("") && operatorList.equals("Lesser than") && !amountValue.equals("") ) {
-                        sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and amount < '" + amountValue + "'";
-                        getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart);
+                        }else if (startDate.getText() != "" && endDate.getText() != "" && catList.equals("") && operatorList.equals("Lesser than") && !amountValue.equals("") ) {
+                            sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and amount < '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
 
-                    }else if (startDate.getText() != "" && endDate.getText() != "" && catList.equals("") && !payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
-                        sql = "Select paymentMethod, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and paymentMethod ='" + payList + "'";
-                        getLayoutInflater().inflate(R.layout.piechart_paymethod, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart1);
+                        }else if (startDate.getText() != "" && endDate.getText() != "" && catList.equals("") && !payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
+                            sql = "Select paymentMethod, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and paymentMethod ='" + payList + "'";
+                            getLayoutInflater().inflate(R.layout.piechart_paymethod, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart1);
 
-                    }else if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && payList.equals("") && operatorList.equals("Greater than") && !amountValue.equals("")) {
-                        sql = "Select category, amount from TRANSACTIONS where category = '" + catList + "' and amount > '" + amountValue + "'";
-                        getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart);
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && payList.equals("") && operatorList.equals("Greater than") && !amountValue.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where category = '" + catList + "' and amount > '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
 
-                    }else if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && payList.equals("") && operatorList.equals("Lesser than") && !amountValue.equals("")) {
-                        sql = "Select category, amount from TRANSACTIONS where category = '" + catList + "' and amount < '" + amountValue + "'";
-                        getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart);
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && payList.equals("") && operatorList.equals("Lesser than") && !amountValue.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where category = '" + catList + "' and amount < '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
 
-                    }else if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && operatorList.equals(" ") && amountValue.equals("")) {
-                        sql = "Select category, amount from TRANSACTIONS where category = '" + catList + "' and paymentMethod = '" + payList + "'" ;
-                        getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart);
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && operatorList.equals(" ") && amountValue.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where category = '" + catList + "' and paymentMethod = '" + payList + "'" ;
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
 
-                    }else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && operatorList.equals("Greater than") && !amountValue.equals("") && !payList.equals("")) {
-                        sql = "Select paymentMethod, amount from TRANSACTIONS where paymentMethod = '" + payList + "'and amount > '" + amountValue + "'";
-                        getLayoutInflater().inflate(R.layout.piechart_paymethod, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart1);
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && operatorList.equals("Greater than") && !amountValue.equals("") && !payList.equals("")) {
+                            sql = "Select paymentMethod, amount from TRANSACTIONS where paymentMethod = '" + payList + "'and amount > '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart_paymethod, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart1);
 
-                    }else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && operatorList.equals("Lesser than") && !amountValue.equals("") && 	!payList.equals("")) {
-                        sql = "Select category, amount from TRANSACTIONS where paymentMethod = '" + payList + "' and amount < '" + amountValue + "'";
-                        getLayoutInflater().inflate(R.layout.piechart_paymethod, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart1);
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && operatorList.equals("Lesser than") && !amountValue.equals("") && 	!payList.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where paymentMethod = '" + payList + "' and amount < '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart_paymethod, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart1);
 
-                    }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("Greater than") && !amountValue.equals("") && payList.equals("")) {
-                        sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and amount > '" + amountValue + "'";
-                        getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart);
+                        }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("Greater than") && !amountValue.equals("") && payList.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and amount > '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
 
-                    }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("Lesser than") && !amountValue.equals("") && payList.equals("")) {
-                        sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and amount < '" + amountValue + "'";
-                        getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart);
+                        }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("Lesser than") && !amountValue.equals("") && payList.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and amount < '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
 
-                    }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("") && amountValue.equals("") && !payList.equals("")){
-                        sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and paymentMethod = '" + payList + "'";
-                        getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart);
+                        }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("") && amountValue.equals("") && !payList.equals("")){
+                            sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and paymentMethod = '" + payList + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
 
-                    }else if (startDate.getText() != "" && endDate.getText() != "" && catList.equals("") && operatorList.equals("Greater than") && 		!amountValue.equals("") && !payList.equals("")) {
+                        }else if (startDate.getText() != "" && endDate.getText() != "" && catList.equals("") && operatorList.equals("Greater than") && 		!amountValue.equals("") && !payList.equals("")) {
                             sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and amount > '" + amountValue + "' and paymentMethod = '" + payList + "'";
-                    getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
-                    mChart = findViewById(R.id.PieChart);
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
 
-                    }else if (startDate.getText() != "" && endDate.getText() != "" && catList.equals("") && operatorList.equals("Lesser than") && 		!amountValue.equals("") && !payList.equals("")) {
-                        sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and amount < '" + amountValue + "' and paymentMethod = '" + payList + "'";
-                        getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart);
+                        }else if (startDate.getText() != "" && endDate.getText() != "" && catList.equals("") && operatorList.equals("Lesser than") && 		!amountValue.equals("") && !payList.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and amount < '" + amountValue + "' and paymentMethod = '" + payList + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
 
-                    }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("Greater than") && 	!amountValue.equals("") && !payList.equals("")) {
-                        sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and paymentMethod = '" + payList + "' and amount > '" + amountValue + "'";
-                        getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart);
+                        }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("Greater than") && 	!amountValue.equals("") && !payList.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and paymentMethod = '" + payList + "' and amount > '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
 
-                    }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("Greater than") && 	!amountValue.equals("") ) {
-                        sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and amount > '" + amountValue + "'";
-                        getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
-                        mChart = findViewById(R.id.PieChart);
+                        }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("Greater than") && 	!amountValue.equals("") ) {
+                            sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and amount > '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
 
-                    }
+                        }
 
                         final Cursor c = db.rawQuery(sql, null);
                         int count = c.getCount();
@@ -647,7 +647,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         //FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);//Remember this is the FrameLayout area within your activity_main.xml
         //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
-               // incomeFragment()).commit();
+        // incomeFragment()).commit();
         //getLayoutInflater().inflate(R.layout.income, contentFrameLayout);
 
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
@@ -891,21 +891,56 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         //setContentView(R.layout.prompt_filter_ddlb);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
         contentFrameLayout.removeAllViewsInLayout();
-        getLayoutInflater().inflate(R.layout.graph_summary, contentFrameLayout);
+        getLayoutInflater().inflate(R.layout.graph_summary_list, contentFrameLayout);
 
-        Button button = (Button) findViewById(R.id.okSubmitButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        Categories dbCategories;
+        dbCategories = new Categories(this);
+        final Spinner categoryList = findViewById(R.id.categoryList);
+        final List<String> categorylist = dbCategories.getData();
+        categorylist.add(0, "");
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categorylist);
+        categoryAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        categoryList.setAdapter(categoryAdapter);
+
+        Button buttonStartDate = findViewById(R.id.filterStartDate);
+        buttonStartDate.setOnClickListener(new View.OnClickListener() {
+            public void checkButtonStat() {
+                isEntryDateClicked = true;
+                isEndDateClicked = false;
+            }
+
             @Override
             public void onClick(View v) {
-                filterData();
+                checkButtonStat();
+                DialogFragment datePicker = new com.example.exspendables.DatePicker();
+                datePicker.show(getSupportFragmentManager(), "date picker");
+
             }
         });
+
+
+        Button buttonEndDate = findViewById(R.id.filterEndDate);
+        buttonEndDate.setOnClickListener(new View.OnClickListener() {
+            public void checkButtonStat() {
+                isEntryDateClicked = false;
+                isEndDateClicked = true;
+            }
+
+            @Override
+            public void onClick(View v) {
+                checkButtonStat();
+                DialogFragment datePicker = new com.example.exspendables.DatePicker();
+                datePicker.show(getSupportFragmentManager(), "date picker");
+            }
+        });
+
+
 
         //filterData();
         //loadFilters();
     }
 
-    private void filterData() {
+    /*public void filterData(View view) {
 
         boolean fieldsMissing = false;
         boolean dateSelected = false;
@@ -1120,8 +1155,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 }
             }
         }
-    }
-    
+    }*/
+
     private void loadFilters() {
         Spinner spinner = findViewById(R.id.selectfilter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1663,14 +1698,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     toggle.syncState();
                     drawer.setDrawerLockMode(0);
 
-                        View view1= null;
-                        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
-                        contentFrameLayout.removeAllViewsInLayout();
-                        this.openExpensePage(view1);
-                        //getLayoutInflater().inflate(R.layout.expense, contentFrameLayout);
-                        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
-                        //      transactionFragment()).commit();
-                        navigationView.setCheckedItem(R.id.nav_transaction);
+                    View view1= null;
+                    FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                    contentFrameLayout.removeAllViewsInLayout();
+                    this.openExpensePage(view1);
+                    //getLayoutInflater().inflate(R.layout.expense, contentFrameLayout);
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new
+                    //      transactionFragment()).commit();
+                    navigationView.setCheckedItem(R.id.nav_transaction);
                 } else {
                     TextView incorrectPin = findViewById(R.id.incorrectPin);
                     incorrectPin.setText("PIN entered is wrong, please check");
@@ -2137,6 +2172,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 categoryBudget.setAdapter(categoryAdapter);
                 break;
 
+
         }
 
 
@@ -2152,7 +2188,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // setContentView(R.layout.maxbudget);
+                // setContentView(R.layout.maxbudget);
                 FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
                 contentFrameLayout.removeAllViewsInLayout();
                 getLayoutInflater().inflate(R.layout.maxbudget, contentFrameLayout);
@@ -2342,9 +2378,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         //setContentView(R.layout.prompt_filter_ddlb);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
         contentFrameLayout.removeAllViewsInLayout();
-        getLayoutInflater().inflate(R.layout.prompt_filter_ddlb, contentFrameLayout);
+        getLayoutInflater().inflate(R.layout.graph_summary_list, contentFrameLayout);
 
-        loadFilters();
+        //loadFilters();
     }
 
     public void showSummaryByAmount(View view) {
@@ -2466,7 +2502,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         if(missingMandatoryFields == false) {
 
             //setContentView(R.layout.tablesummary);
-           // setContentView(R.layout.listsummary);
+            // setContentView(R.layout.listsummary);
             FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
             contentFrameLayout.removeAllViewsInLayout();
             getLayoutInflater().inflate(R.layout.listsummary, contentFrameLayout);
@@ -2586,6 +2622,256 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             transactions.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
             transactions.setAdapter(transactionAdapter);
 
+        }
+    }
+
+    public void filterData(View view) {
+
+
+        boolean fieldsMissing = false;
+        boolean dateSelected = false;
+        boolean categorySelected = false;
+        boolean amountSelected = false;
+        boolean paymentSelected = false;
+        String categoryValueSelected = null;
+        String paymentValueSelected = null;
+        float amountValueSelected = 0;
+
+        TextView entryDateTV = (TextView) findViewById(R.id.entryDate);
+        TextView endDateTV = (TextView) findViewById(R.id.endDate);
+
+        // for filter by date
+        if(TextUtils.isEmpty(entryDateTV.getText().toString())
+                && TextUtils.isEmpty(endDateTV.getText().toString())){
+            // keine probleme
+        }
+        else if(entryDateTV.getText().toString() != ""
+                && endDateTV.getText().toString() != ""){
+            // keine probleme
+            dateSelected = true;
+        }
+        else{
+            fieldsMissing = true;
+
+            if(TextUtils.isEmpty(entryDateTV.getText().toString())) {
+                Toast.makeText(getApplicationContext(), "Please set Start Date", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Please set End Date", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        // for filter by amount
+
+        Spinner operator = findViewById(R.id.selectOperator);
+        int indexSelected = operator.getSelectedItemPosition();
+
+        TextView amountTV = (TextView) findViewById(R.id.enterAmount);
+        String amount = amountTV.getText().toString();
+
+        if(indexSelected > 0 && !amount.equals("")){
+            //keine probleme
+            amountSelected = true;
+            amountValueSelected = Float.valueOf(amount);
+        }
+        else if(indexSelected == 0 && TextUtils.isEmpty(amountTV.getText().toString())){
+            //keine probleme
+        }
+        else{
+            fieldsMissing = true;
+            if(indexSelected > 0){
+                Toast.makeText(getApplicationContext(), "Please enter amount", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Please select an operator", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        Spinner category = (Spinner) findViewById(R.id.categoryList);
+        int categoryIndexSelected = category.getSelectedItemPosition();
+
+        if(categoryIndexSelected > 0){
+            categorySelected = true;
+            categoryValueSelected = category.getSelectedItem().toString();
+        }
+
+        Spinner payment = (Spinner) findViewById(R.id.selectPaymentMethod);
+        int paymentIndexSelected = payment.getSelectedItemPosition();
+
+        if(paymentIndexSelected > 0){
+            paymentSelected = true;
+            paymentValueSelected = payment.getSelectedItem().toString();
+        }
+
+        if(fieldsMissing == false) {
+
+            if (dateSelected == true || amountSelected == true || paymentSelected == true || categorySelected == true) {
+                // load all values from table
+                Transactions dbTransactions = new Transactions(this);
+                Cursor cursor = dbTransactions.getData();
+
+                StringBuilder builder = new StringBuilder();
+
+                cursor.moveToFirst();
+                int i = 0;
+                while (!cursor.isAfterLast()) {
+
+                    String date = cursor.getString(1);
+                    String indicator = cursor.getString(6);
+                    date = date.replaceAll("-", "/");
+
+                    if (indicator.equals("Expense")) {
+                        builder.append(cursor.getString(0)).append(";")
+                                .append(date).append(";")
+                                .append(cursor.getString(2)).append(";")
+                                .append(cursor.getString(4)).append("_");
+
+                        i++;
+                    }
+                    cursor.moveToNext();
+                }
+
+                builder.toString();
+                String st = new String(builder);
+                String[] values = st.split("_");
+
+                ArrayList<String> recordsOK = new ArrayList<String>();
+
+                for (int index = 0; index < values.length; index++) {
+                    recordsOK.add(values[index]);
+                }
+
+                if (dateSelected == true) {
+
+                    startDateValue = entryDateTV.getText().toString();
+                    startDateValue = startDateValue.replaceAll("-", "/");
+
+                    endDateValue = endDateTV.getText().toString();
+                    endDateValue = endDateValue.replaceAll("-", "/");
+
+                    SimpleDateFormat Formatter = new SimpleDateFormat("yyyy/MM/dd");
+
+                    java.util.Date dateToCheck = null;
+                    java.util.Date startdateToCheck = null;
+                    java.util.Date enddateToCheck = null;
+
+                    try {
+                        startdateToCheck = Formatter.parse(startDateValue);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    startdateToCheck.setDate(startdateToCheck.getDate() - 1);
+
+                    try {
+                        enddateToCheck = Formatter.parse(endDateValue);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    startdateToCheck.setDate(startdateToCheck.getDate() - 1);
+                    enddateToCheck.setDate(enddateToCheck.getDate() - 1);
+
+                    for (int index = 0; index < recordsOK.size(); index++) {
+                        // String[] dummy = values[index].split(";");
+
+                        String[] dummy = recordsOK.get(index).split(";");
+
+                        try {
+                            dateToCheck = Formatter.parse(dummy[1]);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (dateToCheck.before(enddateToCheck) && dateToCheck.after(startdateToCheck)) {
+
+                        } else {
+                            recordsOK.remove(index);
+                        }
+                    }
+                }
+
+                if (categorySelected == true) {
+
+                    for (int index = 0; index < recordsOK.size(); index++) {
+
+                        String[] dummy = recordsOK.get(index).split(";");
+
+                        if (dummy[0].equals(categoryValueSelected)) {
+
+                        } else {
+                            recordsOK.remove(index);
+                        }
+                    }
+                }
+
+                if (paymentSelected == true) {
+
+                    for (int index = 0; index < recordsOK.size(); index++) {
+
+                        String[] dummy = recordsOK.get(index).split(";");
+
+                        if (dummy[3].equals(paymentValueSelected)) {
+
+                        } else {
+                            recordsOK.remove(index);
+                        }
+                    }
+                }
+
+                if (amountSelected == true) {
+
+                    String operatorValue = operator.getSelectedItem().toString();
+
+                    for (int index = 0; index < recordsOK.size(); index++) {
+
+                        String[] dummy = recordsOK.get(index).split(";");
+                        float amountFromDb = Float.valueOf(dummy[2]);
+
+                        if (operatorValue == "Greater than") {
+                            if (amountValueSelected > amountFromDb) {
+
+                            } else {
+                                recordsOK.remove(index);
+                            }
+                        } else {
+                            if (amountValueSelected < amountFromDb) {
+
+                            } else {
+                                recordsOK.remove(index);
+                            }
+                        }
+                    }
+                }
+
+                FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                contentFrameLayout.removeAllViewsInLayout();
+                getLayoutInflater().inflate(R.layout.listsummary, contentFrameLayout);
+
+                ListView transactions = findViewById(R.id.transactionlist);
+                Button deleteTransaction = findViewById(R.id.deleteTxnBtn);
+                deleteTransaction.setOnClickListener(this);
+
+                values = new String[recordsOK.size()];
+                for (int index = 0; index < recordsOK.size(); index++) {
+                    values[index] = recordsOK.get(index);
+                }
+
+                for (int row = 0; row < values.length; row++) {
+                    values[row] = values[row].replaceAll(";", "\t");
+                }
+
+                ArrayAdapter<String> transactionAdapter = new ArrayAdapter<String>
+                        (this, android.R.layout.simple_list_item_multiple_choice, values);
+                transactions.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+                transactions.setAdapter(transactionAdapter);
+
+            }
+
+            else{
+                Toast.makeText(getApplicationContext(), "Select atleast one filter", Toast.LENGTH_SHORT).show();
+
+            }
         }
     }
 }
