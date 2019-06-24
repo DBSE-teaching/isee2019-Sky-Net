@@ -1,11 +1,12 @@
 ---
-layout: post
+layout: page
 title: "ISEE 2019 -- Beta Prototype"
 date: 2019-06-25
 ---
 
 # Beta Prototype
 
-## Overview
+## Overview 
 
-<p style="font-family:Times;font-size:110%;text-align:justify">After our successful implementation of the Basic Prototype, we have moved on to the next phase in our application development. In this phase, we have received further requirements from the Product Owner. The given set of requirements are a must have and also this includes some alterations to be done over the previously implemented prototype. We have adapted ourselves to these dynamic requirements and modified the code accordingly.</p>
+<p style="font-family:Times;font-size:110%;text-align:justify">We have reached the beginning of the end of the development of our application. Most of the user stories were implemented into working prototypes. Thus we have reached a stage where the application needs to be tested for the users to have an unparalleled and effortless experience. For this purpose, we have made use of the two existing testing methods, namely Black box testing and White box testing. In this blog, we explain these procedures in detail.
+</p>
