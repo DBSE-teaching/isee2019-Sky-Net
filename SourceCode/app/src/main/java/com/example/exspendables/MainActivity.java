@@ -420,7 +420,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         String sql = null;
 
                         if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
-                            sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "'";
+                            sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "'";
                             getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
                             mChart = findViewById(R.id.PieChart);
 
@@ -719,6 +719,21 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                             getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
                             mChart = findViewById(R.id.PieChart);
 
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && operatorList.equals(" ") && amountValue.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where category = '" + catList + "' and paymentMethod = '" + payList + "'" ;
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && payList.equals("") && operatorList.equals("Greater than") && !amountValue.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where category = '" + catList + "' and amount > '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && payList.equals("") && operatorList.equals("Lesser than") && !amountValue.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where category = '" + catList + "' and amount < '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+
                         }
 
                         final Cursor c = db.rawQuery(sql, null);
@@ -766,7 +781,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                     }
                 }
-                
+
             }
         });
     }
