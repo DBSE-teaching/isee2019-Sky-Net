@@ -891,11 +891,237 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         //setContentView(R.layout.prompt_filter_ddlb);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
         contentFrameLayout.removeAllViewsInLayout();
-        getLayoutInflater().inflate(R.layout.prompt_filter_ddlb, contentFrameLayout);
+        getLayoutInflater().inflate(R.layout.graph_summary, contentFrameLayout);
 
-        loadFilters();
+        Button button = (Button) findViewById(R.id.okSubmitButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterData();
+            }
+        });
+
+        //filterData();
+        //loadFilters();
     }
 
+    private void filterData() {
+
+        boolean fieldsMissing = false;
+        boolean dateSelected = false;
+        boolean categorySelected = false;
+        boolean amountSelected = false;
+        boolean paymentSelected = false;
+        String categoryValueSelected = null;
+        String paymentValueSelected = null;
+        float amountValueSelected = 0;
+
+        TextView entryDateTV = (TextView) findViewById(R.id.entryDate);
+        TextView endDateTV = (TextView) findViewById(R.id.endDate);
+
+        // for filter by date
+        if(TextUtils.isEmpty(entryDateTV.getText().toString())
+                && TextUtils.isEmpty(endDateTV.getText().toString())){
+            // keine probleme
+        }
+        else if(entryDateTV.getText().toString() != ""
+                && endDateTV.getText().toString() != ""){
+            // keine probleme
+            dateSelected = true;
+        }
+        else{
+            fieldsMissing = true;
+
+            if(TextUtils.isEmpty(entryDateTV.getText().toString())) {
+                Toast.makeText(getApplicationContext(), "Please set End Date", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Please set Start Date", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        // for filter by amount
+
+        Spinner operator = findViewById(R.id.selectOperator);
+        int indexSelected = operator.getSelectedItemPosition();
+
+        TextView amountTV = (TextView) findViewById(R.id.enterAmount);
+
+        if(indexSelected > 0 && amountTV.getText().toString() != ""){
+            //keine probleme
+            amountSelected = true;
+            amountValueSelected = Float.valueOf(amountTV.getText().toString());
+        }
+        else if(indexSelected == 0 && TextUtils.isEmpty(amountTV.getText().toString())){
+            //keine probleme
+        }
+        else{
+            fieldsMissing = true;
+            if(indexSelected > 0){
+                Toast.makeText(getApplicationContext(), "Please enter amount", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Please select an operator", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        Spinner category = (Spinner) findViewById(R.id.categoryList);
+        int categoryIndexSelected = category.getSelectedItemPosition();
+
+        if(categoryIndexSelected > 0){
+            categorySelected = true;
+            categoryValueSelected = category.getSelectedItem().toString();
+        }
+
+        Spinner payment = (Spinner) findViewById(R.id.selectPaymentMethod);
+        int paymentIndexSelected = payment.getSelectedItemPosition();
+
+        if(paymentIndexSelected > 0){
+            paymentSelected = true;
+            paymentValueSelected = payment.getSelectedItem().toString();
+        }
+
+        if(fieldsMissing == false) {
+            // load all values from table
+            Transactions dbTransactions = new Transactions(this);
+            Cursor cursor = dbTransactions.getData();
+
+            StringBuilder builder = new StringBuilder();
+
+            cursor.moveToFirst();
+            int i = 0;
+            while (!cursor.isAfterLast()) {
+
+                String date = cursor.getString(1);
+                String indicator = cursor.getString(6);
+                date = date.replaceAll("-", "/");
+
+                if (indicator.equals("Expense")) {
+                    builder.append(cursor.getString(0)).append(";")
+                            .append(date).append(";")
+                            .append(cursor.getString(2)).append(";")
+                            .append(cursor.getString(4)).append("_");
+
+                    i++;
+                }
+                cursor.moveToNext();
+            }
+
+            builder.toString();
+            String st = new String(builder);
+            String[] values = st.split("_");
+
+            ArrayList<String> recordsOK = new ArrayList<String>();
+
+            for (int index = 0; index < values.length; index++) {
+                recordsOK.add(values[index]);
+            }
+
+            if (dateSelected == true) {
+
+                startDateValue = entryDateTV.getText().toString();
+                startDateValue = startDateValue.replaceAll("-", "/");
+
+                endDateValue = endDateTV.getText().toString();
+                endDateValue = endDateValue.replaceAll("-", "/");
+
+                SimpleDateFormat Formatter = new SimpleDateFormat("yyyy/MM/dd");
+
+                java.util.Date dateToCheck = null;
+                java.util.Date startdateToCheck = null;
+                java.util.Date enddateToCheck = null;
+
+                try {
+                    startdateToCheck = Formatter.parse(startDateValue);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                startdateToCheck.setDate(startdateToCheck.getDate() - 1);
+
+                try {
+                    enddateToCheck = Formatter.parse(endDateValue);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                startdateToCheck.setDate(startdateToCheck.getDate() - 1);
+                enddateToCheck.setDate(enddateToCheck.getDate() - 1);
+
+                for (int index = 0; index < recordsOK.size(); index++) {
+                    // String[] dummy = values[index].split(";");
+
+                    String[] dummy = recordsOK.get(index).split(";");
+
+                    try {
+                        dateToCheck = Formatter.parse(dummy[1]);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (dateToCheck.before(enddateToCheck) && dateToCheck.after(startdateToCheck)) {
+
+                    } else {
+                        recordsOK.remove(index);
+                    }
+                }
+            }
+
+            if (categorySelected == true) {
+
+                for (int index = 0; index < recordsOK.size(); index++) {
+
+                    String[] dummy = recordsOK.get(index).split(";");
+
+                    if (dummy[0].equals(categoryValueSelected)) {
+
+                    } else {
+                        recordsOK.remove(index);
+                    }
+                }
+            }
+
+            if (paymentSelected == true) {
+
+                for (int index = 0; index < recordsOK.size(); index++) {
+
+                    String[] dummy = recordsOK.get(index).split(";");
+
+                    if (dummy[3].equals(paymentValueSelected)) {
+
+                    } else {
+                        recordsOK.remove(index);
+                    }
+                }
+            }
+
+            if (amountSelected == true) {
+
+                String operatorValue = operator.getSelectedItem().toString();
+
+                for (int index = 0; index < recordsOK.size(); index++) {
+
+                    String[] dummy = recordsOK.get(index).split(";");
+                    float amountFromDb = Float.valueOf(dummy[2]);
+
+                    if (operatorValue == "Greater than") {
+                        if (amountValueSelected > amountFromDb) {
+
+                        } else {
+                            recordsOK.remove(index);
+                        }
+                    } else {
+                        if (amountValueSelected < amountFromDb) {
+
+                        } else {
+                            recordsOK.remove(index);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     private void loadFilters() {
         Spinner spinner = findViewById(R.id.selectfilter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
