@@ -18,7 +18,7 @@ public class Transactions extends SQLiteOpenHelper {
     public String startDate;
     // harish - 25.05 - commented endDate as it is not required
     //public String endDate;
-    public String amount;
+    public Float amount;
     public String code;
     public String paymentMethod;
     public String note;
@@ -39,7 +39,7 @@ public class Transactions extends SQLiteOpenHelper {
                 " startDate DATE," +
                 // harish - 25.05 - commented endDate as it is not required
                 //" endDate   DATE," +
-                " amount INTEGER," +
+                " amount FLOAT," +
                 " code TEXT DEFAULT 'EUR'," +
                 " paymentMethod TEXT," +
                 " note TEXT DEFAULT 'No value entered'," +
@@ -111,7 +111,7 @@ public class Transactions extends SQLiteOpenHelper {
     // harish - 25.05 - commented endDate as it is not required
 //    public String getEndDate() { return endDate; }
 
-    public String getAmount() {
+    public Float getAmount() {
         return amount;
     }
 

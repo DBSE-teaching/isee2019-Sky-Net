@@ -266,7 +266,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         });
 
         Spinner spinner = findViewById(R.id.filter);
-        Button button = findViewById(R.id.okSubmitButton);
+        final Button button = findViewById(R.id.okSubmitButton);
         final Transactions transactions = new Transactions(this);
 
 
@@ -282,13 +282,20 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
 
                 TextView endDate = findViewById(R.id.endDate);
-                TextView byCategory = findViewById(R.id.byCategory);
-                TextView byPaymentMethod = findViewById(R.id.byPaymentMethod);
+                EditText amountFilter = findViewById(R.id.enterAmount);
+                String amountValue = amountFilter.getText().toString();
+
+
                 Spinner selectPaymentMethod = findViewById(R.id.selectPaymentMethod);
+                Spinner selectOperator = findViewById(R.id.selectOperator);
                 String catList = String.valueOf(categoryList.getSelectedItem());
+                String payList = String.valueOf(selectPaymentMethod.getSelectedItem());
+                String operatorList = String.valueOf(selectOperator.getSelectedItem());
+                //Float amountValue1 = Float.parseFloat(amountValue);
 
 
-                if (byDate.getText().equals("By Date") & startDate.getText() != "" & endDate.getText() != "") {
+                loop:{
+                if (startDate.getText() != "" && endDate.getText() != "" & catList.equals("") && payList.equals("") && operatorList.equals("") && amountValue.equals("") ) {
 
                     //setContentView(R.layout.barchart);
                     FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
@@ -314,7 +321,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                     SQLiteDatabase sdb = transactions.getReadableDatabase();
                     String sql = "Select startDate, amount, category from TRANSACTIONS " +
-                                  "where startDate between '" +startDateValue+"' and '"+ endDateValue + "'" + " " + "GROUP BY category" + " "+ "ORDER BY startDate" ;
+                                  "where startDate between '" +startDateValue+"' and '"+ endDateValue + "'" + "ORDER BY startDate" ;
 
                     Cursor c = sdb.rawQuery(sql, null);
                     final int count = c.getCount();
@@ -391,189 +398,375 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                     chart.invalidate();
                 }
-                //No change
-                else if (byCategory.getText().equals("By Category") & startDate.getText() != "" &  endDate.getText() != "")  {
+                else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("")&& payList.equals("") && operatorList.equals("") && amountValue.equals("")){
 
-                    //setContentView(R.layout.piechart);
+                    Toast.makeText(getApplicationContext(), "Select any value to display chart", Toast.LENGTH_LONG).show();
+                }
 
-                    FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
-                    contentFrameLayout.removeAllViewsInLayout();
-                    getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                else if (!catList.equals("") || startDate.getText() != "" || endDate.getText() != "" || !payList.equals("") || operatorList.equals("Greater than") || operatorList.equals("Lesser than") || !amountValue.equals("")) {
 
-                    String startDatePie = startDate.getText().toString();
-                    String endDatePie = endDate.getText().toString();
+                        //setContentView(R.layout.piechart_paymethod);
 
-                    PieChart mChart;
-                    SQLiteDatabase db = transactions.getReadableDatabase();
-                    String sql = "Select category, sum(amount), count(category) from TRANSACTIONS where startDate between '" +startDatePie+"' and '"+ endDatePie + "'" + "GROUP BY category";
-                    mChart = findViewById(R.id.PieChart);
+                        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                        contentFrameLayout.removeAllViewsInLayout();
+                        //getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
 
-                    Cursor c = db.rawQuery(sql, null);
-                    int count = c.getCount();
-                    c.moveToFirst();
+                        String startDatePie = startDate.getText().toString();
+                        String endDatePie = endDate.getText().toString();
 
-                    double[] values = new double[count];
-                    String[] categoryNames = new String[count];
-                    int[] colors = new int[count];
+                        PieChart mChart = null;
+                        SQLiteDatabase db = transactions.getReadableDatabase();
 
-                    for (int m = 0; m < count; m++) {
-                        categoryNames[m] = c.getString(0);
-                        values[m] = c.getDouble(1);
-                        colors[m] = c.getInt(2);
-                        c.moveToNext();
+                        String sql = null;
+
+                        if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where category ='" + catList + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && !payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
+                            sql = "Select paymentMethod, amount from TRANSACTIONS where paymentMethod ='" + payList + "'";
+                            getLayoutInflater().inflate(R.layout.piechart_paymethod, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart1);
+
+                        }else if (startDate.getText() != "" && endDate.getText() != "" && catList.equals("") && !payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
+                            sql = "Select paymentMethod, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "'";
+                            getLayoutInflater().inflate(R.layout.piechart_paymethod, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart1);
+
+                        }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && (operatorList.equals("Greater than") || operatorList.equals("Lesser than")) && amountValue.equals("")){
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("Greater than") && !amountValue.equals("") && !payList.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and paymentMethod = '" + payList + "' and amount > '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+
+                        }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("Greater than") && !amountValue.equals("") ) {
+                            sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and amount > '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+
+                        }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("Lesser than") && !amountValue.equals("") && !payList.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and paymentMethod = '" + payList + "' and amount < '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+
+                        }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("Lesser than") && !amountValue.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and amount < '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+
+                        }else if (startDate.getText() != "" && endDate.getText().equals("") && catList.equals("") && operatorList.equals("") && amountValue.equals("") && payList.equals("")){
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && endDate.getText() !="" && catList.equals("") && operatorList.equals("") && amountValue.equals("") && payList.equals("")){
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && operatorList.equals("Greater than") && amountValue.equals("") && payList.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && operatorList.equals("Lesser than") && amountValue.equals("") && payList.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && operatorList.equals("") && !amountValue.equals("") && payList.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && !endDate.getText().equals("") && !catList.equals("") && payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && !payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && !endDate.getText().equals("") && catList.equals("") && !payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && payList.equals("") && !operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && !endDate.getText().equals("") && catList.equals("") && payList.equals("") && !operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && payList.equals("") && operatorList.equals("") && !amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && !endDate.getText().equals("") && catList.equals("") && payList.equals("") && operatorList.equals("") && !amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && payList.equals("") && !operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && !endDate.getText().equals("") && !catList.equals("") && payList.equals("") && !operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && payList.equals("") && operatorList.equals("") && !amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && !endDate.getText().equals("") && !catList.equals("") && payList.equals("") && operatorList.equals("") && !amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && !endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && !endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && operatorList.equals("") && !amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && !endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && operatorList.equals("") && !amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && !endDate.getText().equals("") && catList.equals("") && payList.equals("") && !operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && !endDate.getText().equals("") && catList.equals("") && payList.equals("") && !operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && !endDate.getText().equals("") && catList.equals("") && payList.equals("") && operatorList.equals("") && !amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && !endDate.getText().equals("") && catList.equals("") && payList.equals("") && operatorList.equals("") && !amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && !payList.equals("") && !operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && !endDate.getText().equals("") && catList.equals("") && !payList.equals("") && !operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && !payList.equals("") && !operatorList.equals("") && !amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && !endDate.getText().equals("") && catList.equals("") && !payList.equals("") && !operatorList.equals("") && !amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && !payList.equals("") && operatorList.equals("") && !amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && !endDate.getText().equals("") && catList.equals("") && !payList.equals("") && operatorList.equals("") && !amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && operatorList.equals("") && !amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && !endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && operatorList.equals("") && !amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && !operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && !endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && !operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && !endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (!startDate.getText().equals("") && !endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+                            Toast.makeText(getApplicationContext(), "No values available to display chart", Toast.LENGTH_LONG).show();
+                            break loop;
+
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && operatorList.equals("Greater than") && !amountValue.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where category = '" + catList + "' and paymentMethod = '" + payList + "'and amount > '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && operatorList.equals("Lesser than") && !amountValue.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where category = '" + catList + "' and paymentMethod = '" + payList + "'and amount < '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && payList.equals("") && operatorList.equals("Greater than") && !amountValue.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where category = '" + catList + "' and amount > '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && payList.equals("") && operatorList.equals("Lesser than") && !amountValue.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where category = '" + catList + "' and amount < '" + amountValue + "'";
+                            getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart);
+
+                        }
+
+                        final Cursor c = db.rawQuery(sql, null);
+                        int count = c.getCount();
+                        c.moveToFirst();
+
+                        double[] values = new double[count];
+                        String[] categoryNames = new String[count];
+                        int[] colors = new int[count];
+
+                        for (int m = 0; m < count; m++) {
+                            categoryNames[m] = c.getString(0);
+                            values[m] = c.getDouble(1);
+                            colors[m] = c.getInt(0);
+                            c.moveToNext();
+                        }
+
+                        ArrayList<PieEntry> yVals1 = new ArrayList<PieEntry>();
+
+                        for (int i = 0; i < categoryNames.length; i++) {
+                            yVals1.add(new PieEntry((float) (values[i]), i));
+                        }
+
+                        ArrayList<String> xVals = new ArrayList<String>();//array legend
+
+                        for (int i = 0; i < categoryNames.length; i++) {
+                            xVals.add(categoryNames[i]);
+                            String xVals1 = xVals.toString();
+                            PieDataSet set1 = new PieDataSet(yVals1, xVals1);
+                            set1.setSliceSpace(3f);
+                            set1.setValueTextSize(15f);
+                            set1.setColors(ColorTemplate.createColors(colors));
+
+                            PieData data = new PieData(set1);
+                            set1.setColors(ColorTemplate.COLORFUL_COLORS);
+                            mChart.setData(data);
+                            // undo all highlights
+                            mChart.highlightValues(null);
+                            mChart.setCenterTextSize(20f);
+                            mChart.setEntryLabelTextSize(20f);
+                            mChart.invalidate();
+                        }
+                        c.close();
+                        db.close();
+
                     }
-
-                    ArrayList<PieEntry> yVals1 = new ArrayList<PieEntry>();
-
-                    for (int i = 0; i < categoryNames.length; i++) {
-                        yVals1.add(new PieEntry((float) (values[i]), i));
-                    }
-
-                    ArrayList<String> xVals = new ArrayList<String>();//array legend
-
-                    for (int i = 0; i < categoryNames.length; i++) {
-                        xVals.add(categoryNames[i]);
-                        String xVals1 = xVals.toString();
-                        PieDataSet set1 = new PieDataSet(yVals1, xVals1);
-                        set1.setValueTextSize(15f);
-                        set1.setSliceSpace(3f);
-                        set1.setColors(ColorTemplate.createColors(colors));
-
-                        PieData data = new PieData(set1);
-                        set1.setColors(ColorTemplate.COLORFUL_COLORS);
-                        mChart.setData(data);
-                        // undo all highlights
-                        mChart.highlightValues(null);
-                        mChart.invalidate();
-                    }
-                    c.close();
-                    db.close();
-
-
-                  //Logesh - 19.06
-                } else if (byPaymentMethod.getText().equals("By Payment Method") & startDate.getText() != "" &  endDate.getText() != ""){
-
-                    //setContentView(R.layout.piechart_paymethod);
-
-                    FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
-                    contentFrameLayout.removeAllViewsInLayout();
-                    getLayoutInflater().inflate(R.layout.piechart_paymethod, contentFrameLayout);
-
-                    String startDatePie = startDate.getText().toString();
-                    String endDatePie = endDate.getText().toString();
-
-                    PieChart mChart;
-                    SQLiteDatabase db = transactions.getReadableDatabase();
-                    String sql = "Select paymentMethod, sum(amount), count(category) from TRANSACTIONS where startDate between '" +startDatePie+"' and '"+ endDatePie + "'" + "GROUP BY paymentMethod";
-                    mChart = findViewById(R.id.PieChart1);
-
-                    Cursor c = db.rawQuery(sql, null);
-                    int count = c.getCount();
-                    c.moveToFirst();
-
-                    double[] values = new double[count];
-                    String[] pMethods = new String[count];
-                    int[] colors = new int[count];
-
-                    for (int m = 0; m < count; m++) {
-                        pMethods[m] = c.getString(0);
-                        values[m] = c.getDouble(1);
-                        colors[m] = c.getInt(2);
-                        c.moveToNext();
-                    }
-
-                    ArrayList<PieEntry> yVals1 = new ArrayList<PieEntry>();
-
-                    for (int i = 0; i < pMethods.length; i++) {
-                        yVals1.add(new PieEntry((float) (values[i]), i));
-                    }
-
-                    ArrayList<String> xVals = new ArrayList<String>();//array legend
-
-                    for (int i = 0; i < pMethods.length; i++) {
-                        xVals.add(pMethods[i]);
-                        String xVals1 = xVals.toString();
-                        PieDataSet set1 = new PieDataSet(yVals1, xVals1);
-                        set1.setSliceSpace(3f);
-                        set1.setValueTextSize(15f);
-                        set1.setColors(ColorTemplate.createColors(colors));
-
-                        PieData data = new PieData(set1);
-                        set1.setColors(ColorTemplate.COLORFUL_COLORS);
-                        mChart.setData(data);
-                        // undo all highlights
-                        mChart.highlightValues(null);
-                        mChart.setCenterTextSize(20f);
-                        mChart.setEntryLabelTextSize(20f);
-                        mChart.invalidate();
-                    }
-                    c.close();
-                    db.close();
-
-                                  }
-
-
-               /* else if (catList !="" & startDate.getText() != "" &
-                        endDate.getText() != "" & selectPaymentMethod.getSelectedItem() !=""){
-
-                    //setContentView(R.layout.piechart_paymethod);
-
-                    FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
-                    contentFrameLayout.removeAllViewsInLayout();
-                    getLayoutInflater().inflate(R.layout.piechart_paymethod, contentFrameLayout);
-
-                    String startDatePie = startDate.getText().toString();
-                    String endDatePie = endDate.getText().toString();
-
-                    PieChart mChart;
-                    SQLiteDatabase db = transactions.getReadableDatabase();
-                    String sql = "Select paymentMethod, sum(amount), count(category) from TRANSACTIONS where startDate between '" +startDatePie+"' and '"+ endDatePie + "' and category = '"catList"' + "GROUP BY paymentMethod" ;
-                    mChart = findViewById(R.id.PieChart1);
-
-                    Cursor c = db.rawQuery(sql, null);
-                    int count = c.getCount();
-                    c.moveToFirst();
-
-                    double[] values = new double[count];
-                    String[] pMethods = new String[count];
-                    int[] colors = new int[count];
-
-                    for (int m = 0; m < count; m++) {
-                        pMethods[m] = c.getString(0);
-                        values[m] = c.getDouble(1);
-                        colors[m] = c.getInt(2);
-                        c.moveToNext();
-                    }
-
-                    ArrayList<PieEntry> yVals1 = new ArrayList<PieEntry>();
-
-                    for (int i = 0; i < pMethods.length; i++) {
-                        yVals1.add(new PieEntry((float) (values[i]), i));
-                    }
-
-                    ArrayList<String> xVals = new ArrayList<String>();//array legend
-
-                    for (int i = 0; i < pMethods.length; i++) {
-                        xVals.add(pMethods[i]);
-                        String xVals1 = xVals.toString();
-                        PieDataSet set1 = new PieDataSet(yVals1, xVals1);
-                        set1.setSliceSpace(3f);
-                        set1.setValueTextSize(15f);
-                        set1.setColors(ColorTemplate.createColors(colors));
-
-                        PieData data = new PieData(set1);
-                        set1.setColors(ColorTemplate.COLORFUL_COLORS);
-                        mChart.setData(data);
-                        // undo all highlights
-                        mChart.highlightValues(null);
-                        mChart.setCenterTextSize(20f);
-                        mChart.setEntryLabelTextSize(20f);
-                        mChart.invalidate();
-                    }
-                    c.close();
-                    db.close();
-
-                } */
+                }
+                
             }
         });
     }
