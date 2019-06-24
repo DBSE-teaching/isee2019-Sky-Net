@@ -400,17 +400,17 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     }
                     else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("")&& payList.equals("") && operatorList.equals("") && amountValue.equals("")){
 
-                        Toast.makeText(getApplicationContext(), "Select any value to display chart", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Select atleast one filter", Toast.LENGTH_LONG).show();
                     }
 
                     else if ((startDate.getText() != "" && endDate.getText().equals("")) || (startDate.getText().equals("") && endDate.getText() !="")){
 
-                        Toast.makeText(getApplicationContext(), "Select both start date & end date", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Select start date & end date", Toast.LENGTH_LONG).show();
                     }
 
                     else if ((!operatorList.equals("") && amountValue.equals("")) || (operatorList.equals("") && !amountValue.equals(""))){
 
-                        Toast.makeText(getApplicationContext(), "Select both operator and amount value", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Select operator & amount value", Toast.LENGTH_LONG).show();
                     }
 
 
