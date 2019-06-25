@@ -134,9 +134,9 @@ date: 2019-06-25
 
 ## Summary of Changes
 
-![Deadline image]({{site.baseurl}}/images/Beta2.PNG "Img 1"){:height="50%" width="50%" align="centre"}
+![Deadline image]({{site.baseurl}}/images/Beta2.PNG "Img 1"){:height="50%" width="100%" align="centre"}
 
-![Deadline image]({{site.baseurl}}/images/Beta1.PNG "Img 2"){:height="50%" width="50%" align="centre"}
+![Deadline image]({{site.baseurl}}/images/Beta1.PNG "Img 2"){:height="50%" width="100%" align="centre"}
 
 ### Navigation Drawer
 
