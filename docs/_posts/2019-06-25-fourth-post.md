@@ -72,7 +72,7 @@ date: 2019-06-25
   
 ### Test Scenario  
   
-![Deadline image]({{site.baseurl}}/images/Testscenario.png "Test Scenario"){:height="50%" width="50%" align="centre"}
+![Deadline image]({{site.baseurl}}/images/Testscenario.PNG "Test Scenario"){:height="50%" width="50%" align="centre"}
 
 ![Deadline image]({{site.baseurl}}/images/mvc.png "Model View Controller"){:height="50%" width="50%" align="centre"}
 
