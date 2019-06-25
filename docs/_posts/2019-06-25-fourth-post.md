@@ -74,6 +74,8 @@ date: 2019-06-25
   
 ![Deadline image]({{site.baseurl}}/images/Testscenario.png "Test Scenario"){:height="50%" width="50%" align="centre"}
 
+![Deadline image]({{site.baseurl}}/images/mvc.png "Model View Controller"){:height="50%" width="50%" align="centre"}
+
 ### Test Cases
 
 ![Deadline image]({{site.baseurl}}/images/Testcase1.png "Test Case 1"){:height="50%" width="50%" align="centre"}
