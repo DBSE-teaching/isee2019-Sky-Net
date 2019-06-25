@@ -73,6 +73,8 @@ date: 2019-06-25
 
 <p style="font-family:Times;font-size:110%;text-align:justify">Black Box Testing is a testing technique in which the functionality of the application is tested without knowing the internal code or the implementation structure. The tests can be functional or non-functional, but mostly functional. </p>
 
+<p style="font-family:Times;font-size:110%;text-align:justify">Figure 1 </p>
+
 ![Deadline image]({{site.baseurl}}/images/Blackbox.svg "Img 1"){:height="80%" width="100%" align="centre"}
 
 ### Types of Black Box testing
@@ -117,9 +119,9 @@ date: 2019-06-25
 
 <p style="font-family:Times;font-size:160%;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thanks for visiting our Blog!!</p>
 
-### Resourses 
+### Resources 
 
-<p style="font-family:Times;font-size:110%;text-align:justify"><a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller#/media/File:MVC-Process.svg" style="color: rgb(0,0,255)">https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller#/media/File:MVC-Process.svg</a></p>
+<p style="font-family:Times;font-size:110%;text-align:justify"> Figure 1<a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller#/media/File:MVC-Process.svg" style="color: rgb(0,0,255)">https://en.wikipedia.org/wiki/Black_box#/media/File:Blackbox.svg</a></p>
 
 
 
