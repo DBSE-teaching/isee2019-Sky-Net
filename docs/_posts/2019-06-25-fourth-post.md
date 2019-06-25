@@ -130,7 +130,26 @@ date: 2019-06-25
 
 ### Status & Defect
 
-![Deadline image]({{site.baseurl}}/images/Statusanddefects.PNG "Status & Defects"){:height="80%" width="100%" align="centre"} 
+![Deadline image]({{site.baseurl}}/images/Statusanddefects.PNG "Status & Defects"){:height="80%" width="100%" align="centre"}
+
+## Summary of Changes
+
+### Navigation Drawer
+
+<p style="font-family:Times;font-size:110%;text-align:justify">The navigation drawer is added and incorporated the new changes with the existing code to provide the user with the ease of navigation.</p>
+
+### View Summary and Graph Summary
+
+<p style="font-family:Times;font-size:110%;text-align:justify">The existing layout is modified and now displaying all the filters in the layout, so that the user is not restricted with only few available options and can filter the transactions and generate charts with all the possible combinations.</p>
+
+### Expense and Income Layout
+
+<p style="font-family:Times;font-size:110%;text-align:justify">The different layout for income is removed and the same layout with the same fields is being used to save the income and expense transactions.</p>
+
+### Cosmetic Changes
+
+<p style="font-family:Times;font-size:110%;text-align:justify">The category icon is added along with the category list in the transactions layout. The calendar button is replaced with the icon. </p>
+
   
 
 <p style="font-family:Times;font-size:160%;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thanks for visiting our Blog!!</p>
