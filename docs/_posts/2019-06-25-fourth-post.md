@@ -72,29 +72,27 @@ date: 2019-06-25
   
 ### Test Scenario  
   
-![Deadline image]({{site.baseurl}}/images/Testscenario.PNG "Test Scenario"){:height="50%" width="50%" align="centre"}
-
-![Deadline image]({{site.baseurl}}/images/mvc.png "Model View Controller"){:height="50%" width="50%" align="centre"}
+![Deadline image]({{site.baseurl}}/images/Testscenario.PNG "Test Scenario"){:height="80%" width="100%" align="centre"}
 
 ### Test Cases
 
-![Deadline image]({{site.baseurl}}/images/Testcase1.png "Test Case 1"){:height="50%" width="50%" align="centre"}
+![Deadline image]({{site.baseurl}}/images/Testcase1.PNG "Test Case 1"){:height="50%" width="50%" align="centre"}
 
-![Deadline image]({{site.baseurl}}/images/Testcase2.png "Test Case 2"){:height="50%" width="50%" align="centre"}
+![Deadline image]({{site.baseurl}}/images/Testcase2.PNG "Test Case 2"){:height="50%" width="50%" align="centre"}
 
-![Deadline image]({{site.baseurl}}/images/Testcase3.png "Test Case 3"){:height="50%" width="50%" align="centre"} 
+![Deadline image]({{site.baseurl}}/images/Testcase3.PNG "Test Case 3"){:height="50%" width="50%" align="centre"} 
 
-![Deadline image]({{site.baseurl}}/images/Testcase4.png "Test Case 4"){:height="50%" width="50%" align="centre"} 
+![Deadline image]({{site.baseurl}}/images/Testcase4.PNG "Test Case 4"){:height="50%" width="50%" align="centre"} 
 
-![Deadline image]({{site.baseurl}}/images/Testcase5.png "Test Case 5"){:height="50%" width="50%" align="centre"} 
+![Deadline image]({{site.baseurl}}/images/Testcase5.PNG "Test Case 5"){:height="50%" width="50%" align="centre"} 
 
-![Deadline image]({{site.baseurl}}/images/Testcase6.png "Test Case 6"){:height="50%" width="50%" align="centre"} 
+![Deadline image]({{site.baseurl}}/images/Testcase6.PNG "Test Case 6"){:height="50%" width="50%" align="centre"} 
 
-![Deadline image]({{site.baseurl}}/images/Testcase7.png "Test Case 7"){:height="50%" width="50%" align="centre"} 
+![Deadline image]({{site.baseurl}}/images/Testcase7.PNG "Test Case 7"){:height="50%" width="50%" align="centre"} 
 
 ### Status & Defect
 
-![Deadline image]({{site.baseurl}}/images/statusanddefects.png "Status & Defects"){:height="50%" width="50%" align="centre"} 
+![Deadline image]({{site.baseurl}}/images/statusanddefects.PNG "Status & Defects"){:height="50%" width="50%" align="centre"} 
   
 
 <p style="font-family:Times;font-size:160%;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thanks for visiting our Blog!!</p>
