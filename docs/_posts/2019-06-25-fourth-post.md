@@ -51,7 +51,7 @@ date: 2019-06-25
   
 <p style="font-family:Times;font-size:110%;text-align:justify">The following classes were tested using White Box Testing : </p>
 
-![Deadline image]({{site.baseurl}}/images/WhiteBoxTestingMandatoryfields.PNG "Img 1"){:height="80%" width="100%" align="centre"}
+![Deadline image]({{site.baseurl}}/images/WhiteBoxCategoryMandatoryfields.PNG "Img 1"){:height="80%" width="100%" align="centre"}
 
 ![Deadline image]({{site.baseurl}}/images/WhiteBoxDateRangeValidation.PNG "Img 2"){:height="80%" width="100%" align="centre"}
 
