@@ -38,7 +38,7 @@ date: 2019-06-25
   <li><p style="font-family:Times;font-size:110%;text-align:justify">To select the most suitable coverage technique, applicable to the written code.</p></li></ul>
 
 
-## White Box Testing Techniques  
+### White Box Testing Techniques  
 
 <p style="font-family:Times;font-size:110%;text-align:justify">There exist many coverage techniques for the developers to scrutinize blocks of written codes. They are namely -</p>
 
@@ -55,7 +55,7 @@ date: 2019-06-25
 
 <p style="font-family:Times;font-size:110%;text-align:justify">Black Box Testing is a testing technique in which the functionality of the application is tested without knowing the internal code or the implementation structure. The tests can be functional or non-functional, but mostly functional. </p>
 
-## Types of Black Box testing
+### Types of Black Box testing
 
 <ul>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Functional Testing</b> - Usually performed by Test Analysts to check the functionality of the application based on the requirements received. </p></li>
@@ -63,7 +63,7 @@ date: 2019-06-25
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Regression Testing</b> - Testing done immediately after making any changes to the source code whether to know if all the earlier working functionalities are in place and has no impact on any of the functionalities done earlier.</p></li></ul>
 
 
-## Black box testing techniques 
+### Black box testing techniques 
 
 <ul>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Equivalence Partitioning</b> - It is a test design technique that involves dividing input valid and invalid partitions and selecting particular values from each partition as test data. </p></li>
