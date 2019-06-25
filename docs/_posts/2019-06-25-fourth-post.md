@@ -6,12 +6,12 @@ date: 2019-06-25
 
 # Beta Prototype
 
-# Overview
+## Overview
 
 <p style="font-family:Times;font-size:110%;text-align:justify">We have reached the beginning of the end of the development of our application. Most of the user stories were implemented into working prototypes. Thus we have reached a stage where the application needs to be tested for the users to have an unparalleled and effortless experience. For this purpose, we have made use of the two existing testing methods, namely Black box testing and White box testing.  In this blog, we have explained these methods in detail.
 </p>
 
-# General Test Process
+## General Test Process
 
 <p style="font-family:Times;font-size:110%;text-align:justify">As far as our testing is concerned, we have followed the Condition Coverage Technique and Branch Coverage Technique for the White Box technique. Whereas, we have followed the equivalence partitioning technique for Black Box testing.</p>
 
@@ -29,7 +29,7 @@ p style="font-family:Times;font-size:110%;text-align:justify">Major testing tech
 <p style="font-family:Times;font-size:110%;text-align:justify">Here unit testing can be classified under White box testing and other testing techniques(system testing, system integration testing, acceptance testing)can be classified under black box testing.</p>
   
   
-# White box Testing
+## White box Testing
 
 <p style="font-family:Times;font-size:110%;text-align:justify">This method of testing is from the developers' point of view. It enables him to check the flow of control of the line of codes through various loops and code structures. For the developers to use this method, they can follow these two simple steps-</p>
 
@@ -51,7 +51,7 @@ p style="font-family:Times;font-size:110%;text-align:justify">Major testing tech
 
 
 
-# Black Box Testing
+## Black Box Testing
 
 <p style="font-family:Times;font-size:110%;text-align:justify">Black Box Testing is a testing technique in which the functionality of the application is tested without knowing the internal code or the implementation structure. The tests can be functional or non-functional, but mostly functional. </p>
 
