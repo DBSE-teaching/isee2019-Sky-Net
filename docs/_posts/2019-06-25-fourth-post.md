@@ -17,7 +17,7 @@ date: 2019-06-25
 
 ## Testing Techniques
 
-p style="font-family:Times;font-size:110%;text-align:justify">Major testing techniques which are available at our disposal are the following: </p>
+<p style="font-family:Times;font-size:110%;text-align:justify">Major testing techniques which are available at our disposal are the following: </p>
   
 <ul>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Unit Testing</b> - Testing is carried out by the developer after the completion of a module or functionality.</p></li>
