@@ -59,9 +59,15 @@ date: 2019-06-25
 
 ![Deadline image]({{site.baseurl}}/images/onlogintest.PNG "Img 4"){:height="80%" width="100%" align="centre"}
 
-![Deadline image]({{site.baseurl}}/images/onsetcurrencytest.PNG "Img 3"){:height="80%" width="100%" align="centre"}
+![Deadline image]({{site.baseurl}}/images/onsetcurrencytest.PNG "Img 5"){:height="80%" width="100%" align="centre"}
 
-![Deadline image]({{site.baseurl}}/images/sendmailtest.PNG "Img 3"){:height="80%" width="100%" align="centre"}
+![Deadline image]({{site.baseurl}}/images/sendmailtest.PNG "Img 6"){:height="80%" width="100%" align="centre"}
+
+![Deadline image]({{site.baseurl}}/images/AddCurrencyWBC.PNG "Img 7"){:height="80%" width="100%" align="centre"}
+
+![Deadline image]({{site.baseurl}}/images/DeleteTransactions.PNG "Img 8"){:height="80%" width="100%" align="centre"}
+
+![Deadline image]({{site.baseurl}}/images/GetIconWBC.PNG "Img 9"){:height="80%" width="100%" align="centre"}
 
 ## Black Box Testing
 
