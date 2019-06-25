@@ -8,12 +8,12 @@ date: 2019-06-25
 
 ## Overview
 
-<p style="font-family:Times;font-size:110%;text-align:justify">We have reached the beginning of the end of the development of our application. Most of the user stories were implemented into working prototypes. Thus we have reached a stage where the application needs to be tested for the users to have an unparalleled and effortless experience. For this purpose, we have made use of the two existing testing methods, namely Black box testing and White box testing.  In this blog, we have explained these methods in detail.
+<p style="font-family:Times;font-size:110%;text-align:justify">We have reached the beginning of the end of our application development. All the user stories were implemented into working prototypes. Thus, we have reached a stage where the application needs to be tested for the users to have an effortless and unparalleled experience. We have used different testing methods and these are explained in detail in this blog.
 </p>
 
 ## General Test Process
 
-<p style="font-family:Times;font-size:110%;text-align:justify">As far as our testing is concerned, we have followed the Condition Coverage Technique and Branch Coverage Technique for the White Box technique. Whereas, we have followed the equivalence partitioning technique for Black Box testing.</p>
+<p style="font-family:Times;font-size:110%;text-align:justify">As far as our testing is concerned, we have followed Condition Coverage Technique and Branch Coverage Technique for the White Box testing and for Black Box testing, we have followed the equivalence partitioning technique.</p>
 
 ## Testing Techniques
 
@@ -26,18 +26,18 @@ date: 2019-06-25
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Acceptance Testing</b> - Testing is carried out by a user for the entire functionality of the application or module.</p></li></ul>
   
   
-<p style="font-family:Times;font-size:110%;text-align:justify">Here unit testing can be classified under White box testing and other testing techniques(system testing, system integration testing, acceptance testing)can be classified under black box testing.</p>
+<p style="font-family:Times;font-size:110%;text-align:justify">Here, unit testing is classified under White box testing and other testing techniques(system testing, system integration testing, acceptance testing)are classified under black box testing.</p>
   
   
 ## White box Testing
 
 ![Deadline image]({{site.baseurl}}/images/whiteboxflow.PNG "Img 1"){:height="80%" width="80%" align="centre"}
 
-<p style="font-family:Times;font-size:110%;text-align:justify">This method of testing is from the developers' point of view. It enables him to check the flow of control of the line of codes through various loops and code structures. For the developers to use this method, they can follow these two simple steps-</p>
+<p style="font-family:Times;font-size:110%;text-align:justify">This method of testing is from the developers' point of view. It enables the developer to check the flow of control of the line of codes through various loops and code structures. For the developers to use this method, they can follow the below two simple steps-</p>
 
 <ul>
   <li><p style="font-family:Times;font-size:110%;text-align:justify">First to get the complete working knowledge of the written code. </p></li>
-  <li><p style="font-family:Times;font-size:110%;text-align:justify">To select the most suitable coverage technique, applicable to the written code.</p></li></ul>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify">To select the most suitable coverage technique, that is applicable to the written code.</p></li></ul>
 
 
 ### White Box Testing Techniques  
@@ -45,45 +45,52 @@ date: 2019-06-25
 <p style="font-family:Times;font-size:110%;text-align:justify">There exist many coverage techniques for the developers to scrutinize blocks of written codes. They are namely -</p>
 
 <ul>
-  <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Statement Coverage</b> - Tests each statement at least once. The main idea is to cover all. executable statements inside the given block of code and check them with test cases. </p></li>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Statement Coverage</b> - Tests each statement at least once. The main idea is to cover all executable statements inside the given block of code and check them with test cases. </p></li>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Function coverage</b> -Tests each function at least once.</p></li>
-  <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Edge coverage</b> -Test every edge in the control flow graph in the program at least once</p></li>
-  <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Branch coverage</b> -Test every control statement in the program at least once.</p></li>
-  <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Condition coverage</b> - Test every Boolean sub-expression whether evaluated to both true and false.</p></li></ul>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Edge coverage</b> -Tests every edge in the control flow graph in the program at least once</p></li>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Branch coverage</b> -Tests every control statement in the program at least once.</p></li>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Condition coverage</b> - Tests every boolean sub-expression whether evaluated to both true and false.</p></li></ul>
   
 <p style="font-family:Times;font-size:110%;text-align:justify">The following classes were tested using White Box Testing : </p>
 
-<p style="font-family:Times;font-size:110%;text-align:justify"> Field validation while saving transactions </p>
+<p style="font-family:Times;font-size:110%;text-align:justify"> <b>Field validation while saving transactions</b> </p>
 
 ![Deadline image]({{site.baseurl}}/images/WBCValidation.PNG "Img 1"){:height="80%" width="100%" align="centre"}
 
-<p style="font-family:Times;font-size:110%;text-align:justify"> Field Validation while filtering transactions </p>
+<p style="font-family:Times;font-size:110%;text-align:justify"> <b> Field Validation while filtering transactions </b></p>
 
 ![Deadline image]({{site.baseurl}}/images/DateRangeWBC.PNG "Img 2"){:height="80%" width="100%" align="centre"}
 
-<p style="font-family:Times;font-size:110%;text-align:justify"> Prompting user to authenticate PIN </p>
+<p style="font-family:Times;font-size:110%;text-align:justify"> <b>Prompting user to authenticate PIN</b> </p>
 
 ![Deadline image]({{site.baseurl}}/images/onlogintest.PNG "Img 4"){:height="80%" width="100%" align="centre"}
 
-<p style="font-family:Times;font-size:110%;text-align:justify"> When user selects currency unit </p>
+<p style="font-family:Times;font-size:110%;text-align:justify"> <b>When user selects currency unit</b> </p>
 
 ![Deadline image]({{site.baseurl}}/images/onsetcurrencytest.PNG "Img 5"){:height="80%" width="100%" align="centre"}
 
-<p style="font-family:Times;font-size:110%;text-align:justify"> Send transaction details via E-mail </p>
+<p style="font-family:Times;font-size:110%;text-align:justify"> <b>Send transaction details via E-mail</b> </p>
 
 ![Deadline image]({{site.baseurl}}/images/sendmailtest.PNG "Img 6"){:height="80%" width="100%" align="centre"}
 
-<p style="font-family:Times;font-size:110%;text-align:justify"> Save Currency Unit </p>
+<p style="font-family:Times;font-size:110%;text-align:justify"> <b>Save Currency Unit</b> </p>
 
 ![Deadline image]({{site.baseurl}}/images/AddCurrencyWBC.PNG "Img 7"){:height="80%" width="100%" align="centre"}
 
-<p style="font-family:Times;font-size:110%;text-align:justify"> Delete transactions </p>
+<p style="font-family:Times;font-size:110%;text-align:justify"> <b>Delete transactions</b> </p>
 
 ![Deadline image]({{site.baseurl}}/images/DeleteTransactions.PNG "Img 8"){:height="80%" width="100%" align="centre"}
 
-<p style="font-family:Times;font-size:110%;text-align:justify"> Display Icons and Categories in Transactions page </p>
+<p style="font-family:Times;font-size:110%;text-align:justify"> <b>Display Icons and Categories in Transactions page</b> </p>
 
 ![Deadline image]({{site.baseurl}}/images/GetIconWBC.PNG "Img 9"){:height="80%" width="100%" align="centre"}
+
+<p style="font-family:Times;font-size:110%;text-align:justify"> <b>Summary of Classes - Functions that are tested by White Box Testing</b></p>
+
+![Deadline image]({{site.baseurl}}/images/WBCtestcases.PNG "Img 10"){:height="80%" width="100%" align="centre"}
+
+<p style="font-family:Times;font-size:110%;text-align:justify">The methods which are of lower significance and less interdependency were not tested. </p>
+
 
 ## Black Box Testing
 
@@ -105,7 +112,7 @@ date: 2019-06-25
 
 <ul>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Equivalence Partitioning</b> - It is a test design technique that involves dividing input valid and invalid partitions and selecting particular values from each partition as test data. </p></li>
-  <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Boundary Value Analysis</b> - It is a test design technique that involves the determination of boundaries for input values and selecting values that are at the boundaries and just inside/ outside of the boundaries as test data.</p></li>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Boundary Value Analysis</b> - It is a test design technique that involves the determination of boundaries for input values and selecting values that are at the boundaries and just inside/outside of the boundaries as test data.</p></li>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Cause-Effect Graphing</b> - It is a test design technique that involves identifying the case and effects producing a Cause-Effect Graph.</p></li></ul>
   
 ### Test Scenario  
@@ -148,11 +155,11 @@ date: 2019-06-25
 
 ### Expense and Income Layout
 
-<p style="font-family:Times;font-size:110%;text-align:justify">The different layout for income is removed and the same layout with the same fields is being used to save the income and expense transactions.</p>
+<p style="font-family:Times;font-size:110%;text-align:justify">The income layout is removed and expense layout is configured for both income and expense transactions.</p>
 
 ### Cosmetic Changes
 
-<p style="font-family:Times;font-size:110%;text-align:justify">The category icon is added along with the category list in the transactions layout. The calendar button is replaced with the icon. </p>
+<p style="font-family:Times;font-size:110%;text-align:justify">The category icon is added along with the category list in the transactions layout and the calendar button is replaced with the icon. </p>
 
   
 
