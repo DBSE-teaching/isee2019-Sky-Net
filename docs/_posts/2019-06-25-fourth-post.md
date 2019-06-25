@@ -167,7 +167,7 @@ date: 2019-06-25
 
 ### Resources 
 
-<p style="font-family:Times;font-size:110%;text-align:justify"> Figure 1 : <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller#/media/File:MVC-Process.svg" style="color: rgb(0,0,255)">https://en.wikipedia.org/wiki/Black_box#/media/File:Blackbox.svg</a></p>
+<p style="font-family:Times;font-size:110%;text-align:justify"> Figure 1 : <a href="https://en.wikipedia.org/wiki/Black-box_testing#/media/File:Blackbox.svg" style="color: rgb(0,0,255)">https://en.wikipedia.org/wiki/Black_box#/media/File:Blackbox.svg</a></p>
 
 
 
