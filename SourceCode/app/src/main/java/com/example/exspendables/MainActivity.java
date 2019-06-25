@@ -1726,7 +1726,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     }
                 }
 
-
                 float percentSpent = (float)total/(float)budgetSetByUser;
                 percentSpent = percentSpent * 100;
 
@@ -2470,7 +2469,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
         contentFrameLayout.removeAllViewsInLayout();
         getLayoutInflater().inflate(R.layout.graph_summary_list, contentFrameLayout);
-
+        this.openSummaryPage(view);
         //loadFilters();
     }
 
