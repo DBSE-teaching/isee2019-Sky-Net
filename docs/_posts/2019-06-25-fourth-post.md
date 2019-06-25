@@ -57,7 +57,11 @@ date: 2019-06-25
 
 ![Deadline image]({{site.baseurl}}/images/WhiteBoxTogglePIN.PNG "Img 3"){:height="80%" width="100%" align="centre"}
 
+![Deadline image]({{site.baseurl}}/images/onlogintest.PNG "Img 4"){:height="80%" width="100%" align="centre"}
 
+![Deadline image]({{site.baseurl}}/images/onsetcurrencytest.PNG "Img 3"){:height="80%" width="100%" align="centre"}
+
+![Deadline image]({{site.baseurl}}/images/sendmailtest.PNG "Img 3"){:height="80%" width="100%" align="centre"}
 
 ## Black Box Testing
 
