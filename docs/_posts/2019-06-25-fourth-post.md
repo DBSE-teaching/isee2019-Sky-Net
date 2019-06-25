@@ -53,19 +53,35 @@ date: 2019-06-25
   
 <p style="font-family:Times;font-size:110%;text-align:justify">The following classes were tested using White Box Testing : </p>
 
+<p style="font-family:Times;font-size:110%;text-align:justify"> Field validation while saving transactions </p>
+
 ![Deadline image]({{site.baseurl}}/images/WBCValidation.PNG "Img 1"){:height="80%" width="100%" align="centre"}
+
+<p style="font-family:Times;font-size:110%;text-align:justify"> Field Validation while filtering transactions </p>
 
 ![Deadline image]({{site.baseurl}}/images/DateRangeWBC.PNG "Img 2"){:height="80%" width="100%" align="centre"}
 
+<p style="font-family:Times;font-size:110%;text-align:justify"> Prompting user to authenticate PIN </p>
+
 ![Deadline image]({{site.baseurl}}/images/onlogintest.PNG "Img 4"){:height="80%" width="100%" align="centre"}
+
+<p style="font-family:Times;font-size:110%;text-align:justify"> When user selects currency unit </p>
 
 ![Deadline image]({{site.baseurl}}/images/onsetcurrencytest.PNG "Img 5"){:height="80%" width="100%" align="centre"}
 
+<p style="font-family:Times;font-size:110%;text-align:justify"> Send transaction details via E-mail </p>
+
 ![Deadline image]({{site.baseurl}}/images/sendmailtest.PNG "Img 6"){:height="80%" width="100%" align="centre"}
+
+<p style="font-family:Times;font-size:110%;text-align:justify"> Save Currency Unit </p>
 
 ![Deadline image]({{site.baseurl}}/images/AddCurrencyWBC.PNG "Img 7"){:height="80%" width="100%" align="centre"}
 
+<p style="font-family:Times;font-size:110%;text-align:justify"> Delete transactions </p>
+
 ![Deadline image]({{site.baseurl}}/images/DeleteTransactions.PNG "Img 8"){:height="80%" width="100%" align="centre"}
+
+<p style="font-family:Times;font-size:110%;text-align:justify"> Display Icons and Categories in Transactions page </p>
 
 ![Deadline image]({{site.baseurl}}/images/GetIconWBC.PNG "Img 9"){:height="80%" width="100%" align="centre"}
 
