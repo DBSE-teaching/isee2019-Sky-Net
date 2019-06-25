@@ -31,6 +31,8 @@ date: 2019-06-25
   
 ## White box Testing
 
+![Deadline image]({{site.baseurl}}/images/whiteboxflow.PNG "Img 1"){:height="80%" width="100%" align="centre"}
+
 <p style="font-family:Times;font-size:110%;text-align:justify">This method of testing is from the developers' point of view. It enables him to check the flow of control of the line of codes through various loops and code structures. For the developers to use this method, they can follow these two simple steps-</p>
 
 <ul>
