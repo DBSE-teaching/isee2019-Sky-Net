@@ -52,6 +52,7 @@ import android.util.SparseBooleanArray;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -294,7 +295,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 //Float amountValue1 = Float.parseFloat(amountValue);
 
 
-                loop:{
                     if (startDate.getText() != "" && endDate.getText() != "" & catList.equals("") && payList.equals("") && operatorList.equals("") && amountValue.equals("") ) {
 
                         //setContentView(R.layout.barchart);
@@ -308,7 +308,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                         BarChart chart;
                         final ArrayList<BarEntry> BARENTRY;
-                        final ArrayList<Integer> Entries = new ArrayList<>();
                         String label = null;
                         ArrayList<String> BarEntryLabels;
                         BarDataSet Bardataset;
@@ -324,13 +323,15 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                                 "where startDate between '" +startDateValue+"' and '"+ endDateValue + "'" + "ORDER BY startDate" ;
 
                         Cursor c = sdb.rawQuery(sql, null);
-                        final int count = c.getCount();
+                        int count = c.getCount();
                         c.moveToFirst();
                         String date;
                         //int amount;
                         float amount;
                         String cat;
+                        final ArrayList<String> xAxisLabel = new ArrayList<String>();
                         final XAxis xAxis = chart.getXAxis();
+
 
 
                         for (int m = 0; m < count; m++) {
@@ -344,8 +345,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                             String p = date.substring(date.length() - 6) ;
                             int i = Integer.valueOf(p);
                             BARENTRY.add(new BarEntry(i, amount));
-                        /*xAxis.mEntries = new float[
-                                Entries.add(i, m[i]) ]; */
                             c.moveToNext();
                         }
 
@@ -369,6 +368,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         //xAxis.setLabelCount(count);
                         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                         xAxis.setLabelRotationAngle(-90);
+
 
                         chart.invalidate();
                         xAxis.setValueFormatter(new IAxisValueFormatter() {
@@ -444,6 +444,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                             sql = "Select category, amount from TRANSACTIONS where amount < '" + amountValue + "'";
                             getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
                             mChart = findViewById(R.id.PieChart);
+
+                        }else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && operatorList.equals("") && amountValue.equals("") && !payList.equals("")) {
+                            sql = "Select category, amount from TRANSACTIONS where paymentMethod ='" + payList + "'";
+                            getLayoutInflater().inflate(R.layout.piechart_paymethod, contentFrameLayout);
+                            mChart = findViewById(R.id.PieChart1);
 
                         }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
                             sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "'";
@@ -571,7 +576,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         db.close();
 
                     }
-                }
+
 
             }
         });
