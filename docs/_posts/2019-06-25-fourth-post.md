@@ -69,6 +69,14 @@ date: 2019-06-25
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Equivalence Partitioning</b> - It is a test design technique that involves dividing input valid and invalid partitions and selecting particular values from each partition as test data. </p></li>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Boundary Value Analysis</b> - It is a test design technique that involves the determination of boundaries for input values and selecting values that are at the boundaries and just inside/ outside of the boundaries as test data.</p></li>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Cause-Effect Graphing</b> - It is a test design technique that involves identifying the case and effects producing a Cause-Effect Graph.</p></li></ul>
+  
+
+<p style="font-family:Times;font-size:160%;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thanks for visiting our Blog!!</p>
+
+### Resourses 
+
+<p style="font-family:Times;font-size:110%;text-align:justify"><a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller#/media/File:MVC-Process.svg" style="color: rgb(0,0,255)">https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller#/media/File:MVC-Process.svg</a></p>
+
 
 
 
