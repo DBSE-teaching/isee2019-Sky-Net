@@ -55,8 +55,6 @@ date: 2019-06-25
 
 ![Deadline image]({{site.baseurl}}/images/DateRangeWBC.PNG "Img 2"){:height="80%" width="100%" align="centre"}
 
-![Deadline image]({{site.baseurl}}/images/WhiteBoxTogglePIN.PNG "Img 3"){:height="80%" width="100%" align="centre"}
-
 ![Deadline image]({{site.baseurl}}/images/onlogintest.PNG "Img 4"){:height="80%" width="100%" align="centre"}
 
 ![Deadline image]({{site.baseurl}}/images/onsetcurrencytest.PNG "Img 5"){:height="80%" width="100%" align="centre"}
@@ -121,7 +119,7 @@ date: 2019-06-25
 
 ### Resources 
 
-<p style="font-family:Times;font-size:110%;text-align:justify"> Figure 1<a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller#/media/File:MVC-Process.svg" style="color: rgb(0,0,255)">https://en.wikipedia.org/wiki/Black_box#/media/File:Blackbox.svg</a></p>
+<p style="font-family:Times;font-size:110%;text-align:justify"> Figure 1 <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller#/media/File:MVC-Process.svg" style="color: rgb(0,0,255)">https://en.wikipedia.org/wiki/Black_box#/media/File:Blackbox.svg</a></p>
 
 
 
