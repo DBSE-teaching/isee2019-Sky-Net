@@ -8,7 +8,7 @@
         android:layout_height="100dp"
         android:src="@drawable/clothing" />
 
-    <TextView
+  <TextView
         android:id="@+id/image_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,6 +23,8 @@
         android:gravity="center"
         android:text="Clothing"
         android:textColor="@android:color/black"
-        android:textSize="30dp" />
+        android:textSize="30dp" >
+
+  </TextView>
 
 </RelativeLayout>

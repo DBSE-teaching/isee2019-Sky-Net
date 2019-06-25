@@ -10,11 +10,23 @@ public class CategoryIcon {
         mIconImage = iconImage;
     }
 
+    public CategoryIcon(int iconImage){
+        mIconImage = iconImage;
+    }
+
     public String getmIconName() {
         return mIconName;
     }
 
     public int getmIconImage() {
         return mIconImage;
+    }
+
+    public void setmIconName(String mIconName) {
+        this.mIconName = mIconName;
+    }
+
+    public void setmIconImage(int mIconImage) {
+        this.mIconImage = mIconImage;
     }
 }

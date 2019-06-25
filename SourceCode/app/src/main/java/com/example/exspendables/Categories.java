@@ -90,10 +90,29 @@ public class Categories extends SQLiteOpenHelper {
         }
     }
 
-    public boolean modifyIcon(String category,String iconName){
+   /* public boolean modifyIcon(String category,String iconName){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("iconname",iconName);
+
+        int result = db.update("CATEGORIES",contentValues,"catlist=?",new String[]{category});
+
+        if(result > 0){
+            db.close();     // harish - 25.05
+            return true;
+        }
+        else
+        {
+            db.close();     // harish - 25.05
+            return false;
+        }
+
+    }*/
+
+    public boolean modifyIcon(String category,int iconImg){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("iconname",iconImg);
 
         int result = db.update("CATEGORIES",contentValues,"catlist=?",new String[]{category});
 
@@ -121,6 +140,26 @@ public class Categories extends SQLiteOpenHelper {
                 //String maxbudget = cursor.getString(cursor.getColumnIndex("maxbudget"));
                 categories.add(categoryname);
 
+                cursor.moveToNext();
+            }
+        }
+        db.close();     // harish - 25.05
+        return categories;
+    }
+
+    public List<String> getCategoryAndIcon(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM CATEGORIES",null);
+
+        List<String> categories = new ArrayList<String>();
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                String categoryname = cursor.getString(cursor.getColumnIndex("catlist"));
+                int icon = cursor.getInt(cursor.getColumnIndex("iconname"));
+
+                categoryname = categoryname+";"+icon;
+                categories.add(categoryname);
                 cursor.moveToNext();
             }
         }
@@ -167,7 +206,5 @@ public class Categories extends SQLiteOpenHelper {
             db.close();
             return false;
         }
-
     }
-
 }

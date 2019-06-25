@@ -696,11 +696,48 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         dbCategories = new Categories(this);
         // Populate Category DDLB
         Spinner categoryddlb = findViewById(R.id.categoryddlb);
-        List<String> categorylist = dbCategories.getData();
-        categorylist.add(0, "");
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categorylist);
+        List<String> categorylist = dbCategories.getCategoryAndIcon();
+
+        int budgetSetByUser = 0;
+        mCategoryList = new ArrayList<>();
+
+        mCategoryList.add(0, new CategoryIcon("",0));
+
+        for(int listIdx = 0; listIdx < categorylist.size(); listIdx++){
+
+            String dummy = categorylist.get(listIdx);
+            String[] values = dummy.split(";");
+
+            switch (values[1]){
+                case "2131230949":
+                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.clothing));
+                    break;
+
+                case "2131230916":
+                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.food));
+                    break;
+
+                case "2131230815":
+                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.groceries));
+                    break;
+
+                case "2131230917":
+                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.shopping));
+                    break;
+            }
+        }
+
+        mAdapter = new IconAdapter(this, mCategoryList);
+        categoryddlb.setAdapter(mAdapter);
+
+        /*ArrayAdapter<CategoryIcon> categoryAdapter = new ArrayAdapter<CategoryIcon>(this, R.layout.support_simple_spinner_dropdown_item, mCategoryList);
         categoryAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        categoryddlb.setAdapter(categoryAdapter);
+        categoryddlb.setAdapter(categoryAdapter);*/
+
+
+        //Spinner categoryIcons = findViewById(R.id.iconddlb);
+        //mAdapter = new IconAdapter(this, mCategoryList);
+        //categoryIcons.setAdapter(mAdapter);
 
         /*for(int i = 0;i < categorylist.size();i++){
             categoryAdapter.add(categorylist.get(i).toString());
@@ -1495,8 +1532,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         Spinner category = findViewById(R.id.categoryddlb);
         TextView categoryTV = findViewById(R.id.category);
         int selectedCategoryItem = category.getSelectedItemPosition();
+
         if (selectedCategoryItem > 0) {
-            categoryValue = category.getSelectedItem().toString();
+            CategoryIcon selectedItem = (CategoryIcon) category.getSelectedItem();
+            categoryValue = selectedItem.getmIconName();
+            //categoryValue = category.getSelectedItem().toString();
             categoryTV.setTextColor(Color.BLACK);
         } else {
             mandatoryFieldMissing = true;
@@ -1586,13 +1626,57 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             if (isTransactionSaved) {
                 Toast.makeText(getApplicationContext(), "Transaction is saved", Toast.LENGTH_SHORT).show();
 
+                Categories dbCategories;
                 dbCategories = new Categories(this);
+                // Populate Category DDLB
+                Spinner categoryddlb = findViewById(R.id.categoryddlb);
+                List<String> categorylist = dbCategories.getCategoryAndIcon();
+
+
+                mCategoryList = new ArrayList<>();
+
+                mCategoryList.add(0, new CategoryIcon("",0));
+
+                for(int listIdx = 0; listIdx < categorylist.size(); listIdx++){
+
+                    String dummy = categorylist.get(listIdx);
+                    String[] values = dummy.split(";");
+
+                    switch (values[1]){
+                        case "2131230949":
+                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.clothing));
+                            break;
+
+                        case "2131230916":
+                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.food));
+                            break;
+
+                        case "2131230815":
+                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.groceries));
+                            break;
+
+                        case "2131230917":
+                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.shopping));
+                            break;
+                    }
+                }
+
+                mAdapter = new IconAdapter(this, mCategoryList);
+                categoryddlb.setAdapter(mAdapter);
+
+        /*ArrayAdapter<CategoryIcon> categoryAdapter = new ArrayAdapter<CategoryIcon>(this, R.layout.support_simple_spinner_dropdown_item, mCategoryList);
+        categoryAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        categoryddlb.setAdapter(categoryAdapter);*/
+
+
+
+                /*dbCategories = new Categories(this);
                 List<String> categorylist = dbCategories.getData();
                 categorylist.add(0, "");
 
                 ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categorylist);
                 categoryAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-                category.setAdapter(categoryAdapter);
+                category.setAdapter(categoryAdapter);*/
 
                 List<String> paymentList = new ArrayList<String>();
                 paymentList.add(" ");
@@ -2316,10 +2400,15 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     private void initIconList() {
         mCategoryList = new ArrayList<>();
-        mCategoryList.add(new CategoryIcon("Clothing", R.drawable.clothing));
+        /*mCategoryList.add(new CategoryIcon("Clothing", R.drawable.clothing));
         mCategoryList.add(new CategoryIcon("Food", R.drawable.food));
         mCategoryList.add(new CategoryIcon("Groceries", R.drawable.groceries));
-        mCategoryList.add(new CategoryIcon("Shopping", R.drawable.shopping));
+        mCategoryList.add(new CategoryIcon("Shopping", R.drawable.shopping));*/
+        mCategoryList.add(new CategoryIcon(R.drawable.clothing));
+        mCategoryList.add(new CategoryIcon(R.drawable.food));
+        mCategoryList.add(new CategoryIcon(R.drawable.groceries));
+        mCategoryList.add(new CategoryIcon(R.drawable.shopping));
+
     }
 
 
@@ -2349,7 +2438,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 CategoryIcon selectedItem = (CategoryIcon) parent.getItemAtPosition(position);
-                String clickedIconName = selectedItem.getmIconName();
+                //String clickedIconName = selectedItem.getmIconName();
             }
 
             @Override
@@ -2366,10 +2455,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         Spinner categoryIcons = findViewById(R.id.iconddlb);
         CategoryIcon selectedItem = (CategoryIcon) categoryIcons.getSelectedItem();
-        String iconName = selectedItem.getmIconName();
+        //String iconName = selectedItem.getmIconName();
+        int iconImg = selectedItem.getmIconImage();
 
         Categories categories = new Categories(this);
-        categories.modifyIcon(cat,iconName);
+        //categories.modifyIcon(cat,iconName);
+        categories.modifyIcon(cat,iconImg);
 
         Toast.makeText(getApplicationContext(), "Icon saved", Toast.LENGTH_SHORT).show();
     }
