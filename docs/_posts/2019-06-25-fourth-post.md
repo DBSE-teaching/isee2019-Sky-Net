@@ -70,6 +70,30 @@ date: 2019-06-25
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Boundary Value Analysis</b> - It is a test design technique that involves the determination of boundaries for input values and selecting values that are at the boundaries and just inside/ outside of the boundaries as test data.</p></li>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Cause-Effect Graphing</b> - It is a test design technique that involves identifying the case and effects producing a Cause-Effect Graph.</p></li></ul>
   
+### Test Scenario  
+  
+![Deadline image]({{site.baseurl}}/images/Testscenario.png "Test Scenario"){:height="50%" width="50%" align="centre"}
+
+### Test Cases
+
+![Deadline image]({{site.baseurl}}/images/Testcase1.png "Test Case 1"){:height="50%" width="50%" align="centre"}
+
+![Deadline image]({{site.baseurl}}/images/Testcase2.png "Test Case 2"){:height="50%" width="50%" align="centre"}
+
+![Deadline image]({{site.baseurl}}/images/Testcase3.png "Test Case 3"){:height="50%" width="50%" align="centre"} 
+
+![Deadline image]({{site.baseurl}}/images/Testcase4.png "Test Case 4"){:height="50%" width="50%" align="centre"} 
+
+![Deadline image]({{site.baseurl}}/images/Testcase5.png "Test Case 5"){:height="50%" width="50%" align="centre"} 
+
+![Deadline image]({{site.baseurl}}/images/Testcase6.png "Test Case 6"){:height="50%" width="50%" align="centre"} 
+
+![Deadline image]({{site.baseurl}}/images/Testcase7.png "Test Case 7"){:height="50%" width="50%" align="centre"} 
+
+### Status & Defect
+
+![Deadline image]({{site.baseurl}}/images/statusanddefects.png "Status & Defects"){:height="50%" width="50%" align="centre"} 
+  
 
 <p style="font-family:Times;font-size:160%;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thanks for visiting our Blog!!</p>
 
