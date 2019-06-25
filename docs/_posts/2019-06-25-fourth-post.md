@@ -48,6 +48,14 @@ date: 2019-06-25
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Edge coverage</b> -Test every edge in the control flow graph in the program at least once</p></li>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Branch coverage</b> -Test every control statement in the program at least once.</p></li>
   <li><p style="font-family:Times;font-size:110%;text-align:justify"><b>Condition coverage</b> - Test every Boolean sub-expression whether evaluated to both true and false.</p></li></ul>
+  
+<p style="font-family:Times;font-size:110%;text-align:justify">The following classes were tested using White Box Testing : </p>
+
+![Deadline image]({{site.baseurl}}/images/WhiteBoxTestingMandatoryfields.PNG "Img 1"){:height="80%" width="100%" align="centre"}
+
+![Deadline image]({{site.baseurl}}/images/WhiteBoxDateRangeValidation.PNG "Img 2"){:height="80%" width="100%" align="centre"}
+
+![Deadline image]({{site.baseurl}}/images/WhiteBoxTogglePIN.PNG "Img 3"){:height="80%" width="100%" align="centre"}
 
 
 
@@ -88,14 +96,14 @@ date: 2019-06-25
 
 ![Deadline image]({{site.baseurl}}/images/Testcase6.PNG "Test Case 6"){:height="80%" width="100%" align="centre"} 
 
-![Deadline image]({{site.baseurl}}/images/Testcase7.PNG "Test Case 7"){:height="50%" width="50%" align="centre"} 
+![Deadline image]({{site.baseurl}}/images/Testcase7.PNG "Test Case 7"){:height="80%" width="100%" align="centre"} 
 
 ### Status & Defect
 
 ![Deadline image]({{site.baseurl}}/images/Statusanddefects.PNG "Status & Defects"){:height="80%" width="100%" align="centre"} 
   
 
-<p style="font-family:Times;font-size:160%;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thanks for visiting our Blog!!</p>
+<p style="font-family:Times;font-size:160%;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thanks for visiting our Blog!!</p>
 
 ### Resourses 
 
