@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -82,7 +83,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     public static String startDateValue = null;
     public static String endDateValue = null;
     private ArrayList<CategoryIcon> mCategoryList;
+    private ArrayList<CheckboxIconCategory> mCategoryListView;
     private IconAdapter mAdapter;
+    private ListIconAdapter mListIconAdapter;
     protected DrawerLayout drawer;
 
 
@@ -566,6 +569,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         mAdapter = new IconAdapter(this, mCategoryList);
         categoryddlb.setAdapter(mAdapter);
+
         Button button = findViewById(R.id.selectDate);
         button.setOnClickListener(new View.OnClickListener() {
             public void checkButtonStat() {
@@ -1096,7 +1100,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         DialogFragment datePicker = new com.example.exspendables.DatePicker();
 
+        ArrayAdapter<String> categoryAdapter;
+        String[] values;
+        SparseBooleanArray checked;
+
         switch (v.getId()) {
+
             case R.id.set_btn:
                 // harish - 25.05
                 Toast.makeText(this, "Button clicked", Toast.LENGTH_SHORT).show();
@@ -1136,15 +1145,39 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 Button addCategory = findViewById(R.id.addCategoryBtn);
 
                 dbCategories = new Categories(this);
-                List<String> categorylist = dbCategories.getData();
-                String[] values = new String[categorylist.size()];
-                for (int i = 0; i < categorylist.size(); i++) {
-                    values[i] = categorylist.get(i);
+                List<String> categorylist = dbCategories.getCategoryAndIcon();
+                mCategoryListView = new ArrayList<>();
+
+                for(int listIdx = 0; listIdx < categorylist.size(); listIdx++){
+
+                    String dummy = categorylist.get(listIdx);
+                    values = dummy.split(";");
+
+                    switch (values[1]){
+                        case "2131230950":
+                            mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.shopping, false));
+                            break;
+
+                        case "2131230916":
+                            mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.food,false));
+                            break;
+
+                        case "2131230815":
+                            mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.clothing,false));
+                            break;
+
+                        case "2131230917":
+                            mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.groceries,false));
+                            break;
+
+                        default:
+                            mCategoryListView.add(new CheckboxIconCategory(values[0],R.drawable.ic_white_box,false));
+                            break;
+                    }
                 }
-                ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>
-                        (this, android.R.layout.simple_list_item_multiple_choice, values);
-                categoryList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                categoryList.setAdapter(categoryAdapter);
+
+                mListIconAdapter = new ListIconAdapter(this,mCategoryListView);
+                categoryList.setAdapter(mListIconAdapter);
 
                 deleteCategory.setOnClickListener(this);
                 modifyCategory.setOnClickListener(this);
@@ -1188,8 +1221,30 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             case R.id.deleteCategoryBtn:
                 dbCategories = new Categories(this);
                 categoryList = findViewById(R.id.categorylist);
-                SparseBooleanArray checked = categoryList.getCheckedItemPositions();
+
+                ListAdapter listAdapter =  categoryList.getAdapter();
+                CheckboxIconCategory checkedCategory = null;
+
+                int noOfItemsChecked = 0;
+                for(int i=0;i<categoryList.getCount();i++){
+
+                    checkedCategory = (CheckboxIconCategory) listAdapter.getItem(i);
+                    if(checkedCategory.ismIsChecked()){
+                        noOfItemsChecked++;
+                        dbCategories.deleteData(checkedCategory.getmIconName());
+                    }
+                }
+
+                if (noOfItemsChecked == 1) {
+                    Toast.makeText(getApplicationContext(), "Category is deleted", Toast.LENGTH_SHORT).show();
+                } else if (noOfItemsChecked > 1) {
+                    Toast.makeText(getApplicationContext(), "Categories are deleted", Toast.LENGTH_SHORT).show();
+                }
+
+                /*SparseBooleanArray checked = categoryList.getCheckedItemPositions();
                 ArrayList<String> selectedItems = new ArrayList<String>();
+
+
 
                 categorylist = dbCategories.getData();
                 values = new String[categorylist.size()];
@@ -1205,18 +1260,18 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     if (checked.valueAt(i)) {
                         dbCategories.deleteData(categoryAdapter.getItem(position));
                     }
-                }
+                }*/
 
                 // harish - 25.05
-                if (checked.size() == 1) {
+                /*if (checked.size() == 1) {
                     Toast.makeText(getApplicationContext(), "Category is deleted", Toast.LENGTH_SHORT).show();
                 } else if (checked.size() > 1) {
                     Toast.makeText(getApplicationContext(), "Categories are deleted", Toast.LENGTH_SHORT).show();
-                }
+                }*/
                 // harish - 25.05
 
                 //refresh the list with new value
-                categoryList = findViewById(R.id.categorylist);
+              /*  categoryList = findViewById(R.id.categorylist);
 
                 dbCategories = new Categories(this);
                 // Populate Category List View
@@ -1229,7 +1284,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 categoryAdapter = new ArrayAdapter<String>
                         (this, android.R.layout.simple_list_item_multiple_choice, values);
                 categoryList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                categoryList.setAdapter(categoryAdapter);
+                categoryList.setAdapter(categoryAdapter);*/
                 break;
 
 
@@ -1285,8 +1340,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 categoryList = findViewById(R.id.categorylist);
                 checked = categoryList.getCheckedItemPositions();
 
-                checked = categoryList.getCheckedItemPositions();
-
                 categorylist = dbCategories.getData();
                 values = new String[categorylist.size()];
                 for (int i = 0; i < categorylist.size(); i++) {
@@ -1298,10 +1351,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 for (int i = 0; i < checked.size(); i++) {
                     // Item position in adapter
                     int position = checked.keyAt(i);
-                    // Add sport if it is checked i.e.) == TRUE!
                     if (checked.valueAt(i)) {
-                        //          String dummy1 = selectedItems.get(i).toString();
-                        //         String dummy2 = selectedItems.get(position).toString();
                         oldValue = categoryAdapter.getItem(position);
                         break;
                     }
@@ -1507,12 +1557,15 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         deleteTransaction.setOnClickListener(this);
 
         int count = transactionLV.getCount();
+        String content = "";
         for(int index = 0;index < count;index++){
 
             String temp = transactionLV.getItemAtPosition(index).toString();
             temp = temp.replaceAll(";","\t");
-            emailIntent.putExtra(Intent.EXTRA_TEXT, temp);
+            content = content + "\n" + temp;
         }
+
+        emailIntent.putExtra(Intent.EXTRA_TEXT, content);
 
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
