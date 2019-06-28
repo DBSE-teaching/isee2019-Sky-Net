@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class IconAdapter extends ArrayAdapter<CategoryIcon> {
 
-    public IconAdapter(Context context, ArrayList<CategoryIcon> iconList){
+    public IconAdapter(Context context,  ArrayList<CategoryIcon> iconList){
         super(context,0,iconList);
     }
 

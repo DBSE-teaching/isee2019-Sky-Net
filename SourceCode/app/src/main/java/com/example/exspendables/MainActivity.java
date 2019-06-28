@@ -1,6 +1,5 @@
 package com.example.exspendables;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -9,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -26,7 +24,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -48,7 +45,6 @@ import android.util.SparseBooleanArray;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -62,10 +58,7 @@ import com.mynameismidori.currencypicker.CurrencyPicker;
 import com.mynameismidori.currencypicker.CurrencyPickerListener;
 
 
-import java.sql.Array;
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -83,9 +76,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     public static String startDateValue = null;
     public static String endDateValue = null;
     private ArrayList<CategoryIcon> mCategoryList;
-    private ArrayList<CheckboxIconCategory> mCategoryListView;
+
     private IconAdapter mAdapter;
-    private ListIconAdapter mListIconAdapter;
+
     protected DrawerLayout drawer;
 
 
@@ -1103,6 +1096,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         ArrayAdapter<String> categoryAdapter;
         String[] values;
         SparseBooleanArray checked;
+        ListView categoryList;
+        List<String> categorylist;
 
         switch (v.getId()) {
 
@@ -1139,49 +1134,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 contentFrameLayout.removeAllViewsInLayout();
                 getLayoutInflater().inflate(R.layout.category_popup, contentFrameLayout);
 
-                ListView categoryList = findViewById(R.id.categorylist);
-                Button deleteCategory = findViewById(R.id.deleteCategoryBtn);
-                Button modifyCategory = findViewById(R.id.modifyCategoryBtn);
-                Button addCategory = findViewById(R.id.addCategoryBtn);
+                populateListCategories();
 
-                dbCategories = new Categories(this);
-                List<String> categorylist = dbCategories.getCategoryAndIcon();
-                mCategoryListView = new ArrayList<>();
-
-                for(int listIdx = 0; listIdx < categorylist.size(); listIdx++){
-
-                    String dummy = categorylist.get(listIdx);
-                    values = dummy.split(";");
-
-                    switch (values[1]){
-                        case "2131230950":
-                            mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.shopping, false));
-                            break;
-
-                        case "2131230916":
-                            mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.food,false));
-                            break;
-
-                        case "2131230815":
-                            mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.clothing,false));
-                            break;
-
-                        case "2131230917":
-                            mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.groceries,false));
-                            break;
-
-                        default:
-                            mCategoryListView.add(new CheckboxIconCategory(values[0],R.drawable.ic_white_box,false));
-                            break;
-                    }
-                }
-
-                mListIconAdapter = new ListIconAdapter(this,mCategoryListView);
-                categoryList.setAdapter(mListIconAdapter);
-
-                deleteCategory.setOnClickListener(this);
-                modifyCategory.setOnClickListener(this);
-                addCategory.setOnClickListener(this);
                 break;
 
             case R.id.deleteTxnBtn:
@@ -1222,7 +1176,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 dbCategories = new Categories(this);
                 categoryList = findViewById(R.id.categorylist);
 
+                ArrayList<CheckboxIconCategory> checkboxIconCategories = new ArrayList<>();
+
                 ListAdapter listAdapter =  categoryList.getAdapter();
+
+                for(int index=0; index < listAdapter.getCount();index++){
+                    checkboxIconCategories.add((CheckboxIconCategory) listAdapter.getItem(index));
+                }
+
                 CheckboxIconCategory checkedCategory = null;
 
                 int noOfItemsChecked = 0;
@@ -1232,6 +1193,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     if(checkedCategory.ismIsChecked()){
                         noOfItemsChecked++;
                         dbCategories.deleteData(checkedCategory.getmIconName());
+                        checkboxIconCategories.remove(i);
                     }
                 }
 
@@ -1241,50 +1203,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     Toast.makeText(getApplicationContext(), "Categories are deleted", Toast.LENGTH_SHORT).show();
                 }
 
-                /*SparseBooleanArray checked = categoryList.getCheckedItemPositions();
-                ArrayList<String> selectedItems = new ArrayList<String>();
+               //refresh the list with new value
+                populateListCategories();
 
-
-
-                categorylist = dbCategories.getData();
-                values = new String[categorylist.size()];
-                for (int i = 0; i < categorylist.size(); i++) {
-                    values[i] = categorylist.get(i);
-                }
-                categoryAdapter = new ArrayAdapter<String>
-                        (this, android.R.layout.simple_list_item_multiple_choice, values);
-
-                for (int i = 0; i < checked.size(); i++) {
-                    // Item position in adapter
-                    int position = checked.keyAt(i);
-                    if (checked.valueAt(i)) {
-                        dbCategories.deleteData(categoryAdapter.getItem(position));
-                    }
-                }*/
-
-                // harish - 25.05
-                /*if (checked.size() == 1) {
-                    Toast.makeText(getApplicationContext(), "Category is deleted", Toast.LENGTH_SHORT).show();
-                } else if (checked.size() > 1) {
-                    Toast.makeText(getApplicationContext(), "Categories are deleted", Toast.LENGTH_SHORT).show();
-                }*/
-                // harish - 25.05
-
-                //refresh the list with new value
-              /*  categoryList = findViewById(R.id.categorylist);
-
-                dbCategories = new Categories(this);
-                // Populate Category List View
-                categorylist = dbCategories.getData();
-                values = new String[categorylist.size()];
-                for (int i = 0; i < categorylist.size(); i++) {
-                    values[i] = categorylist.get(i);
-                }
-
-                categoryAdapter = new ArrayAdapter<String>
-                        (this, android.R.layout.simple_list_item_multiple_choice, values);
-                categoryList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                categoryList.setAdapter(categoryAdapter);*/
                 break;
 
 
@@ -1293,86 +1214,111 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 contentFrameLayout1.removeAllViewsInLayout();
                 getLayoutInflater().inflate(R.layout.add_category, contentFrameLayout1);
 
+                initIconList();
+
+                Spinner categoryIcons = findViewById(R.id.iconddlb);
+                mAdapter = new IconAdapter(this, mCategoryList);
+                categoryIcons.setAdapter(mAdapter);
+
                 Button okAddCategory = findViewById(R.id.btnOKAddCategory);
                 okAddCategory.setOnClickListener(this);
                 break;
 
             case R.id.btnOKAddCategory:
+
                 dbCategories = new Categories(this);
                 EditText newCategoryValue = findViewById(R.id.add_cat_textbox);
-                dbCategories.addData(newCategoryValue.getText().toString());
-                // harish - 25.05
-                Toast.makeText(getApplicationContext(), "New category added", Toast.LENGTH_SHORT).show();
-                // harish - 25.05
-                FrameLayout contentFrameLayout2 = (FrameLayout) findViewById(R.id.fragment_container);
-                contentFrameLayout2.removeAllViewsInLayout();
-                getLayoutInflater().inflate(R.layout.category_popup, contentFrameLayout2);
 
-                //refresh the list with new value
-                categoryList = findViewById(R.id.categorylist);
-
-                deleteCategory = findViewById(R.id.deleteCategoryBtn);
-                modifyCategory = findViewById(R.id.modifyCategoryBtn);
-                addCategory = findViewById(R.id.addCategoryBtn);
-
-                deleteCategory.setOnClickListener(this);
-                modifyCategory.setOnClickListener(this);
-                addCategory.setOnClickListener(this);
-
-                dbCategories = new Categories(this);
-                // Populate Category List View
-                categorylist = dbCategories.getData();
-                values = new String[categorylist.size()];
-                for (int i = 0; i < categorylist.size(); i++) {
-                    values[i] = categorylist.get(i);
+                if(newCategoryValue.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "Please enter a category name," +
+                                    " Icon is optional",
+                            Toast.LENGTH_SHORT).show();
                 }
+                else {
+                    Spinner iconddlb = (Spinner) findViewById(R.id.iconddlb);
 
-                categoryAdapter = new ArrayAdapter<String>
-                        (this, android.R.layout.simple_list_item_multiple_choice, values);
-                categoryList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                categoryList.setAdapter(categoryAdapter);
+                    if(iconddlb.getSelectedItemPosition() > 0) {
+                        CategoryIcon selectedItem = (CategoryIcon) iconddlb.getSelectedItem();
+                        int iconImg = selectedItem.getmIconImage();
+                        dbCategories.addData(newCategoryValue.getText().toString(),iconImg);
+                    }
+                    else {
+                        dbCategories.addData(newCategoryValue.getText().toString());
+                    }
+                    // harish - 25.05
+                    Toast.makeText(getApplicationContext(), "New category added", Toast.LENGTH_SHORT).show();
+
+                    // harish - 25.05
+                    FrameLayout contentFrameLayout2 = (FrameLayout) findViewById(R.id.fragment_container);
+                    contentFrameLayout2.removeAllViewsInLayout();
+                    getLayoutInflater().inflate(R.layout.category_popup, contentFrameLayout2);
+
+                    //refresh the list with new value
+                    populateListCategories();
+                }
                 break;
 
             case R.id.modifyCategoryBtn:
                 // create a layout with a EditText and OK button on click on "Modify"
 
-                dbCategories = new Categories(this);
                 categoryList = findViewById(R.id.categorylist);
-                checked = categoryList.getCheckedItemPositions();
 
-                categorylist = dbCategories.getData();
-                values = new String[categorylist.size()];
-                for (int i = 0; i < categorylist.size(); i++) {
-                    values[i] = categorylist.get(i);
+                checkboxIconCategories = new ArrayList<>();
+
+                listAdapter =  categoryList.getAdapter();
+
+                for(int index=0; index < listAdapter.getCount();index++){
+                    checkboxIconCategories.add((CheckboxIconCategory) listAdapter.getItem(index));
                 }
-                categoryAdapter = new ArrayAdapter<String>
-                        (this, android.R.layout.simple_list_item_multiple_choice, values);
 
-                for (int i = 0; i < checked.size(); i++) {
-                    // Item position in adapter
-                    int position = checked.keyAt(i);
-                    if (checked.valueAt(i)) {
-                        oldValue = categoryAdapter.getItem(position);
-                        break;
+                noOfItemsChecked = 0;
+                for(int i=0;i<categoryList.getCount();i++){
+                    checkedCategory = (CheckboxIconCategory) listAdapter.getItem(i);
+                    if(checkedCategory.ismIsChecked()){
+                        noOfItemsChecked++;
+                        oldValue = checkedCategory.mIconName;
                     }
                 }
 
-                FrameLayout contentFrameLayout3 = (FrameLayout) findViewById(R.id.fragment_container);
-                contentFrameLayout3.removeAllViewsInLayout();
-                getLayoutInflater().inflate(R.layout.modify_category, contentFrameLayout3);
+                if(noOfItemsChecked > 1){
+                    Toast.makeText(getApplicationContext(), "Please select only one category " +
+                            "for modification", Toast.LENGTH_SHORT).show();
+                }
+                else if(noOfItemsChecked == 0){
+                    Toast.makeText(getApplicationContext(), "Please select one category " +
+                            "for modification", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    FrameLayout contentFrameLayout3 = (FrameLayout) findViewById(R.id.fragment_container);
+                    contentFrameLayout3.removeAllViewsInLayout();
+                    getLayoutInflater().inflate(R.layout.modify_category, contentFrameLayout3);
 
-                EditText valueToBeModified = findViewById(R.id.modify_cat_textbox);
-                valueToBeModified.setText(oldValue);
+                    EditText valueToBeModified = findViewById(R.id.modify_cat_textbox);
+                    valueToBeModified.setText(oldValue);
 
-                Button okModifyButton = findViewById(R.id.btnOKModifyCategory);
-                okModifyButton.setOnClickListener(this);
+                    initIconList();
+
+                    categoryIcons = findViewById(R.id.iconddlb2);
+                    mAdapter = new IconAdapter(this, mCategoryList);
+                    categoryIcons.setAdapter(mAdapter);
+
+                    Button okModifyButton = findViewById(R.id.btnOKModifyCategory);
+                    okModifyButton.setOnClickListener(this);
+                }
+
                 break;
 
             case R.id.btnOKModifyCategory:
 
                 EditText newValue = findViewById(R.id.modify_cat_textbox);
+
+                Spinner iconddlb = (Spinner) findViewById(R.id.iconddlb2);
+
+                CategoryIcon selectedItem = (CategoryIcon) iconddlb.getSelectedItem();
+                int iconImg = selectedItem.getmIconImage();
+
                 dbCategories = new Categories(this);
-                dbCategories.modifyData(newValue.getText().toString(), oldValue);
+                dbCategories.modifyData(newValue.getText().toString(), oldValue,iconImg);
                 // harish - 25.05
                 Toast.makeText(getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
                 // harish - 25.05
@@ -1380,27 +1326,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 contentFrameLayout4.removeAllViewsInLayout();
                 getLayoutInflater().inflate(R.layout.category_popup, contentFrameLayout4);
 
-                categoryList = findViewById(R.id.categorylist);
-
-                deleteCategory = findViewById(R.id.deleteCategoryBtn);
-                modifyCategory = findViewById(R.id.modifyCategoryBtn);
-                addCategory = findViewById(R.id.addCategoryBtn);
-
-                deleteCategory.setOnClickListener(this);
-                modifyCategory.setOnClickListener(this);
-                addCategory.setOnClickListener(this);
-
-                dbCategories = new Categories(this);
-                // Populate Category List View
-                categorylist = dbCategories.getData();
-                values = new String[categorylist.size()];
-                for (int i = 0; i < categorylist.size(); i++) {
-                    values[i] = categorylist.get(i);
-                }
-                categoryAdapter = new ArrayAdapter<String>
-                        (this, android.R.layout.simple_list_item_multiple_choice, values);
-                categoryList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                categoryList.setAdapter(categoryAdapter);
+                populateListCategories();
                 break;
             // abhivanth,changed "change_pin" to switch_pin
             case R.id.changePin:
@@ -1502,6 +1428,59 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 categoryBudget.setAdapter(categoryAdapter);
                 break;
         }
+    }
+
+    private void populateListCategories() {
+        String[] values;
+
+        ArrayList<CheckboxIconCategory> mCategoryListView;
+        mCategoryListView = new ArrayList<>();
+
+        dbCategories = new Categories(this);
+        List<String> categorylist = dbCategories.getCategoryAndIcon();
+
+        ListView categoryList = findViewById(R.id.categorylist);
+        Button deleteCategory = findViewById(R.id.deleteCategoryBtn);
+        Button modifyCategory = findViewById(R.id.modifyCategoryBtn);
+        Button addCategory = findViewById(R.id.addCategoryBtn);
+
+        for(int listIdx = 0; listIdx < categorylist.size(); listIdx++){
+
+            String dummy = categorylist.get(listIdx);
+            values = dummy.split(";");
+
+            switch (values[1]){
+                case "2131230950":
+                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.shopping,false));
+                    break;
+
+                case "2131230916":
+                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.food,false));
+                    break;
+
+                case "2131230815":
+                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.clothing,false));
+                    break;
+
+                case "2131230917":
+                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.groceries,false));
+                    break;
+
+                default:
+                    mCategoryListView.add(new CheckboxIconCategory(values[0],R.drawable.ic_white_box,false));
+                    break;
+            }
+
+
+        }
+
+        ListIconAdapter mListIconAdapter = new ListIconAdapter(this,mCategoryListView);
+        categoryList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        categoryList.setAdapter(mListIconAdapter);
+
+        deleteCategory.setOnClickListener(this);
+        modifyCategory.setOnClickListener(this);
+        addCategory.setOnClickListener(this);
     }
 
     public void maxbudget(View view) {
@@ -1638,14 +1617,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         }
     }
 
-
     private void initIconList() {
         mCategoryList = new ArrayList<>();
+        mCategoryList.add(new CategoryIcon(R.drawable.ic_white_box));
         mCategoryList.add(new CategoryIcon(R.drawable.clothing));
         mCategoryList.add(new CategoryIcon(R.drawable.food));
         mCategoryList.add(new CategoryIcon(R.drawable.groceries));
         mCategoryList.add(new CategoryIcon(R.drawable.shopping));
-
     }
 
 

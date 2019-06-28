@@ -55,7 +55,25 @@ public class Categories extends SQLiteOpenHelper {
             db.close();     // harish - 25.05
             return true;
         }
+    }
 
+    public boolean addData(String category,int iconImg){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("catlist",category);
+        contentValues.put("iconname",iconImg);
+
+        long result = db.insert("CATEGORIES",null,contentValues);
+
+        if(result == -1){
+            Log.d(TAG, "Category added to DB successfully");
+            db.close();     // harish - 25.05
+            return false;
+        }else{
+            Log.d(TAG, "Category not added to DB");
+            db.close();     // harish - 25.05
+            return true;
+        }
     }
 
     public boolean deleteData(String category){
@@ -72,10 +90,11 @@ public class Categories extends SQLiteOpenHelper {
         }
     }
 
-    public boolean modifyData(String new_category, String old_category){
+    public boolean modifyData(String new_category, String old_category, int iconImg){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("catlist",new_category);
+        contentValues.put("iconname",iconImg);
         //int result = db.update("CATEGORIES",contentValues,"catlist=" + old_category,null);
         int result = db.update("CATEGORIES",contentValues,"catlist=?",new String[]{old_category});
 
@@ -90,24 +109,6 @@ public class Categories extends SQLiteOpenHelper {
         }
     }
 
-   /* public boolean modifyIcon(String category,String iconName){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("iconname",iconName);
-
-        int result = db.update("CATEGORIES",contentValues,"catlist=?",new String[]{category});
-
-        if(result > 0){
-            db.close();     // harish - 25.05
-            return true;
-        }
-        else
-        {
-            db.close();     // harish - 25.05
-            return false;
-        }
-
-    }*/
 
     public boolean modifyIcon(String category,int iconImg){
         SQLiteDatabase db = this.getWritableDatabase();
