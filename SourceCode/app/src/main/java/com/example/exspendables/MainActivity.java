@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     private boolean isEntryDateClicked = false;
     private boolean isEndDateClicked = false;
     public static String oldValue;
+    public static int oldIcon;
     public static String startDateValue = null;
     public static String endDateValue = null;
     private ArrayList<CategoryIcon> mCategoryList;
@@ -1261,6 +1262,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             case R.id.modifyCategoryBtn:
                 // create a layout with a EditText and OK button on click on "Modify"
 
+                int position = -1;
+
                 categoryList = findViewById(R.id.categorylist);
 
                 checkboxIconCategories = new ArrayList<>();
@@ -1277,6 +1280,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     if(checkedCategory.ismIsChecked()){
                         noOfItemsChecked++;
                         oldValue = checkedCategory.mIconName;
+                        oldIcon = checkedCategory.mIconImage;
                     }
                 }
 
@@ -1302,6 +1306,15 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     mAdapter = new IconAdapter(this, mCategoryList);
                     categoryIcons.setAdapter(mAdapter);
 
+                    for(int i = 0; i < mCategoryList.size(); i++){
+                        if(mCategoryList.get(i).getmIconImage() == oldIcon){
+                            position = i;
+                            break;
+                        }
+                    }
+
+                    categoryIcons.setSelection(position);
+
                     Button okModifyButton = findViewById(R.id.btnOKModifyCategory);
                     okModifyButton.setOnClickListener(this);
                 }
@@ -1317,16 +1330,23 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 CategoryIcon selectedItem = (CategoryIcon) iconddlb.getSelectedItem();
                 int iconImg = selectedItem.getmIconImage();
 
-                dbCategories = new Categories(this);
-                dbCategories.modifyData(newValue.getText().toString(), oldValue,iconImg);
-                // harish - 25.05
-                Toast.makeText(getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
-                // harish - 25.05
-                FrameLayout contentFrameLayout4 = (FrameLayout) findViewById(R.id.fragment_container);
-                contentFrameLayout4.removeAllViewsInLayout();
-                getLayoutInflater().inflate(R.layout.category_popup, contentFrameLayout4);
+                if(oldValue.equals(newValue) && oldIcon == iconImg){
+                    Toast.makeText(getApplicationContext(), "No modifications done, data not saved",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else {
 
-                populateListCategories();
+                    dbCategories = new Categories(this);
+                    dbCategories.modifyData(newValue.getText().toString(), oldValue, iconImg);
+                    // harish - 25.05
+                    Toast.makeText(getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
+                    // harish - 25.05
+                    FrameLayout contentFrameLayout4 = (FrameLayout) findViewById(R.id.fragment_container);
+                    contentFrameLayout4.removeAllViewsInLayout();
+                    getLayoutInflater().inflate(R.layout.category_popup, contentFrameLayout4);
+
+                    populateListCategories();
+                }
                 break;
             // abhivanth,changed "change_pin" to switch_pin
             case R.id.changePin:
@@ -1573,29 +1593,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         contentFrameLayout.removeAllViewsInLayout();
         getLayoutInflater().inflate(R.layout.category_popup, contentFrameLayout);
 
-        Button deleteCategory = findViewById(R.id.deleteCategoryBtn);
-        Button modifyCategory = findViewById(R.id.modifyCategoryBtn);
-        Button addCategory = findViewById(R.id.addCategoryBtn);
+        populateListCategories();
 
-        deleteCategory = findViewById(R.id.deleteCategoryBtn);
-        modifyCategory = findViewById(R.id.modifyCategoryBtn);
-        addCategory = findViewById(R.id.addCategoryBtn);
-
-        deleteCategory.setOnClickListener(this);
-        modifyCategory.setOnClickListener(this);
-        addCategory.setOnClickListener(this);
-
-        ListView categoryList = findViewById(R.id.categorylist);
-
-        List<String> categorylist = dbCategories.getData();
-        String[] values = new String[categorylist.size()];
-        for (int i = 0; i < categorylist.size(); i++) {
-            values[i] = categorylist.get(i);
-        }
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_list_item_multiple_choice, values);
-        categoryList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        categoryList.setAdapter(categoryAdapter);
     }
 
     // Abhivanth , enable switch.
