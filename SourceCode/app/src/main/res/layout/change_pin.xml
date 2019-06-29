@@ -24,8 +24,8 @@
 
     <EditText
         android:id="@+id/set_Pin_textbox"
-        android:layout_width="370dp"
-        android:layout_height="40dp"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -56,8 +56,8 @@
 
     <EditText
         android:id="@+id/confirm_Pin_textbox"
-        android:layout_width="370dp"
-        android:layout_height="40dp"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
