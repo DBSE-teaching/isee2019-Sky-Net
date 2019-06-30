@@ -35,7 +35,7 @@ Rule No. 2: Always Follow Rule 1.<br/>
   
 ### Non Functional Requirements
 
-<table style="font-family:Times;font-size:110%;text-align:justify;width:75%">
+<table style="font-family:Times;font-size:110%;text-align:justify;width:60%">
   <tr>
     <td>Version:</td>
     <td>1.0</td>
