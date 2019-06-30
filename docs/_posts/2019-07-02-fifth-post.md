@@ -7,6 +7,7 @@ date: 2019-07-02
 ## Overview
 
 ## Technical Challenges Our Team Encountered
+
 <p style="font-family:Times;font-size:110%;text-align:justify">Our team consisted of members with different backgrounds and experiences. This helped us in diverse thinking, but we also faced the following technical challenges during the process.</p>
 <ul>
   <li><p style="font-family:Times;font-size:110%;text-align:justify">Our team consisted of members with little or no prior experience in programming and software development approaches.</p></li>
@@ -15,9 +16,9 @@ date: 2019-07-02
    <li><p style="font-family:Times;font-size:110%;text-align:justify">Content writing for the blog sometimes required a lot to research as several topics such as Use Case diagrams, User stories were quite new to us.</p></li>
 </ul>
   
- ## Challenges Faced When Working As A Team
+## Challenges Faced When Working As A Team
   
- ### Difficulty in making decisions as a team
+### Difficulty in making decisions as a team
   
   <p style="font-family:Times;font-size:110%;text-align:justify">During the initial team meetings, we were not able to manage good brainstorming sessions. We individually had unique ideas whether it comes to designing the application or solving a technical issue. But we were unable to visualize the perspective of the fellow team member or choose the best possible result in that scenario.</p>
   
