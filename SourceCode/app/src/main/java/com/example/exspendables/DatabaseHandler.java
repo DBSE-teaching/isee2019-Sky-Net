@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE PIN (userpin INTEGER PRIMARY KEY)";
+        String createTable = "CREATE TABLE PIN (userpin INTEGER PRIMARY KEY, emailid TEXT)";
         db.execSQL(createTable);
     }
 
@@ -32,10 +32,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData(String pin){
+    public boolean addData(String pin, String emailId){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("userpin",pin);
+        contentValues.put("emailid",emailId);
 
         long result = db.insert("PIN",null,contentValues);
 
@@ -60,10 +61,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public boolean modifyData(String newPin, String oldPin){
+    public boolean modifyData(String newPin, String oldPin, String emailid){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("userpin",newPin);
+        contentValues.put("emailid", emailid);
         int result = db.update("PIN",contentValues,"userpin = " + oldPin,null);
 
         if(result > 0){
