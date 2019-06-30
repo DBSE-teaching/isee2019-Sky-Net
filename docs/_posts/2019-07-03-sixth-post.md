@@ -23,14 +23,14 @@ Rule No. 2: Always Follow Rule 1.<br/>
 ### Functional Requirements
 
 <ul>
-  <li><p style="font-family:Times;font-size:110%;text-align:justify">Easy to and fro Navigation between interfaces.</li></p>
-  <li><p style="font-family:Times;font-size:110%;text-align:justify">Simple and few clicks to store/record the transaction.</li></p>
-  <li><p style="font-family:Times;font-size:110%;text-align:justify">Authentication based on Users interest i.e., whether to enable or disable PIN.</li></p>
-  <li><p style="font-family:Times;font-size:110%;text-align:justify">View summary of the all the transactions recorded.</li></p>
-  <li><p style="font-family:Times;font-size:110%;text-align:justify">Transaction Management i.e., Add or Delete transaction of user’s choice.</li></p>
-  <li><p style="font-family:Times;font-size:110%;text-align:justify">Graphical representation of the transactions based on user’s wish.</li></p>
-  <li><p style="font-family:Times;font-size:110%;text-align:justify">Maximum Budget can be set for categories to restrict over usage.</li></p>
-  <li><p style="font-family:Times;font-size:110%;text-align:justify">Push notifications to alert user, over high/extra expenditure of money in that category.</li></p>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify">Easy to and fro Navigation between interfaces.</p></li>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify">Simple and few clicks to store/record the transaction.</p></li>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify">Authentication based on Users interest i.e., whether to enable or disable PIN.</p></li>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify">View summary of the all the transactions recorded.</p></li>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify">Transaction Management i.e., Add or Delete transaction of user’s choice.</p></li>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify">Graphical representation of the transactions based on user’s wish.</p></li>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify">Maximum Budget can be set for categories to restrict over usage.</p></li>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify">Push notifications to alert user, over high/extra expenditure of money in that category.</p></li>
   <li><p style="font-family:Times;font-size:110%;text-align:justify">E-mail summary of transactions.</p></li></ul>
   
 ### Non Functional Requirements
