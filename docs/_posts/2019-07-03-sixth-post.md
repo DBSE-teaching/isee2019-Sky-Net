@@ -31,5 +31,82 @@ Rule No. 2: Always Follow Rule 1.<br/>
   <li><p style="font-family:Times;font-size:110%;text-align:justify">Graphical representation of the transactions based on user’s wish.</p>
   <li><p style="font-family:Times;font-size:110%;text-align:justify">Maximum Budget can be set for categories to restrict over usage.</p>
   <li><p style="font-family:Times;font-size:110%;text-align:justify">Push notifications to alert user, over high/extra expenditure of money in that category.</p>
-  <li><p style="font-family:Times;font-size:110%;text-align:justify">E-mail summary of transactions.</p>
+  <li><p style="font-family:Times;font-size:110%;text-align:justify">E-mail summary of transactions.</p></ul>
+  
+### Non Functional Requirements
+
+<table style="width:100%">
+  <tr>
+    <td>Version:</td>
+    <td>1.0</td>
+  </tr>
+
+  <tr>
+    <td>Installations:</td>
+    <td>5</td>
+  </tr>
+  
+  <tr>
+    <td>Updated on:</td>
+    <td>July 3,2019</td>
+  </tr>
+  
+  <tr>
+    <td>Download Size:</td>
+    <td>3.42 MB</td>
+  </tr>
+  
+  <tr>
+    <td>Required Android Version:</td>
+    <td>Nougat (API 24)</td>
+  </tr>
+  
+  <tr>
+    <td>Content Rating:</td>
+    <td>USK - All Ages</td>
+  </tr>
+  
+  <tr>
+    <td>Category:</td>
+    <td>Finance</td>
+  </tr>
+  
+  <tr>
+    <td>Supported Devices:</td>
+    <td>Android Phone and Tablets</td>
+  </tr>
+  
+   <tr>
+    <td>Availability:</td>
+    <td>Play Store</td>
+  </tr>
+  
+  <tr>
+    <td>Target Groups:</td>
+    <td>Students, Finance Advisors, Anyone who wants to manage money</td>
+  </tr>
+  
+  <tr>
+    <td>Developed By:</td>
+    <td>shudarsan.saravanan@st.ovgu.de<br/>
+lokeshbabu.radhakrishnan@st.ovgu.de<br/>
+abhivanth.murali@st.ovgu.de<br/>
+harish.harihara@st.ovgu.de
+</td>
+  </tr>
+  
+  <tr>
+    <td>Offered By:</td>
+    <td>Otto-Von-Guericke Universitat, Magdeburg</td>
+  </tr>
+  
+  <tr>
+    <td>Security issues:</td>
+    <td>By default, none (Password can be set as 4-digit pin by changing in settings option)</td>
+  </tr>
+  
+  <tr>
+    <td>Energy Consumption:</td>
+    <td>Less</td>
+  </tr>
 
