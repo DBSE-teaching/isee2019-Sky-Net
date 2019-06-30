@@ -44,7 +44,10 @@ date: 2019-07-02
 
 <ul style="font-family:Times;font-size:110%;text-align:justify">
   <li>Significance of teamwork</li> 
-  
+  <li>Software development life cycle</li>
+  <li>SCRUM approach</li>
+  <li>Programming skills</li>
+  <li>Project Management</li>  
  </ul>
   
 
