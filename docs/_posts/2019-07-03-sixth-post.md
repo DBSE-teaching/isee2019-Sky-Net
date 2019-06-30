@@ -109,4 +109,6 @@ harish.harihara@st.ovgu.de
     <td>Energy Consumption:</td>
     <td>Less</td>
   </tr>
+  
+</table>
 
