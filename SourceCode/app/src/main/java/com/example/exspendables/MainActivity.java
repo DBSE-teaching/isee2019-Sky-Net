@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -30,6 +31,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -40,6 +42,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.util.SparseBooleanArray;
@@ -84,10 +88,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     public static String startDateValue = null;
     public static String endDateValue = null;
     private ArrayList<CategoryIcon> mCategoryList;
-
     private IconAdapter mAdapter;
-
     protected DrawerLayout drawer;
+    private String layoutID;
 
 
     // main() method of UI
@@ -279,7 +282,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                     SQLiteDatabase sdb = transactions.getReadableDatabase();
                     String sql = "Select startDate, amount, category from TRANSACTIONS " +
-                            "where startDate between '" +startDateValue+"' and '"+ endDateValue + "'and indicator ='" + indicatorValue + "' " + "ORDER BY startDate";
+                            "where startDate between '" +startDateValue+"' and '"+ endDateValue + "'and indicator ='" + indicatorValue + "'" + "ORDER BY startDate";
 
                     Cursor c = sdb.rawQuery(sql, null);
                     int count = c.getCount();
@@ -328,6 +331,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                                 e.printStackTrace();
                             }
                             String dateValue1= mFormat1.format(dateValue);
+
                             xAxisValue.add(dateValue1);
                            // LegendEntry legend = new LegendEntry();
                             //legend.label = cat;
@@ -364,6 +368,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         chart.setTouchEnabled(true);
                         chart.getDescription().setEnabled(false);
 
+
                         chart.setDragEnabled(true);
 
                         chart.invalidate();
@@ -390,7 +395,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         //l.setExtra(ColorTemplate.COLORFUL_COLORS, categoryList);
                         l.setCustom(legendEntry);
                         chart.invalidate();
-
                     } else
                     {
                         Toast.makeText(getApplicationContext(),"No values available to display chart", Toast.LENGTH_LONG).show();
@@ -548,6 +552,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
         contentFrameLayout.removeAllViewsInLayout();
         getLayoutInflater().inflate(R.layout.expense, contentFrameLayout);
+        layoutID = "expense";
         Categories dbCategories;
         dbCategories = new Categories(this);
         // Populate Category DDLB
@@ -613,6 +618,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 String currencySavedInDB = currCode.getString(0);
                 TextView code = findViewById(R.id.currencyCode);
                 code.setText(currencySavedInDB);
+            }
+            else{
+                TextView code = findViewById(R.id.currencyCode);
+                Toast.makeText(getApplicationContext(), "Please select currency unit " +
+                        "in Settings > Set Currency", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -753,11 +763,19 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         // harish - 25.05
                         Toast.makeText(getApplicationContext(), "Selected currency unit is set", Toast.LENGTH_SHORT).show();
                         // harish - 25.05
+                        if(layoutID.equals("expense")){
+                            TextView currcode = (TextView) findViewById(R.id.currencyCode);
+                            currcode.setText(currency_selected);
+                        }
                     } else {
                         currency.addData(currency_selected);
                         // harish - 25.05
                         Toast.makeText(getApplicationContext(), "Selected currency unit is set", Toast.LENGTH_SHORT).show();
                         // harish - 25.05
+                        if(layoutID.equals("expense")){
+                           TextView currcode = (TextView) findViewById(R.id.currencyCode);
+                           currcode.setText(currency_selected);
+                        }
                     }
                 }
                 picker.dismiss();
@@ -820,6 +838,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
         contentFrameLayout.removeAllViewsInLayout();
         getLayoutInflater().inflate(R.layout.settings, contentFrameLayout);
+        layoutID = "settings";
 
         Button categoryDisplay = findViewById(R.id.edit_categories);
         categoryDisplay.setOnClickListener(this);
@@ -1007,6 +1026,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         case "2131230917":
                             mCategoryList.add(new CategoryIcon(values[0], R.drawable.shopping));
                             break;
+
+                        default:
+                            mCategoryList.add(new CategoryIcon(values[0],R.drawable.ic_white_box));
+                            break;
                     }
                 }
 
@@ -1061,19 +1084,22 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     }
                 }
 
-                float percentSpent = (float)total/(float)budgetSetByUser;
-                percentSpent = percentSpent * 100;
+                if(budgetSetByUser > 0) {
 
-                int percent = (int)percentSpent;
+                    float percentSpent = (float) total / (float) budgetSetByUser;
+                    percentSpent = percentSpent * 100;
 
-                NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-                Notification notify=new Notification.Builder
-                        (getApplicationContext()).setContentTitle("Budget notification").setContentText(
-                        "You have spent "+percent+ " % in the category " + categoryValue).
-                        setContentTitle("abc").setSmallIcon(R.drawable.ic_android_black_24dp).build();
+                    int percent = (int) percentSpent;
 
-                notify.flags |= Notification.FLAG_AUTO_CANCEL;
-                notif.notify(0, notify);
+                    NotificationManager notif = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    Notification notify = new Notification.Builder
+                            (getApplicationContext()).setContentTitle("Budget notification").setContentText(
+                            "You have spent " + percent + " % in the category " + categoryValue).
+                            setContentTitle("abc").setSmallIcon(R.drawable.ic_android_black_24dp).build();
+
+                    notify.flags |= Notification.FLAG_AUTO_CANCEL;
+                    notif.notify(0, notify);
+                }
             }
         } else {
             // harish - 25.05
@@ -1146,7 +1172,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
             finish();
-            Log.i("Finished sending email", "");
+            Log.i("EMAIL_SENT", "Finished sending email...");
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(MainActivity.this,
                     "There is no email client installed.", Toast.LENGTH_SHORT).show();
@@ -1208,36 +1234,40 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
             case R.id.deleteTxnBtn:
                 Transactions transactions = new Transactions(this);
-                ListView transactionList = findViewById(R.id.transactionlist);
-                SparseBooleanArray isChecked = transactionList.getCheckedItemPositions();
-                ArrayList<String> selectedTxn = new ArrayList<>();
 
+                TableLayout tableLayout = (TableLayout) findViewById(R.id.tab);
+                int rowSize = tableLayout.getChildCount();
+                int colSize = 0;
+                TableRow tableRow = new TableRow(this);
+                TextView cData = new TextView(this);
 
-                ListAdapter transactionAdapter = transactionList.getAdapter();
+                String[] tableValues = new String[4];
+                List recordToDelete = new ArrayList();
 
-                for(int index=0; index < transactionAdapter.getCount();index++){
-                    selectedTxn.add(transactionAdapter.getItem(index).toString());
-                }
+                for(int row = 1; row < rowSize;row++){
 
-                for(int i=0;i<isChecked.size();i++){
-                    if(isChecked.valueAt(i)){
-                        int index = isChecked.keyAt(i);
-                        String valueToDelete = transactionAdapter.getItem(index).toString();
-                        selectedTxn.remove(valueToDelete);
-                        Log.d("VALUE",valueToDelete);
+                    tableRow = (TableRow) tableLayout.getChildAt(row);
+                    colSize = tableRow.getChildCount();
 
-                        String[] tableValues = valueToDelete.split("\\t");
+                    CheckBox checkBox = (CheckBox) tableRow.getChildAt(0);
+                    if(checkBox.isChecked()){
+                        cData = (TextView) tableRow.getChildAt(1);
+                        tableValues[0] = cData.getText().toString();
+                        cData = (TextView) tableRow.getChildAt(2);
+                        tableValues[1] = cData.getText().toString();
+                        cData = (TextView) tableRow.getChildAt(3);
+                        tableValues[2] = cData.getText().toString();
+                        cData = (TextView) tableRow.getChildAt(4);
+                        tableValues[3] = cData.getText().toString();
+
                         boolean result = transactions.deleteData(tableValues[0],tableValues[1],tableValues[2],tableValues[3]);
                         Toast.makeText(getApplicationContext(), "Transaction deleted", Toast.LENGTH_SHORT).show();
+                        recordToDelete.add(row);
                     }
                 }
-
-                //refresh the list with new value
-
-                ArrayAdapter<String> tranAdapter = new ArrayAdapter<String>
-                        (this, android.R.layout.simple_list_item_multiple_choice, selectedTxn);
-                transactionList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                transactionList.setAdapter(tranAdapter);
+                for(int i = 0; i < recordToDelete.size(); i++) {
+                    tableLayout.removeViewAt((int)recordToDelete.get(i));
+                }
                 break;
 
             case R.id.deleteCategoryBtn:
@@ -1646,17 +1676,29 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         emailIntent.putExtra(Intent.EXTRA_EMAIL,to);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Transaction details");
 
-        ListView transactionLV = findViewById(R.id.transactionlist);
+        //ListView transactionLV = findViewById(R.id.transactionlist);
+        TableLayout tableLayout = findViewById(R.id.tab);
         Button deleteTransaction = findViewById(R.id.deleteTxnBtn);
         deleteTransaction.setOnClickListener(this);
 
-        int count = transactionLV.getCount();
+        int count = tableLayout.getChildCount();
+        TextView textView = new TextView(this);
+        //int count = transactionLV.getCount();
         String content = "";
         for(int index = 0;index < count;index++){
+            //read rows
+            TableRow tableRow = (TableRow) tableLayout.getChildAt(index);
 
-            String temp = transactionLV.getItemAtPosition(index).toString();
-            temp = temp.replaceAll(";","\t");
-            content = content + "\n" + temp;
+            int columnsize = tableRow.getChildCount();
+
+            for(int c = 0; c < columnsize; c++){
+                textView = (TextView) tableRow.getChildAt(c);
+                content = content + "\t" + textView.getText().toString();
+            }
+            content = content + "\n";
+            //String temp = transactionLV.getItemAtPosition(index).toString();
+            //temp = temp.replaceAll(";","\t");
+            //content = content + "\n" + temp;
         }
 
         emailIntent.putExtra(Intent.EXTRA_TEXT, content);
@@ -1664,7 +1706,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
             finish();
-            Log.i("Finished sending email", "");
+            Log.i("EMAIL_SENT", "Finished sending email...");
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(MainActivity.this,
                     "There is no email client installed.", Toast.LENGTH_SHORT).show();
@@ -2009,8 +2051,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         String[] dummy = recordsOK.get(index).split(";");
                         float amountFromDb = Float.valueOf(dummy[2]);
 
-                        if (operatorValue == "Greater than") {
-                            if (amountValueSelected > amountFromDb) {
+                        if (operatorValue.equals("Greater than")) {
+                            if ( amountFromDb > amountValueSelected) {
 
                             } else {
                                 recordsOK.remove(index);
@@ -2029,9 +2071,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                 FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
                 contentFrameLayout.removeAllViewsInLayout();
-                getLayoutInflater().inflate(R.layout.listsummary, contentFrameLayout);
+                getLayoutInflater().inflate(R.layout.tablesummary,contentFrameLayout);
+            /*    getLayoutInflater().inflate(R.layout.listsummary, contentFrameLayout);
 
-                ListView transactions = findViewById(R.id.transactionlist);
+                ListView transactions = findViewById(R.id.transactionlist); */
                 Button deleteTransaction = findViewById(R.id.deleteTxnBtn);
                 deleteTransaction.setOnClickListener(this);
 
@@ -2040,14 +2083,77 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     values[index] = recordsOK.get(index);
                 }
 
+
+                TableLayout tableLayout = (TableLayout) findViewById(R.id.tab);
+
+                TableRow tableRow = new TableRow(this);
+
+                TextView catRow    = new TextView(this);
+                TextView dateRow   = new TextView(this);
+                TextView amountRow = new TextView(this);
+                TextView paymRow   = new TextView(this);
+
+                Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+                catRow.setText("Category");
+                catRow.setTypeface(boldTypeface);
+
+                dateRow.setText("Date");
+                dateRow.setTypeface(boldTypeface);
+
+                amountRow.setText("Amount");
+                amountRow.setTypeface(boldTypeface);
+
+                paymRow.setText("Payment Type");
+                paymRow.setTypeface(boldTypeface);
+
+                TextView dummyTV = new TextView(this);
+
+                tableRow.addView(dummyTV);
+                tableRow.addView(catRow);
+                tableRow.addView(dateRow);
+                tableRow.addView(amountRow);
+                tableRow.addView(paymRow);
+
+
+                tableLayout.addView(tableRow,0);
+
                 for (int row = 0; row < values.length; row++) {
-                    values[row] = values[row].replaceAll(";", "\t");
+                    //values[row] = values[row].replaceAll(";", "\t");
+
+                    String[] dummy = values[row].split(";");
+                    //TableRow tableRow = (TableRow) findViewById(R.id.tableData);
+                    tableRow = new TableRow(this);
+
+                    CheckBox checkBox = new CheckBox(this);
+
+                    /*TextView catRow = (TextView) findViewById(R.id.catRow);
+                    TextView dateRow = (TextView) findViewById(R.id.dateRow);
+                    TextView amountRow = (TextView) findViewById(R.id.amountRow);
+                    TextView paymRow = (TextView) findViewById(R.id.paymRow);*/
+
+                    catRow    = new TextView(this);
+                    dateRow   = new TextView(this);
+                    amountRow = new TextView(this);
+                    paymRow   = new TextView(this);
+
+                    catRow.setText(dummy[0]);
+                    dateRow.setText(dummy[1]);
+                    amountRow.setText(dummy[3]);
+                    paymRow.setText(dummy[2]);
+
+                    tableRow.addView(checkBox);
+                    tableRow.addView(catRow);
+                    tableRow.addView(dateRow);
+                    tableRow.addView(paymRow);
+                    tableRow.addView(amountRow);
+
+                    tableLayout.addView(tableRow,row+1);
                 }
 
-                ArrayAdapter<String> transactionAdapter = new ArrayAdapter<String>
+              /*  ArrayAdapter<String> transactionAdapter = new ArrayAdapter<String>
                         (this, android.R.layout.simple_list_item_multiple_choice, values);
                 transactions.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                transactions.setAdapter(transactionAdapter);
+                transactions.setAdapter(transactionAdapter);*/
 
                 if(values.length == 0){
                     Toast.makeText(getApplicationContext(), "None of the transaction matches this criteria", Toast.LENGTH_SHORT).show();
