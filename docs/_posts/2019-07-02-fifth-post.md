@@ -58,6 +58,14 @@ date: 2019-07-02
   <li>Programming skills</li>
   <li>Project Management</li>  
  </ul>
+ 
+<p style="font-family:Times;font-size:110%;text-align:justify"><i>We would like to thank Mr.D'Souza and Dr.Schulze for giving us the opportunity to learn Andoird Studio and coding in such a practical way. With their continuous involvement and feedbacks for every prototype, we were able to bring out a successful working application. We as a team would recommend such a course to prospective students in the near future.</i></p>
+ 
+ <p style="font-family:Times;font-size:160%;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thanks for visiting our Blog!!</p>
+
+### Resources 
+
+<p style="font-family:Times;font-size:110%;text-align:justify"> Figure 1 : <a href="https://en.wikipedia.org/wiki/Black-box_testing#/media/File:Blackbox.svg" style="color: rgb(0,0,255)">https://en.wikipedia.org/wiki/Black_box#/media/File:Blackbox.svg</a></p>
   
 
 
