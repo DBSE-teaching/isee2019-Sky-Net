@@ -78,7 +78,7 @@ date: 2019-07-02
 ### Resources 
 
 <p style="font-family:Times;font-size:110%;text-align:justify"> Figure 1: <a href="https://samanax.com/2016/12/07/challengesofextranetsandcustomerengagement/" style="color: rgb(0,0,255)">https://samanax.com/2016/12/07/challengesofextranetsandcustomerengagement/</a></p>
-<p style="font-family:Times;font-size:110%;text-align:justify"> Figure 2: <a href="https://www.editage.com/insights/editorial-decision-making-what-are-the-possible-outcomes-for-a-manuscript" style="color: rgb(0,0,255)">https://www.editage.com/insights/editorial-decision-making-what-are-the-possible-outcomes-for-a-manuscript</a></p>
+<p style="font-family:Times;font-size:110%> Figure 2: <a href="https://www.editage.com/insights/editorial-decision-making-what-are-the-possible-outcomes-for-a-manuscript" style="color: rgb(0,0,255)">https://www.editage.com/insights/editorial-decision-making-what-are-the-possible-outcomes-for-a-manuscript</a></p>
 <p style="font-family:Times;font-size:110%;text-align:justify"> Figure 3: <a href="https://blog.capterra.com/fix-poor-communication-in-workplace/" style="color: rgb(0,0,255)">https://blog.capterra.com/fix-poor-communication-in-workplace/</a></p>
 <p style="font-family:Times;font-size:110%;text-align:justify"> Figure 4: <a href="https://graduan.com/5-ways-to-do-more-work-in-less-time-yes-its-possible
 " style="color: rgb(0,0,255)">https://graduan.com/5-ways-to-do-more-work-in-less-time-yes-its-possible
