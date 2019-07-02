@@ -17,7 +17,7 @@ date: 2019-07-02
    <li><p style="font-family:Times;font-size:110%;text-align:justify">Content writing for the blog sometimes required a lot to research as several topics such as Use Case diagrams, User stories were quite new to us.</p></li>
 </ul>
 
-![Deadline image]({{site.baseurl}}/images/TechnicalChallenge.png "Img 1"){:height="80%" width="80%" align="centre"}
+![Deadline image]({{site.baseurl}}/images/customerEngagement.jpg "Img 1"){:height="80%" width="80%" align="centre"}
   
 ## Challenges Faced When Working As A Team
   
