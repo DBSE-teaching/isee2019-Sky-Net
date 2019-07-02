@@ -107,6 +107,13 @@ harish.harihara@st.ovgu.de
   
 </table>
 
+### Energy Consumption
+
+![Deadline image]({{site.baseurl}}/images/Energy1.png "QR Code"){:height="50%" width="50%"} 
+
+![Deadline image]({{site.baseurl}}/images/Energy2.png "QR Code"){:height="50%" width="50%"} 
+
+
 ### App Availability
 
 <p style="font-family:Times;font-size:110%;text-align:justify"> Click below link to download APK file.</p>
