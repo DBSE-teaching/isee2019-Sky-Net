@@ -144,7 +144,7 @@
         android:id="@+id/backToSettings"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:onClick="backToSettings"
+        android:onClick="backFromPin"
         android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -46,6 +47,8 @@ import android.util.SparseBooleanArray;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -54,6 +57,8 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.mynameismidori.currencypicker.CurrencyPicker;
 import com.mynameismidori.currencypicker.CurrencyPickerListener;
@@ -259,8 +264,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 String catList = String.valueOf(categoryList.getSelectedItem());
                 String payList = String.valueOf(selectPaymentMethod.getSelectedItem());
                 String operatorList = String.valueOf(selectOperator.getSelectedItem());
-                //Float amountValue1 = Float.parseFloat(amountValue);
-
 
                 if (startDate.getText() != "" && endDate.getText() != "" & catList.equals("") && payList.equals("") && operatorList.equals("") && amountValue.equals("") ) {
 
@@ -270,22 +273,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         indicatorValue = "Expense";
                     }
 
-                    FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
-                    contentFrameLayout.removeAllViewsInLayout();
-                    getLayoutInflater().inflate(R.layout.barchart, contentFrameLayout);
-
                     String startDateValue = startDate.getText().toString();
                     String endDateValue = endDate.getText().toString();
-
-
-                    BarChart chart;
-                    final ArrayList<BarEntry> BARENTRY;
-                    BarDataSet Bardataset;
-                    BarData BARDATA;
-                    chart = findViewById(R.id.barGraph);
-
-
-                    BARENTRY = new ArrayList<>();
 
                     SQLiteDatabase sdb = transactions.getReadableDatabase();
                     String sql = "Select startDate, amount, category from TRANSACTIONS " +
@@ -294,57 +283,40 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     Cursor c = sdb.rawQuery(sql, null);
                     int count = c.getCount();
                     c.moveToFirst();
-                    String date;
-                    float amount;
-                    String cat;
-                    final XAxis xAxis = chart.getXAxis();
 
-                    for (int m = 0; m < count; m++) {
-                        date = c.getString(0);
-                        amount = c.getFloat(1);
-                        cat = c.getString(2);
-                        date = date.replaceAll("-", "");
-                        int j = Integer.valueOf(date);
-                        String p = date.substring(date.length() - 6) ;
-                        int i = Integer.valueOf(p);
-                        BARENTRY.add(new BarEntry(i, amount));
-                        c.moveToNext();
-                    }
+                    if (count != 0) {
 
-                    Bardataset = new BarDataSet(BARENTRY, "Expenses");
-                    BARDATA = new BarData(Bardataset);
-                    Bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
-                    chart.setData(BARDATA);
-
-                    chart.animateXY(3000, 3000);
-                    chart.getAxisLeft().setAxisMinimum(0);
-                    chart.getAxisRight().setAxisMinimum(0);
-                    chart.setPinchZoom(false);
-                    float barWidth = 0.25f;
-                    chart.setFitBars(true);
-                    chart.fitScreen();
-                    BARDATA.setBarWidth(barWidth);
-                    xAxis.setGranularity(1f);
-                    xAxis.setGranularityEnabled(true);
-                    xAxis.mEntryCount = count;
-                    xAxis.mAxisRange = 1f;
-                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                    xAxis.setLabelRotationAngle(-90);
-
-                    chart.setDragEnabled(true);
-
-                    chart.invalidate();
-                    xAxis.setValueFormatter(new IAxisValueFormatter() {
-
+                        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                        contentFrameLayout.removeAllViewsInLayout();
+                        getLayoutInflater().inflate(R.layout.barchart, contentFrameLayout);
+                        BarChart chart;
+                        final ArrayList<BarEntry> BARENTRY;
+                        BarDataSet Bardataset;
+                        BarData BARDATA;
+                        chart = findViewById(R.id.barGraph);
+                        String date;
+                        float amount;
+                        String cat;
+                        final XAxis xAxis = chart.getXAxis();
                         SimpleDateFormat mFormat = new SimpleDateFormat("yyMMdd");
                         SimpleDateFormat mFormat1 = new SimpleDateFormat("MMM dd");
+                        ArrayList xAxisValue = new ArrayList<>();
+                        String categoryList[] = new String[50];
+                        ArrayList legendEntry = new ArrayList<LegendEntry>();
 
+                        BARENTRY = new ArrayList<>();
 
-                        @Override
-                        public String getFormattedValue(float value, AxisBase axis) {
+                        for (int m = 0; m < count; m++) {
+                            date = c.getString(0);
+                            amount = c.getFloat(1);
+                            cat = c.getString(2);
+                            date = date.replaceAll("-", "");
+                            int j = Integer.valueOf(date);
+                            String p = date.substring(date.length() - 6);
+                            int i = Integer.valueOf(p);
+                            BARENTRY.add(new BarEntry(m, amount));
 
-                            int g = Math.round(value);
-                            String f = String.valueOf(g);
+                            String f = String.valueOf(i);
                             java.util.Date dateValue = null;
 
                             try {
@@ -352,11 +324,58 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-                            return mFormat1.format(dateValue);
-                        }
-                    });
+                            String dateValue1= mFormat1.format(dateValue);
 
-                    chart.invalidate();
+                            xAxisValue.add(dateValue1);
+                            categoryList[m] = cat;
+                            legendEntry.add(m, cat);
+                            c.moveToNext();
+                        }
+
+                        Bardataset = new BarDataSet(BARENTRY, "Expenses");
+                        BARDATA = new BarData(Bardataset);
+                        Bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
+                        chart.setData(BARDATA);
+
+                        Bardataset.setValues(BARENTRY);
+
+
+                        chart.animateXY(3000, 3000);
+                        chart.getAxisLeft().setAxisMinimum(0);
+                        chart.getAxisRight().setAxisMinimum(0);
+                        chart.setPinchZoom(false);
+                        float barWidth = 0.25f;
+                        chart.setFitBars(true);
+
+                        BARDATA.setBarWidth(barWidth);
+                        xAxis.setGranularity(1f);
+                        xAxis.setGranularityEnabled(true);
+                        xAxis.mEntryCount = count;
+                        xAxis.mAxisRange = 1f;
+                        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                        xAxis.setLabelRotationAngle(-90);
+                        chart.setTouchEnabled(true);
+                        chart.getDescription().setEnabled(false);
+
+
+                        chart.setDragEnabled(true);
+
+                        chart.invalidate();
+                        xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisValue));
+                        Legend l = chart.getLegend();
+                        l.setEnabled(true);
+                        l.setFormSize(12f); // set the size of the legend forms/shapes
+                        l.setForm(Legend.LegendForm.SQUARE); // set what type of form/shape should be used
+                        l.setTextSize(10f);
+                        l.setTextColor(Color.BLACK);
+                        l.setXEntrySpace(5f); // set the space between the legend entries on the x-axis
+                        l.setYEntrySpace(5f);
+
+                        chart.invalidate();
+                    } else
+                    {
+                        Toast.makeText(getApplicationContext(),"No values available to display chart", Toast.LENGTH_LONG).show();
+                    }
                 }
                 else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("")&& payList.equals("") && operatorList.equals("") && amountValue.equals("")){
 
@@ -388,7 +407,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     String sql = null;
 
                     if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
-                        sql = "Select category, amount from TRANSACTIONS where category ='" + catList + "' and indicator ='" + indicatorValue + "'";
+                        sql = "Select paymentMethod, amount from TRANSACTIONS where category ='" + catList + "' and indicator ='" + indicatorValue + "'";
                         getLayoutInflater().inflate(R.layout.piechart, contentFrameLayout);
                         mChart = findViewById(R.id.PieChart);
 
@@ -506,17 +525,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     ArrayList<PieEntry> yVals1 = new ArrayList<PieEntry>();
 
                     for (int i = 0; i < categoryNames.length; i++) {
-                        yVals1.add(new PieEntry((float) (values[i]), i));
+                        yVals1.add(new PieEntry((float) (values[i]), categoryNames[i].toString()));
                     }
 
                     ArrayList<String> xVals = new ArrayList<String>();//array legend
 
-                    for (int i = 0; i < categoryNames.length; i++) {
-                        xVals.add(categoryNames[i]);
-                        String xVals1 = xVals.toString();
-                        PieDataSet set1 = new PieDataSet(yVals1, xVals1);
-                        set1.setSliceSpace(3f);
-                        set1.setValueTextSize(15f);
+                        PieDataSet set1 = new PieDataSet(yVals1, "");
                         set1.setColors(ColorTemplate.createColors(colors));
 
                         PieData data = new PieData(set1);
@@ -524,10 +538,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         mChart.setData(data);
                         // undo all highlights
                         mChart.highlightValues(null);
-                        mChart.setCenterTextSize(20f);
-                        mChart.setEntryLabelTextSize(20f);
                         mChart.invalidate();
-                    }
+                        data.setValueTextSize(15f);
+                        mChart.setDrawEntryLabels(false);
+                        mChart.getDescription().setEnabled(false);
+                        Legend legend = mChart.getLegend();
+                        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+                        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+
                     c.close();
                     db.close();
                 }
@@ -961,6 +979,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             // display transaction is saved and clear the fields
             if (isTransactionSaved) {
                 Toast.makeText(getApplicationContext(), "Transaction is saved", Toast.LENGTH_SHORT).show();
+
+                View view1 = null;
+                FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                contentFrameLayout.removeAllViewsInLayout();
+                this.openExpensePage(view);
+
+
 
                 Categories dbCategories;
                 dbCategories = new Categories(this);
@@ -1668,6 +1693,23 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         Button changePinBtn = findViewById(R.id.changePin);
         changePinBtn.setOnClickListener(this);
+
+    }
+
+    public void backFromPin(View view) {
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+        contentFrameLayout.removeAllViewsInLayout();
+        getLayoutInflater().inflate(R.layout.switch_pin, contentFrameLayout);
+
+        dbPinTable = new DatabaseHandler(this);
+        Cursor cursor = dbPinTable.getPinData();
+        dbPinTable.deleteData();
+
+        Toast.makeText(getApplicationContext(), "The data is not saved", Toast.LENGTH_LONG).show();
+
+        Switch enablePin = findViewById(R.id.enablePin);
+        enablePin.setOnClickListener(this);
+
     }
 
     public void backToCategory(View view) {
@@ -1685,11 +1727,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         dbPinTable = new DatabaseHandler(this);
         Cursor cursor = dbPinTable.getPinData();
+        cursor.moveToFirst();
 
         // check if a value of PIN exists in dbTable - PIN
         // abhivanth , changed "login_pin" to
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
+        if (cursor != null ) {
+          if (cursor.moveToFirst()) {
                 enablepinBtn.setChecked(true);
             } else {
                 enablepinBtn.setChecked(false);
