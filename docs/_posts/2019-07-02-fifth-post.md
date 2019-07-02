@@ -5,7 +5,7 @@ date: 2019-07-02
 ---
 
 ## Overview
-<p style="font-family:Times;font-size:110%;text-align:justify">Here, we are after there months of combined efforts and sleepless nights, we dedicate this blog to our teamwork endevours and look back at the past appreciate our achievements. We also take this moment and thank everyone responsible for bringing up such a course.</P>
+<p style="font-family:Times;font-size:110%;text-align:justify">Here we are,Team Sky-Net, after three months of combined efforts and sleepless nights, we dedicate this blog to our teamwork endevours and look back at the past and appreciate our achievements. We also take this moment and thank everyone responsible for bringing up such a course.</P>
 
 ## Technical Challenges Our Team Encountered
 
