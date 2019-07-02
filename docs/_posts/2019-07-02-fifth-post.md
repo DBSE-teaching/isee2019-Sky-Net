@@ -47,11 +47,6 @@ date: 2019-07-02
 
 ![Deadline image]({{site.baseurl}}/images/DiverseThinking.jpg "Img 4"){:height="80%" width="80%" align="centre"}
 
-### More work in less time
-
-<p style="font-family:Times;font-size:110%;text-align:justify">Once we receive the requirements, we have broken it to individual user stories and delegated the work among ourselves in Trello. In the same time frame, we were able to complete our individual tasks and finally merged them to form the final product.</p>
-
-
 ## How the course did meet your needs or fall short?
 
 <p style="font-family:Times;font-size:110%;text-align:justify">The course helped us greatly learn the following besides giving us a first-time hands-on experience with the Android application development.</p>
