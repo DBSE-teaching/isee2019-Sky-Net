@@ -58,7 +58,6 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.mynameismidori.currencypicker.CurrencyPicker;
 import com.mynameismidori.currencypicker.CurrencyPickerListener;
@@ -83,10 +82,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     public static String startDateValue = null;
     public static String endDateValue = null;
     private ArrayList<CategoryIcon> mCategoryList;
-
     private IconAdapter mAdapter;
-
     protected DrawerLayout drawer;
+    private String layoutID;
 
 
     // main() method of UI
@@ -530,21 +528,21 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                     ArrayList<String> xVals = new ArrayList<String>();//array legend
 
-                        PieDataSet set1 = new PieDataSet(yVals1, "");
-                        set1.setColors(ColorTemplate.createColors(colors));
+                    PieDataSet set1 = new PieDataSet(yVals1, "");
+                    set1.setColors(ColorTemplate.createColors(colors));
 
-                        PieData data = new PieData(set1);
-                        set1.setColors(ColorTemplate.COLORFUL_COLORS);
-                        mChart.setData(data);
-                        // undo all highlights
-                        mChart.highlightValues(null);
-                        mChart.invalidate();
-                        data.setValueTextSize(15f);
-                        mChart.setDrawEntryLabels(false);
-                        mChart.getDescription().setEnabled(false);
-                        Legend legend = mChart.getLegend();
-                        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-                        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+                    PieData data = new PieData(set1);
+                    set1.setColors(ColorTemplate.COLORFUL_COLORS);
+                    mChart.setData(data);
+                    // undo all highlights
+                    mChart.highlightValues(null);
+                    mChart.invalidate();
+                    data.setValueTextSize(15f);
+                    mChart.setDrawEntryLabels(false);
+                    mChart.getDescription().setEnabled(false);
+                    Legend legend = mChart.getLegend();
+                    legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+                    legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
 
                     c.close();
                     db.close();
@@ -560,6 +558,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
         contentFrameLayout.removeAllViewsInLayout();
         getLayoutInflater().inflate(R.layout.expense, contentFrameLayout);
+        layoutID = "expense";
         Categories dbCategories;
         dbCategories = new Categories(this);
         // Populate Category DDLB
@@ -625,6 +624,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 String currencySavedInDB = currCode.getString(0);
                 TextView code = findViewById(R.id.currencyCode);
                 code.setText(currencySavedInDB);
+            }
+            else{
+                TextView code = findViewById(R.id.currencyCode);
+                Toast.makeText(getApplicationContext(), "Please select currency unit " +
+                        "in Settings > Set Currency", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -765,11 +769,19 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         // harish - 25.05
                         Toast.makeText(getApplicationContext(), "Selected currency unit is set", Toast.LENGTH_SHORT).show();
                         // harish - 25.05
+                        if(layoutID.equals("expense")){
+                            TextView currcode = (TextView) findViewById(R.id.currencyCode);
+                            currcode.setText(currency_selected);
+                        }
                     } else {
                         currency.addData(currency_selected);
                         // harish - 25.05
                         Toast.makeText(getApplicationContext(), "Selected currency unit is set", Toast.LENGTH_SHORT).show();
                         // harish - 25.05
+                        if(layoutID.equals("expense")){
+                           TextView currcode = (TextView) findViewById(R.id.currencyCode);
+                           currcode.setText(currency_selected);
+                        }
                     }
                 }
                 picker.dismiss();
@@ -832,6 +844,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
         contentFrameLayout.removeAllViewsInLayout();
         getLayoutInflater().inflate(R.layout.settings, contentFrameLayout);
+        layoutID = "settings";
 
         Button categoryDisplay = findViewById(R.id.edit_categories);
         categoryDisplay.setOnClickListener(this);
@@ -1019,6 +1032,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         case "2131230917":
                             mCategoryList.add(new CategoryIcon(values[0], R.drawable.shopping));
                             break;
+
+                        default:
+                            mCategoryList.add(new CategoryIcon(values[0],R.drawable.ic_white_box));
+                            break;
                     }
                 }
 
@@ -1073,19 +1090,22 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     }
                 }
 
-                float percentSpent = (float)total/(float)budgetSetByUser;
-                percentSpent = percentSpent * 100;
+                if(budgetSetByUser > 0) {
 
-                int percent = (int)percentSpent;
+                    float percentSpent = (float) total / (float) budgetSetByUser;
+                    percentSpent = percentSpent * 100;
 
-                NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-                Notification notify=new Notification.Builder
-                        (getApplicationContext()).setContentTitle("Budget notification").setContentText(
-                        "You have spent "+percent+ " % in the category " + categoryValue).
-                        setContentTitle("abc").setSmallIcon(R.drawable.ic_android_black_24dp).build();
+                    int percent = (int) percentSpent;
 
-                notify.flags |= Notification.FLAG_AUTO_CANCEL;
-                notif.notify(0, notify);
+                    NotificationManager notif = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    Notification notify = new Notification.Builder
+                            (getApplicationContext()).setContentTitle("Budget notification").setContentText(
+                            "You have spent " + percent + " % in the category " + categoryValue).
+                            setContentTitle("abc").setSmallIcon(R.drawable.ic_android_black_24dp).build();
+
+                    notify.flags |= Notification.FLAG_AUTO_CANCEL;
+                    notif.notify(0, notify);
+                }
             }
         } else {
             // harish - 25.05
@@ -1283,7 +1303,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     Toast.makeText(getApplicationContext(), "Categories are deleted", Toast.LENGTH_SHORT).show();
                 }
 
-               //refresh the list with new value
+                //refresh the list with new value
                 populateListCategories();
 
                 break;
@@ -1529,7 +1549,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         break;
                     }
                 }
-                    break;
+                break;
 
 
             case R.id.submit2:
@@ -1732,7 +1752,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         // check if a value of PIN exists in dbTable - PIN
         // abhivanth , changed "login_pin" to
         if (cursor != null ) {
-          if (cursor.moveToFirst()) {
+            if (cursor.moveToFirst()) {
                 enablepinBtn.setChecked(true);
             } else {
                 enablepinBtn.setChecked(false);
@@ -2021,8 +2041,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         String[] dummy = recordsOK.get(index).split(";");
                         float amountFromDb = Float.valueOf(dummy[2]);
 
-                        if (operatorValue == "Greater than") {
-                            if (amountValueSelected > amountFromDb) {
+                        if (operatorValue.equals("Greater than")) {
+                            if ( amountFromDb > amountValueSelected) {
 
                             } else {
                                 recordsOK.remove(index);
