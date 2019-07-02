@@ -109,9 +109,9 @@ harish.harihara@st.ovgu.de
 
 ### Energy Consumption
 
-![Deadline image]({{site.baseurl}}/images/Energy1.png "QR Code"){:height="50%" width="50%"} 
+![Deadline image]({{site.baseurl}}/images/Energy1.png "QR Code"){:height="75%" width="75%"} 
 
-![Deadline image]({{site.baseurl}}/images/Energy2.png "QR Code"){:height="50%" width="50%"} 
+![Deadline image]({{site.baseurl}}/images/Energy2.png "QR Code"){:height="75%" width="75%"} 
 
 
 ### App Availability
