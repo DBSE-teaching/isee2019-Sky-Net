@@ -5,6 +5,7 @@ date: 2019-07-02
 ---
 
 ## Overview
+<p style="font-family:Times;font-size:110%;text-align:justify">Here we are after there months of combined efforts and sleepless nights, we dedicate this blog to our teamwork endevours and look back at the past appreciate our achievements. We also take this moment and thank everyone responsible for bringing up such a course.</P>
 
 ## Technical Challenges Our Team Encountered
 
@@ -16,7 +17,7 @@ date: 2019-07-02
    <li><p style="font-family:Times;font-size:110%;text-align:justify">Content writing for the blog sometimes required a lot to research as several topics such as Use Case diagrams, User stories were quite new to us.</p></li>
 </ul>
 
-![Deadline image]({{site.baseurl}}/images/TechnicalChallenge.png "Img 1"){:height="80%" width="80%" align="centre"}
+![Deadline image]({{site.baseurl}}/images/customerEngagement.jpg "Img 1"){:height="80%" width="80%" align="centre"}
   
 ## Challenges Faced When Working As A Team
   
@@ -28,11 +29,15 @@ date: 2019-07-02
   
   ![Deadline image]({{site.baseurl}}/images/DecisionMaking.jpg "Img 2"){:height="80%" width="80%" align="centre"}
   
-### Poor communication and Lack of participation
+### Discovering Individual Fortitudes of the Team Members
  
- <p style="font-family:Times;font-size:110%;text-align:justify">Our means of communication was mainly digital - Trello (with respect to sharing documents and delegating works) and Whatsapp (to share information immediately). Initially, we did not plan many personal meetings as we were uncertain of each other’s schedule. During the team meetings, there were the following problems: poor attendance, low energy, failing to address the problem or members talking simultaneously or being silent over the session.</p>
+ <p style="font-family:Times;font-size:110%;text-align:justify">When people come together for a group project or an activity, they often tend to have varying potentials and skill sets. Such scenarios also existed among us at the beginning stages. Sharing the tasks accordingly was confusing and time-consuming at the initial stages of the project. The weekly meeting helped us out a lot in this regard and taking responsibilities were straightforward.</p>
  
   ![Deadline image]({{site.baseurl}}/images/PoorCommunication.png "Img 3"){:height="80%" width="80%" align="centre"}
+### Time Management 
+<p style="font-family:Times;font-size:110%;text-align:justify">The weekly deadlines were justified with at most accuracy nevertheless, there were tasks which took a toll on the limited time we had and submissions were pushed closer to the deadline. The root cause of such a problem is due to the fact that our team members have different free time and we had to overhaul our schedule to cope up with the deadlines. Ultimately the lead time was reduced towards the end of the course.</P> 
+
+![Deadline image]({{site.baseurl}}/images/MoreWorkLessTime.jpg "Img 5"){:height="80%" width="80%" align="centre"}
   
 ## Benefits of Working as a Team
 
@@ -41,12 +46,6 @@ date: 2019-07-02
 <p style="font-family:Times;font-size:110%;text-align:justify">We were from different backgrounds, some of us were good at programming, testing, designing or had good experience in apprehending app from an end user perspective. So each had unique skills, background, and experiences. In many scenarios, fellow team members helped each other to see things from a different angle. </p>
 
 ![Deadline image]({{site.baseurl}}/images/DiverseThinking.jpg "Img 4"){:height="80%" width="80%" align="centre"}
-
-### More work in less time
-
-<p style="font-family:Times;font-size:110%;text-align:justify">Once we receive the requirements, we have broken it to individual user stories and delegated the work among ourselves in Trello. In the same time frame, we were able to complete our individual tasks and finally merged them to form the final product.</p>
-
-![Deadline image]({{site.baseurl}}/images/MoreWorkLessTime.jpg "Img 5"){:height="80%" width="80%" align="centre"}
 
 ## How the course did meet your needs or fall short?
 
@@ -59,6 +58,14 @@ date: 2019-07-02
   <li>Programming skills</li>
   <li>Project Management</li>  
  </ul>
+ 
+<p style="font-family:Times;font-size:110%;text-align:justify"><i><b>We would like to thank Mr.D'Souza and Dr.Schulze for giving us the opportunity to learn Andoird Studio and coding in such a practical way. With their continuous involvement and feedbacks for every prototype, we were able to bring out a successful working application. We as a team would recommend such a course to prospective students in the near future.</b></i></p>
+ 
+ <p style="font-family:Times;font-size:160%;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thanks for visiting our Blog!!</p>
+
+### Resources 
+
+<p style="font-family:Times;font-size:110%;text-align:justify"> Figure 1 : <a href="https://en.wikipedia.org/wiki/Black-box_testing#/media/File:Blackbox.svg" style="color: rgb(0,0,255)">https://en.wikipedia.org/wiki/Black_box#/media/File:Blackbox.svg</a></p>
   
 
 
