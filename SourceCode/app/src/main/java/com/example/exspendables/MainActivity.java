@@ -30,6 +30,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -40,6 +41,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.util.SparseBooleanArray;
@@ -1178,7 +1181,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
             finish();
-            Log.i("Finished sending email...", "");
+            Log.i("EMAIL_SENT", "Finished sending email...");
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(MainActivity.this,
                     "There is no email client installed.", Toast.LENGTH_SHORT).show();
@@ -1696,7 +1699,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
             finish();
-            Log.i("Finished sending email...", "");
+            Log.i("EMAIL_SENT", "Finished sending email...");
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(MainActivity.this,
                     "There is no email client installed.", Toast.LENGTH_SHORT).show();
@@ -2061,25 +2064,57 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                 FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
                 contentFrameLayout.removeAllViewsInLayout();
-                getLayoutInflater().inflate(R.layout.listsummary, contentFrameLayout);
+                getLayoutInflater().inflate(R.layout.tablesummary,contentFrameLayout);
+            /*    getLayoutInflater().inflate(R.layout.listsummary, contentFrameLayout);
 
                 ListView transactions = findViewById(R.id.transactionlist);
                 Button deleteTransaction = findViewById(R.id.deleteTxnBtn);
-                deleteTransaction.setOnClickListener(this);
+                deleteTransaction.setOnClickListener(this);*/
 
                 values = new String[recordsOK.size()];
                 for (int index = 0; index < recordsOK.size(); index++) {
                     values[index] = recordsOK.get(index);
                 }
 
+
+                TableLayout tableLayout = (TableLayout) findViewById(R.id.tab);
                 for (int row = 0; row < values.length; row++) {
-                    values[row] = values[row].replaceAll(";", "\t");
+                    //values[row] = values[row].replaceAll(";", "\t");
+
+                    String[] dummy = values[row].split(";");
+                    //TableRow tableRow = (TableRow) findViewById(R.id.tableData);
+                    TableRow tableRow = new TableRow(this);
+
+                    CheckBox checkBox = new CheckBox(this);
+
+                    /*TextView catRow = (TextView) findViewById(R.id.catRow);
+                    TextView dateRow = (TextView) findViewById(R.id.dateRow);
+                    TextView amountRow = (TextView) findViewById(R.id.amountRow);
+                    TextView paymRow = (TextView) findViewById(R.id.paymRow);*/
+
+                    TextView catRow    = new TextView(this);
+                    TextView dateRow   = new TextView(this);
+                    TextView amountRow = new TextView(this);
+                    TextView paymRow   = new TextView(this);
+
+                    catRow.setText(dummy[0]);
+                    dateRow.setText(dummy[1]);
+                    amountRow.setText(dummy[3]);
+                    paymRow.setText(dummy[2]);
+
+                    tableRow.addView(checkBox);
+                    tableRow.addView(catRow);
+                    tableRow.addView(dateRow);
+                    tableRow.addView(paymRow);
+                    tableRow.addView(amountRow);
+
+                    tableLayout.addView(tableRow,row);
                 }
 
-                ArrayAdapter<String> transactionAdapter = new ArrayAdapter<String>
+              /*  ArrayAdapter<String> transactionAdapter = new ArrayAdapter<String>
                         (this, android.R.layout.simple_list_item_multiple_choice, values);
                 transactions.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                transactions.setAdapter(transactionAdapter);
+                transactions.setAdapter(transactionAdapter);*/
 
                 if(values.length == 0){
                     Toast.makeText(getApplicationContext(), "None of the transaction matches this criteria", Toast.LENGTH_SHORT).show();
