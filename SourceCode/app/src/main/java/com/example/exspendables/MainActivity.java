@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -1243,36 +1244,40 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
             case R.id.deleteTxnBtn:
                 Transactions transactions = new Transactions(this);
-                ListView transactionList = findViewById(R.id.transactionlist);
-                SparseBooleanArray isChecked = transactionList.getCheckedItemPositions();
-                ArrayList<String> selectedTxn = new ArrayList<>();
 
+                TableLayout tableLayout = (TableLayout) findViewById(R.id.tab);
+                int rowSize = tableLayout.getChildCount();
+                int colSize = 0;
+                TableRow tableRow = new TableRow(this);
+                TextView cData = new TextView(this);
 
-                ListAdapter transactionAdapter = transactionList.getAdapter();
+                String[] tableValues = new String[4];
+                List recordToDelete = new ArrayList();
 
-                for(int index=0; index < transactionAdapter.getCount();index++){
-                    selectedTxn.add(transactionAdapter.getItem(index).toString());
-                }
+                for(int row = 1; row < rowSize;row++){
 
-                for(int i=0;i<isChecked.size();i++){
-                    if(isChecked.valueAt(i)){
-                        int index = isChecked.keyAt(i);
-                        String valueToDelete = transactionAdapter.getItem(index).toString();
-                        selectedTxn.remove(valueToDelete);
-                        Log.d("VALUE",valueToDelete);
+                    tableRow = (TableRow) tableLayout.getChildAt(row);
+                    colSize = tableRow.getChildCount();
 
-                        String[] tableValues = valueToDelete.split("\\t");
+                    CheckBox checkBox = (CheckBox) tableRow.getChildAt(0);
+                    if(checkBox.isChecked()){
+                        cData = (TextView) tableRow.getChildAt(1);
+                        tableValues[0] = cData.getText().toString();
+                        cData = (TextView) tableRow.getChildAt(2);
+                        tableValues[1] = cData.getText().toString();
+                        cData = (TextView) tableRow.getChildAt(3);
+                        tableValues[2] = cData.getText().toString();
+                        cData = (TextView) tableRow.getChildAt(4);
+                        tableValues[3] = cData.getText().toString();
+
                         boolean result = transactions.deleteData(tableValues[0],tableValues[1],tableValues[2],tableValues[3]);
                         Toast.makeText(getApplicationContext(), "Transaction deleted", Toast.LENGTH_SHORT).show();
+                        recordToDelete.add(row);
                     }
                 }
-
-                //refresh the list with new value
-
-                ArrayAdapter<String> tranAdapter = new ArrayAdapter<String>
-                        (this, android.R.layout.simple_list_item_multiple_choice, selectedTxn);
-                transactionList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                transactionList.setAdapter(tranAdapter);
+                for(int i = 0; i < recordToDelete.size(); i++) {
+                    tableLayout.removeViewAt((int)recordToDelete.get(i));
+                }
                 break;
 
             case R.id.deleteCategoryBtn:
@@ -1681,17 +1686,29 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         emailIntent.putExtra(Intent.EXTRA_EMAIL,to);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Transaction details");
 
-        ListView transactionLV = findViewById(R.id.transactionlist);
+        //ListView transactionLV = findViewById(R.id.transactionlist);
+        TableLayout tableLayout = findViewById(R.id.tab);
         Button deleteTransaction = findViewById(R.id.deleteTxnBtn);
         deleteTransaction.setOnClickListener(this);
 
-        int count = transactionLV.getCount();
+        int count = tableLayout.getChildCount();
+        TextView textView = new TextView(this);
+        //int count = transactionLV.getCount();
         String content = "";
         for(int index = 0;index < count;index++){
+            //read rows
+            TableRow tableRow = (TableRow) tableLayout.getChildAt(index);
 
-            String temp = transactionLV.getItemAtPosition(index).toString();
-            temp = temp.replaceAll(";","\t");
-            content = content + "\n" + temp;
+            int columnsize = tableRow.getChildCount();
+
+            for(int c = 0; c < columnsize; c++){
+                textView = (TextView) tableRow.getChildAt(c);
+                content = content + "\t" + textView.getText().toString();
+            }
+            content = content + "\n";
+            //String temp = transactionLV.getItemAtPosition(index).toString();
+            //temp = temp.replaceAll(";","\t");
+            //content = content + "\n" + temp;
         }
 
         emailIntent.putExtra(Intent.EXTRA_TEXT, content);
@@ -2067,9 +2084,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 getLayoutInflater().inflate(R.layout.tablesummary,contentFrameLayout);
             /*    getLayoutInflater().inflate(R.layout.listsummary, contentFrameLayout);
 
-                ListView transactions = findViewById(R.id.transactionlist);
+                ListView transactions = findViewById(R.id.transactionlist); */
                 Button deleteTransaction = findViewById(R.id.deleteTxnBtn);
-                deleteTransaction.setOnClickListener(this);*/
+                deleteTransaction.setOnClickListener(this);
 
                 values = new String[recordsOK.size()];
                 for (int index = 0; index < recordsOK.size(); index++) {
@@ -2078,12 +2095,44 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
 
                 TableLayout tableLayout = (TableLayout) findViewById(R.id.tab);
+
+                TableRow tableRow = new TableRow(this);
+
+                TextView catRow    = new TextView(this);
+                TextView dateRow   = new TextView(this);
+                TextView amountRow = new TextView(this);
+                TextView paymRow   = new TextView(this);
+
+                Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+                catRow.setText("Category");
+                catRow.setTypeface(boldTypeface);
+
+                dateRow.setText("Date");
+                dateRow.setTypeface(boldTypeface);
+
+                amountRow.setText("Amount");
+                amountRow.setTypeface(boldTypeface);
+
+                paymRow.setText("Payment Type");
+                paymRow.setTypeface(boldTypeface);
+
+                TextView dummyTV = new TextView(this);
+
+                tableRow.addView(dummyTV);
+                tableRow.addView(catRow);
+                tableRow.addView(dateRow);
+                tableRow.addView(amountRow);
+                tableRow.addView(paymRow);
+
+
+                tableLayout.addView(tableRow,0);
+
                 for (int row = 0; row < values.length; row++) {
                     //values[row] = values[row].replaceAll(";", "\t");
 
                     String[] dummy = values[row].split(";");
                     //TableRow tableRow = (TableRow) findViewById(R.id.tableData);
-                    TableRow tableRow = new TableRow(this);
+                    tableRow = new TableRow(this);
 
                     CheckBox checkBox = new CheckBox(this);
 
@@ -2092,10 +2141,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     TextView amountRow = (TextView) findViewById(R.id.amountRow);
                     TextView paymRow = (TextView) findViewById(R.id.paymRow);*/
 
-                    TextView catRow    = new TextView(this);
-                    TextView dateRow   = new TextView(this);
-                    TextView amountRow = new TextView(this);
-                    TextView paymRow   = new TextView(this);
+                    catRow    = new TextView(this);
+                    dateRow   = new TextView(this);
+                    amountRow = new TextView(this);
+                    paymRow   = new TextView(this);
 
                     catRow.setText(dummy[0]);
                     dateRow.setText(dummy[1]);
@@ -2108,7 +2157,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     tableRow.addView(paymRow);
                     tableRow.addView(amountRow);
 
-                    tableLayout.addView(tableRow,row);
+                    tableLayout.addView(tableRow,row+1);
                 }
 
               /*  ArrayAdapter<String> transactionAdapter = new ArrayAdapter<String>
