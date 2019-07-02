@@ -59,7 +59,7 @@ date: 2019-07-02
   <li>Project Management</li>  
  </ul>
  
-<p style="font-family:Times;font-size:110%;text-align:justify"><i>We would like to thank Mr.D'Souza and Dr.Schulze for giving us the opportunity to learn Andoird Studio and coding in such a practical way. With their continuous involvement and feedbacks for every prototype, we were able to bring out a successful working application. We as a team would recommend such a course to prospective students in the near future.</i></p>
+<p style="font-family:Times;font-size:110%;text-align:justify"><i><b>We would like to thank Mr.D'Souza and Dr.Schulze for giving us the opportunity to learn Andoird Studio and coding in such a practical way. With their continuous involvement and feedbacks for every prototype, we were able to bring out a successful working application. We as a team would recommend such a course to prospective students in the near future.</b></i></p>
  
  <p style="font-family:Times;font-size:160%;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thanks for visiting our Blog!!</p>
 
