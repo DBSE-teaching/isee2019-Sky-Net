@@ -5,7 +5,7 @@ date: 2019-07-02
 ---
 
 ## Overview
-<p style="font-family:Times;font-size:110%;text-align:justify">Here we are after there months of combined efforts and sleepless nights, we dedicate this blog to our teamwork endevours and look back at the past appreciate our achievements. We also take this moment and thank everyone responsible for bringing up such a course.</P>
+<p style="font-family:Times;font-size:110%;text-align:justify">Here, we are after there months of combined efforts and sleepless nights, we dedicate this blog to our teamwork endevours and look back at the past appreciate our achievements. We also take this moment and thank everyone responsible for bringing up such a course.</P>
 
 ## Technical Challenges Our Team Encountered
 
@@ -86,7 +86,7 @@ date: 2019-07-02
 " style="color: rgb(0,0,255)">https://graduan.com/5-ways-to-do-more-work-in-less-time-yes-its-possible
 </a></p>
 
-<p style="font-family:Times;font-size:110%;text-align:justify"> Figure 5 : <a href="https://projectmanagementacademyweb.wordpress.com/2016/12/27/6-thinking-hats/" style="color: rgb(0,0,255)"https://projectmanagementacademyweb.wordpress.com/2016/12/27/6-thinking-hats/</a></p>
+<p style="font-family:Times;font-size:110%;text-align:justify"> Figure 1 : <a href="https://projectmanagementacademyweb.wordpress.com/2016/12/27/6-thinking-hats/" style="color: rgb(0,0,255)">https://projectmanagementacademyweb.wordpress.com/2016/12/27/6-thinking-hats/</a></p>
 
   
 
