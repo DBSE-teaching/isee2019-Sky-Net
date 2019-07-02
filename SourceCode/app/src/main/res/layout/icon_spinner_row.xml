@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/image_text"
-        android:layout_width="342dp"
+        android:layout_width="220dp"
         android:layout_height="40dp"
         android:layout_alignBottom="@+id/image_icon"
         android:layout_alignParentTop="true"
@@ -24,7 +24,7 @@
         android:gravity="left"
         android:text="Clothing"
         android:textColor="@android:color/black"
-        android:textSize="20dp">
+        android:textSize="18dp">
 
     </TextView>
 
