@@ -1091,14 +1091,53 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                     int percent = (int) percentSpent;
 
-                    NotificationManager notif = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    if(percent > 60 && percent <= 100){
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        final EditText textView = new EditText(this);
+                        builder.setView(textView);
+                        textView.setVisibility(View.VISIBLE);
+                        textView.setText("You have spent " + percent + " % in the category " + categoryValue);
+                        textView.setTextColor(Color.BLACK);
+                        builder.setTitle("Budget warning");
+
+                        builder.setPositiveButton("Ok",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                    }
+                                });
+
+                        final AlertDialog alert = builder.create();
+                        alert.show();
+                    } else if (percent > 100){
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        final EditText textView = new EditText(this);
+                        builder.setView(textView);
+                        textView.setVisibility(View.VISIBLE);
+                        textView.setText("You have exceeded 100% limit in the category " + categoryValue);
+                        textView.setTextColor(Color.RED);
+                        builder.setTitle("Budget warning");
+
+                        builder.setPositiveButton("Ok",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                    }
+                                });
+                        final AlertDialog alert = builder.create();
+                        alert.show();
+
+                    }
+
+
+                    /*NotificationManager notif = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                     Notification notify = new Notification.Builder
                             (getApplicationContext()).setContentTitle("Budget notification").setContentText(
                             "You have spent " + percent + " % in the category " + categoryValue).
                             setContentTitle("abc").setSmallIcon(R.drawable.ic_android_black_24dp).build();
 
                     notify.flags |= Notification.FLAG_AUTO_CANCEL;
-                    notif.notify(0, notify);
+                    notif.notify(0, notify);*/
                 }
             }
         } else {
@@ -1581,9 +1620,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         List<String> categorylist = dbCategories.getCategoryAndIcon();
 
         ListView categoryList = findViewById(R.id.categorylist);
+
         Button deleteCategory = findViewById(R.id.deleteCategoryBtn);
         Button modifyCategory = findViewById(R.id.modifyCategoryBtn);
-        Button addCategory = findViewById(R.id.addCategoryBtn);
+        final Button addCategory = findViewById(R.id.addCategoryBtn);
 
         for(int listIdx = 0; listIdx < categorylist.size(); listIdx++){
 

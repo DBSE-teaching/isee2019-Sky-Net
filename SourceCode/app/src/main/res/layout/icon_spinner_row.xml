@@ -4,8 +4,8 @@
 
     <ImageView
         android:id="@+id/image_icon"
-        android:layout_width="56dp"
-        android:layout_height="43dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:src="@drawable/clothing" />
 
     <TextView
