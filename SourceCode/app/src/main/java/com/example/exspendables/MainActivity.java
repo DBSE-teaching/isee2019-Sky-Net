@@ -1113,10 +1113,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 recurringFrequency.setText("");
                 recurringValue.setText("");
 
-                Transactions txns = new Transactions(this);
-                Cursor txnCur = txns.getData();
+                SQLiteDatabase db = transactions.getReadableDatabase();
+                String query = "SELECT * FROM TRANSACTIONS where indicator='Expense'";
+
+                Cursor txnCur = db.rawQuery(query,null);
+                //Transactions txns = new Transactions(this);
+                //Cursor txnCur = txns.getData();
                 txnCur.moveToFirst();
-                String indicatorVal = txnCur.getString(6);
                 int total = 0;
                 while (!txnCur.isAfterLast()) {
                     // fetch Categories and amount and compare with categoryValue
@@ -1143,14 +1146,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     }
                 }
 
-                if(budgetSetByUser > 0) {
+                if(budgetSetByUser > 0 && indicatorValue == "Expense") {
 
                     float percentSpent = (float) total / (float) budgetSetByUser;
                     percentSpent = percentSpent * 100;
 
                     int percent = (int) percentSpent;
 
-                    if(percent > 60 && percent <= 100){
+                    if(percent > 60 && percent <= 100 ){
                         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
                         final EditText textView = new EditText(this);
                         builder.setView(textView);
@@ -1168,7 +1171,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                         final AlertDialog alert = builder.create();
                         alert.show();
-                    } else if (percent > 100){
+                    } else if (percent > 100 && indicatorValue == "Expense"){
                         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
                         final EditText textView = new EditText(this);
                         builder.setView(textView);
