@@ -1363,7 +1363,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     }
                 }
                 for(int i = 0; i < recordToDelete.size(); i++) {
-                    tableLayout.removeViewAt((int)recordToDelete.get(i));
+                    if(i==0) {
+                        tableLayout.removeViewAt((int) recordToDelete.get(i));
+                    }else{
+                        int indexToDelete = (int)recordToDelete.get(i) - 1;
+                        tableLayout.removeViewAt(indexToDelete);
+                    }
                 }
                 break;
 
