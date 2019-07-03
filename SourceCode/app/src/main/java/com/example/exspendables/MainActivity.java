@@ -485,7 +485,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and paymentMethod = '" + payList + "' and amount > '" + amountValue + "' and indicator ='" + indicatorValue + "'";
 
                     }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("Lesser than") && 	!amountValue.equals("") && !payList.equals("")) {
-                        sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and paymentMethod = '" + payList + "' and amount > '" + amountValue + "' and indicator ='" + indicatorValue + "'";
+                        sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and paymentMethod = '" + payList + "' and amount < '" + amountValue + "' and indicator ='" + indicatorValue + "'";
                     }
 
                     final Cursor c = db.rawQuery(sql, null);
