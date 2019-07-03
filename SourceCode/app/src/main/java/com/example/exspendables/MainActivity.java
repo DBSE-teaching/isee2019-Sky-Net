@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         String cat;
                         final XAxis xAxis = chart.getXAxis();
                         SimpleDateFormat mFormat = new SimpleDateFormat("yyMMdd");
-                        SimpleDateFormat mFormat1 = new SimpleDateFormat("MMM dd");
+                        SimpleDateFormat mFormat1 = new SimpleDateFormat("dd-MMM-yy");
                         ArrayList xAxisValue = new ArrayList<>();
                         String categoryList[] = new String[50];
                         ArrayList<LegendEntry> legendEntry;
