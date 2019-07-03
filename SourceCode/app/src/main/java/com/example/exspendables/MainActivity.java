@@ -457,7 +457,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     }else if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && payList.equals("") && operatorList.equals("Lesser than") && !amountValue.equals("")) {
                         sql = "Select category, amount from TRANSACTIONS where category = '" + catList + "' and amount < '" + amountValue + "' and indicator ='" + indicatorValue + "'";
 
-                    }else if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && operatorList.equals(" ") && amountValue.equals("")) {
+                    }else if (startDate.getText().equals("") && endDate.getText().equals("") && !catList.equals("") && !payList.equals("") && operatorList.equals("") && amountValue.equals("")) {
                         sql = "Select category, amount from TRANSACTIONS where category = '" + catList + "' and paymentMethod = '" + payList + "' and indicator ='" + indicatorValue + "'";
 
                     }else if (startDate.getText().equals("") && endDate.getText().equals("") && catList.equals("") && operatorList.equals("Greater than") && !amountValue.equals("") && !payList.equals("")) {
