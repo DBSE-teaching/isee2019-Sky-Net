@@ -107,9 +107,13 @@ harish.harihara@st.ovgu.de
   
 </table>
 
-### Energy Consumption
+### Energy Consumption & Memory Usage
+
+<p style="font-family:Times;font-size:110%;text-align:justify">In the below image, we have attached the energy consumption of our application from Android Studio Profiler which is an inbuilt feature. Here, we can observe that the energy consumption is medium.</p>
 
 ![Deadline image]({{site.baseurl}}/images/Energy1.png "QR Code"){:height="75%" width="75%"} 
+
+<p style="font-family:Times;font-size:110%;text-align:justify">In the below image, we have attached the memory usage of our application. </p>
 
 ![Deadline image]({{site.baseurl}}/images/Energy2.png "QR Code"){:height="75%" width="75%"} 
 
@@ -117,6 +121,9 @@ harish.harihara@st.ovgu.de
 ### App Availability
 
 <p style="font-family:Times;font-size:110%;text-align:justify"> Click below link to download APK file.</p>
+
+![Deadline image]({{site.baseurl}}/images/myposter.png "Poster"){:height="25%" width="50%"}
+
 <p style="font-family:Times;font-size:110%;text-align:justify"><a href="https://github.com/DBSE-teaching/isee2019-Sky-Net/blob/Application/AdvancedPrototype/AdvancedPrototype.apk?raw=true" style="color: rgb(0,0,255)">ExSpendables.apk</a></p>
 
 <p style="font-family:Times;font-size:110%;text-align:justify"> OR</p>
