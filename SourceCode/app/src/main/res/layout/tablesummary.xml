@@ -9,7 +9,7 @@
 
     <ScrollView
         android:id="@+id/scrollablContent"
-        android:layout_width="375dp"
+        android:layout_width="385dp"
         android:layout_height="505dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
