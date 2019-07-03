@@ -132,7 +132,7 @@ harish.harihara@st.ovgu.de
 
 <p style="font-family:Times;font-size:110%;text-align:justify"> Scan the below QR code to download our App</p>
 
-![Deadline image]({{site.baseurl}}/images/frame.png "QR Code"){:height="25%" width="25%"} 
+![Deadline image]({{site.baseurl}}/images/qrcode.png "QR Code"){:height="25%" width="25%"} 
 
 ### Essential & Necessary Features
 
