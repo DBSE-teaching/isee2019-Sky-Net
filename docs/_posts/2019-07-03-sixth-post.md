@@ -53,7 +53,7 @@ Rule No. 2: Always Follow Rule 1.<br/>
   
   <tr>
     <td>Download Size:</td>
-    <td>3.42 MB</td>
+    <td>2.97 MB</td>
   </tr>
   
   <tr>
@@ -124,7 +124,7 @@ harish.harihara@st.ovgu.de
 
 ![Deadline image]({{site.baseurl}}/images/myposter.png "Poster"){:height="25%" width="50%"}
 
-<p style="font-family:Times;font-size:110%;text-align:justify"><a href="https://github.com/DBSE-teaching/isee2019-Sky-Net/blob/Application/AdvancedPrototype/AdvancedPrototype.apk?raw=true" style="color: rgb(0,0,255)">ExSpendables.apk</a></p>
+<p style="font-family:Times;font-size:110%;text-align:justify"><a href="https://github.com/DBSE-teaching/isee2019-Sky-Net/blob/Application/APK/ExSpendables.apk?raw=true" style="color: rgb(0,0,255)">ExSpendables.apk</a></p>
 
 <p style="font-family:Times;font-size:110%;text-align:justify"> OR</p>
 
