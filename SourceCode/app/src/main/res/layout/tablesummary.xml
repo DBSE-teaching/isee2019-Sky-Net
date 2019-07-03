@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,68 +7,89 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TableLayout
-        android:id="@+id/tab"
-        android:layout_width="390dp"
+    <ScrollView
+        android:id="@+id/scrollablContent"
+        android:layout_width="410dp"
         android:layout_height="420dp"
         android:layout_marginStart="8dp"
-        android:background="@drawable/border_style"
-        android:paddingLeft="5dp"
-        android:paddingTop="5dp"
-        android:paddingRight="5dp"
-        android:paddingBottom="5dp"
-        android:scrollbars="vertical"
-        android:stretchColumns="*"
-        app:layout_constraintBottom_toBottomOf="@id/deleteTxnBtn"
-        app:layout_constraintEnd_toEndOf="@id/deleteTxnBtn"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="@+id/backToFilter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.242">
+        app:layout_constraintVertical_bias="0.093">
 
 
-    </TableLayout>
+        <TableLayout
+            android:id="@+id/tab"
+            android:layout_width="410dp"
+            android:layout_height="420dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/border_style"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:scrollbars="vertical"
+            android:stretchColumns="*"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.125">
+
+
+        </TableLayout>
+
+    </ScrollView>
+
 
     <Button
         android:id="@+id/deleteTxnBtn"
-        android:layout_width="390dp"
+        android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:text="@string/Delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.238"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.803" />
+        app:layout_constraintVertical_bias="0.804" />
 
     <Button
         android:id="@+id/sendEmail"
-        android:layout_width="390dp"
+        android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:onClick="sendemail"
         android:text="E-mail summary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.238"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.903" />
+        app:layout_constraintVertical_bias="0.891" />
 
     <Button
         android:id="@+id/backToFilter"
-        android:layout_width="390dp"
+        android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:onClick="backToFilter"
         android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.989" />
+        app:layout_constraintVertical_bias="0.976" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -484,8 +484,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("Greater than") && 	!amountValue.equals("") && !payList.equals("")) {
                         sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and paymentMethod = '" + payList + "' and amount > '" + amountValue + "' and indicator ='" + indicatorValue + "'";
 
-                    }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("Greater than") && 	!amountValue.equals("") ) {
-                        sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and amount > '" + amountValue + "' and indicator ='" + indicatorValue + "'";
+                    }else if (startDate.getText() != "" && endDate.getText() != "" && !catList.equals("") && operatorList.equals("Lesser than") && 	!amountValue.equals("") && !payList.equals("")) {
+                        sql = "Select category, amount from TRANSACTIONS where startDate between '" + startDatePie + "' and '" + endDatePie + "' and category = '" + catList + "' and paymentMethod = '" + payList + "' and amount > '" + amountValue + "' and indicator ='" + indicatorValue + "'";
                     }
 
                     final Cursor c = db.rawQuery(sql, null);
@@ -1058,6 +1058,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 Transactions txns = new Transactions(this);
                 Cursor txnCur = txns.getData();
                 txnCur.moveToFirst();
+                String indicatorVal = txnCur.getString(6);
                 int total = 0;
                 while (!txnCur.isAfterLast()) {
                     // fetch Categories and amount and compare with categoryValue
@@ -1191,13 +1192,26 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     public void forgotPin(View view) {
 
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+        contentFrameLayout.removeAllViewsInLayout();
+        getLayoutInflater().inflate(R.layout.security_question, contentFrameLayout);
+
         dbPinTable = new DatabaseHandler(this);
         Cursor cursor = dbPinTable.getPinData();
 
         cursor.moveToFirst();
-        String savedPin = cursor.getString(0);
+        final String savedPin = cursor.getString(0);
         String toMail = cursor.getString(1);
-        String to[] = new String[] {toMail};
+        final String securityAnswer = cursor.getString(2);
+
+        //final EditText securityAnsVerify = findViewById(R.id.securityAnswerVerification);
+        //final TextView verificationMessage = findViewById(R.id.verificationMessage);
+        //final String securityVerify = securityAnsVerify.getText().toString();
+        Button securityOk = findViewById(R.id.securityCheckOk);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final EditText textView = new EditText(this);
+
+       /* String to[] = new String[] {toMail};
 
 
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
@@ -1215,9 +1229,55 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(MainActivity.this,
                     "There is no email client installed.", Toast.LENGTH_SHORT).show();
-        }
+        } */
 
+        securityOk.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                final EditText securityAnsVerify = findViewById(R.id.securityAnswerVerification);
+                final TextView verificationMessage = findViewById(R.id.verificationMessage);
+                final String securityVerify = securityAnsVerify.getText().toString();
+
+                if (securityVerify.equals(securityAnswer)) {
+
+
+                    builder.setView(textView);
+                    textView.setVisibility(View.VISIBLE);
+                    textView.setText("Your Pin is " + savedPin);
+                    textView.setTextColor(Color.BLACK);
+                    builder.setTitle("Pin Value");
+
+                    builder.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                    FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+                                    contentFrameLayout.removeAllViewsInLayout();
+                                    getLayoutInflater().inflate(R.layout.login_page, contentFrameLayout);
+
+                                }
+                            });
+
+                    final AlertDialog alert = builder.create();
+                    alert.show();
+
+                } else {
+                    verificationMessage.setText("The entered value is not matching");
+                }
+
+            }
+        });
     }
+
+    public void backToLogin(View view) {
+
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
+        contentFrameLayout.removeAllViewsInLayout();
+        getLayoutInflater().inflate(R.layout.login_page, contentFrameLayout);
+    }
+
+
+
 
     @Override
     public void onClick(View v) {
@@ -1239,14 +1299,16 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 EditText pinValue = findViewById(R.id.set_Pin_textbox);
                 EditText reEnterPinValue = findViewById(R.id.confirm_Pin_textbox);
                 EditText emailId = findViewById(R.id.setEmail);
+                EditText securityAns = findViewById(R.id.securityAnswer);
 
                 String pin = pinValue.getText().toString();
                 String pinToConfirm = reEnterPinValue.getText().toString();
                 String emailIdValue = emailId.getText().toString();
+                String securityAnswer = securityAns.getText().toString();
 
                 if (pin.equals(pinToConfirm)) {
                     dbPinTable = new DatabaseHandler(this);
-                    dbPinTable.addData(pin, emailIdValue);
+                    dbPinTable.addData(pin, emailIdValue, securityAnswer);
                     // harish - 25.05
                     Toast.makeText(getApplicationContext(), "PIN details saved", Toast.LENGTH_SHORT).show();
                     FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
@@ -1533,15 +1595,18 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 pinValue = findViewById(R.id.set_Pin_textbox);
                 reEnterPinValue = findViewById(R.id.confirm_Pin_textbox);
                 emailId = findViewById(R.id.setEmail);
+                securityAns = findViewById(R.id.securityAnswer);
+
                 pin = pinValue.getText().toString();
                 pinToConfirm = reEnterPinValue.getText().toString();
                 emailIdValue = emailId.getText().toString();
+                securityAnswer = securityAns.getText().toString();
 
-                if (emailIdValue.equals("") || pin.equals("") || pinToConfirm.equals("") ) {
+                if (emailIdValue.equals("") || pin.equals("") || pinToConfirm.equals("") || securityAnswer.equals("") ) {
                     Toast.makeText(getApplicationContext(), "Enter All Values", Toast.LENGTH_LONG).show();
                     break;
 
-                } else if (!emailIdValue.equals("") && !pin.equals("") && !pinToConfirm.equals("") ) {
+                } else if (!emailIdValue.equals("") && !pin.equals("") && !pinToConfirm.equals("") && !securityAnswer.equals("")) {
 
                     if (pin.equals(pinToConfirm)) {
                         dbPinTable = new DatabaseHandler(this);
@@ -1551,7 +1616,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         if (pinCursor != null) {
                             if (pinCursor.moveToFirst()) {
                                 String pinSavedInDB = pinCursor.getString(0);
-                                dbPinTable.modifyData(pin, pinSavedInDB, emailIdValue);
+                                dbPinTable.modifyData(pin, pinSavedInDB, emailIdValue, securityAnswer);
                                 // harish - 25.05
                                 Toast.makeText(getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
                                 // harish - 25.05
@@ -1566,7 +1631,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                                 break;
                             } else {
 
-                                dbPinTable.addData(pin, emailIdValue);
+                                dbPinTable.addData(pin, emailIdValue, securityAnswer);
                                 Toast.makeText(getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT).show();
                                 FrameLayout contentFrameLayout6 = (FrameLayout) findViewById(R.id.fragment_container);
                                 contentFrameLayout6.removeAllViewsInLayout();
