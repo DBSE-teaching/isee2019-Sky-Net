@@ -113,7 +113,7 @@ harish.harihara@st.ovgu.de
 
 ![Deadline image]({{site.baseurl}}/images/Energy1.png "QR Code"){:height="75%" width="75%"} 
 
-<p style="font-family:Times;font-size:110%;text-align:justify">n the below image, we have attached the memory usage of our application. </p>
+<p style="font-family:Times;font-size:110%;text-align:justify">In the below image, we have attached the memory usage of our application. </p>
 
 ![Deadline image]({{site.baseurl}}/images/Energy2.png "QR Code"){:height="75%" width="75%"} 
 
