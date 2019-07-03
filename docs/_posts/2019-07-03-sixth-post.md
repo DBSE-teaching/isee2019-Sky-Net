@@ -118,7 +118,7 @@ harish.harihara@st.ovgu.de
 
 <p style="font-family:Times;font-size:110%;text-align:justify"> Click below link to download APK file.</p>
 
-![Deadline image]({{site.baseurl}}/images/myposter.png "Poster"){:height="50%" width="100%"}
+![Deadline image]({{site.baseurl}}/images/myposter.png "Poster"){:height="25%" width="25%"}
 
 <p style="font-family:Times;font-size:110%;text-align:justify"><a href="https://github.com/DBSE-teaching/isee2019-Sky-Net/blob/Application/AdvancedPrototype/AdvancedPrototype.apk?raw=true" style="color: rgb(0,0,255)">ExSpendables.apk</a></p>
 
