@@ -2002,41 +2002,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         mCategoryList.add(new CategoryIcon(R.drawable.ic_hotel));
     }
 
-
-    public void setIcons(View view) {
-
-        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.fragment_container);
-        contentFrameLayout.removeAllViewsInLayout();
-        getLayoutInflater().inflate(R.layout.set_icons, contentFrameLayout);
-
-        Categories dbCategories = new Categories(this);
-        // Populate Category DDLB
-        Spinner categoryddlb = findViewById(R.id.categoryddlb);
-        List<String> categorylist = dbCategories.getData();
-        categorylist.add(0, "");
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categorylist);
-        categoryAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        categoryddlb.setAdapter(categoryAdapter);
-
-        initIconList();
-
-        Spinner categoryIcons = findViewById(R.id.iconddlb);
-        mAdapter = new IconAdapter(this, mCategoryList);
-        categoryIcons.setAdapter(mAdapter);
-
-        categoryIcons.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                CategoryIcon selectedItem = (CategoryIcon) parent.getItemAtPosition(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
-
     public void saveicons(View view) {
 
         Spinner category = findViewById(R.id.categoryddlb);
