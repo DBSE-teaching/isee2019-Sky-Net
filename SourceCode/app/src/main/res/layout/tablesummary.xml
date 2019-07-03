@@ -9,23 +9,24 @@
 
     <ScrollView
         android:id="@+id/scrollablContent"
-        android:layout_width="395dp"
-        android:layout_height="420dp"
+        android:layout_width="364dp"
+        android:layout_height="505dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_weight="1"
-        app:layout_constraintBottom_toBottomOf="@+id/backToFilter"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintHorizontal_bias="0.177"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.093">
+        app:layout_constraintVertical_bias="0.183">
 
 
         <TableLayout
             android:id="@+id/tab"
-            android:layout_width="410dp"
+            android:layout_width="350dp"
             android:layout_height="420dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
