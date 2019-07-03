@@ -89,7 +89,7 @@ Rule No. 2: Always Follow Rule 1.<br/>
   <tr>
     <td>Developed By:</td>
     <td>shudarsan.saravanan@st.ovgu.de<br/>
-lokeshbabu.radhakrishnan@st.ovgu.de<br/>
+logeshbabu.radhakrishnan@st.ovgu.de<br/>
 abhivanth.murali@st.ovgu.de<br/>
 harish.harihara@st.ovgu.de
 </td>
@@ -124,7 +124,7 @@ harish.harihara@st.ovgu.de
 
 ![Deadline image]({{site.baseurl}}/images/myposter.png "Poster"){:height="25%" width="50%"}
 
-<p style="font-family:Times;font-size:110%;text-align:justify"><a href="https://github.com/DBSE-teaching/isee2019-Sky-Net/blob/Application/APK/ExSpendables.apk?raw=true" style="color: rgb(0,0,255)">ExSpendables.apk</a></p>
+<p style="font-family:Times;font-size:110%;text-align:justify"><a href="https://github.com/DBSE-teaching/isee2019-Sky-Net/blob/Application/APK/ExSpendables.apk?raw=true">ExSpendables.apk</a></p>
 
 <p style="font-family:Times;font-size:110%;text-align:justify"><a href="https://github.com/DBSE-teaching/isee2019-Sky-Net/tree/Application/Final%20Application" style="color: rgb(0,0,255)">Source Code</a></p>
 
