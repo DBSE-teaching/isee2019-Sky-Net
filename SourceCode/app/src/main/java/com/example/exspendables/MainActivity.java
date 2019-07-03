@@ -650,8 +650,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             }
             else{
                 TextView code = findViewById(R.id.currencyCode);
-                Toast.makeText(getApplicationContext(), "Please select currency unit " +
-                        "in Settings > Set Currency", Toast.LENGTH_SHORT).show();
+                /*Toast.makeText(getApplicationContext(), "Please select currency unit " +
+                        "in Settings > Set Currency", Toast.LENGTH_SHORT).show();*/
             }
         }
 
