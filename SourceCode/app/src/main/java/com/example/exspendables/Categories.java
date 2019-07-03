@@ -26,7 +26,7 @@ public class Categories extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createQuery = "CREATE TABLE CATEGORIES (catlist TEXT PRIMARY KEY, maxbudget TEXT,iconname TEXT)" ;
+        String createQuery = "CREATE TABLE CATEGORIES (catlist TEXT PRIMARY KEY, maxbudget TEXT DEFAULT '0',iconname TEXT)" ;
         db.execSQL(createQuery);
 
         String insertQuery = "INSERT INTO CATEGORIES VALUES('Shopping','0',''), ('Food','0',''), ('Rent','0',''), ('Entertainment','0','')";

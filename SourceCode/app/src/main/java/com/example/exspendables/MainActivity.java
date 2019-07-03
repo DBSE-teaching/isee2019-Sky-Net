@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         String cat;
                         final XAxis xAxis = chart.getXAxis();
                         SimpleDateFormat mFormat = new SimpleDateFormat("yyMMdd");
-                        SimpleDateFormat mFormat1 = new SimpleDateFormat("MMM dd");
+                        SimpleDateFormat mFormat1 = new SimpleDateFormat("dd-MMM-yy");
                         ArrayList xAxisValue = new ArrayList<>();
                         String categoryList[] = new String[50];
                         ArrayList<LegendEntry> legendEntry;
@@ -570,26 +570,55 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             String[] values = dummy.split(";");
 
             switch (values[1]){
-                case "2131230950":
-                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.shopping));
+                case "2131230918":
+                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_airplane));
                     break;
 
-                case "2131230916":
-                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.food));
+                case "2131230923":
+                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_bagel));
                     break;
 
-                case "2131230815":
-                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.clothing));
+                case "2131230924":
+                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_barbershop));
                     break;
 
-                case "2131230917":
-                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.groceries));
+                case "2131230925":
+                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_bonds));
+                    break;
+
+                case "2131230926":
+                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_business));
+                    break;
+
+                case "2131230927":
+                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_buy));
+                    break;
+
+                case "2131230928":
+                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_circus));
+                    break;
+
+                case "2131230929":
+                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_debit_card));
+                    break;
+
+                case "2131230930":
+                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_globe));
+                    break;
+
+                case "2131230932":
+                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_hotel));
+                    break;
+
+                case "2131230938":
+                    mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_railway));
                     break;
 
                 default:
                     mCategoryList.add(new CategoryIcon(values[0],R.drawable.ic_white_box));
                     break;
             }
+
         }
 
         mAdapter = new IconAdapter(this, mCategoryList);
@@ -621,8 +650,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             }
             else{
                 TextView code = findViewById(R.id.currencyCode);
-                Toast.makeText(getApplicationContext(), "Please select currency unit " +
-                        "in Settings > Set Currency", Toast.LENGTH_SHORT).show();
+                /*Toast.makeText(getApplicationContext(), "Please select currency unit " +
+                        "in Settings > Set Currency", Toast.LENGTH_SHORT).show();*/
             }
         }
 
@@ -1011,26 +1040,55 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     String[] values = dummy.split(";");
 
                     switch (values[1]){
-                        case "2131230950":
-                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.clothing));
+                        case "2131230918":
+                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_airplane));
                             break;
 
-                        case "2131230916":
-                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.food));
+                        case "2131230923":
+                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_bagel));
                             break;
 
-                        case "2131230815":
-                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.groceries));
+                        case "2131230924":
+                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_barbershop));
                             break;
 
-                        case "2131230917":
-                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.shopping));
+                        case "2131230925":
+                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_bonds));
+                            break;
+
+                        case "2131230926":
+                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_business));
+                            break;
+
+                        case "2131230927":
+                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_buy));
+                            break;
+
+                        case "2131230928":
+                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_circus));
+                            break;
+
+                        case "2131230929":
+                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_debit_card));
+                            break;
+
+                        case "2131230930":
+                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_globe));
+                            break;
+
+                        case "2131230932":
+                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_hotel));
+                            break;
+
+                        case "2131230938":
+                            mCategoryList.add(new CategoryIcon(values[0], R.drawable.ic_railway));
                             break;
 
                         default:
                             mCategoryList.add(new CategoryIcon(values[0],R.drawable.ic_white_box));
                             break;
                     }
+
                 }
 
                 mAdapter = new IconAdapter(this, mCategoryList);
@@ -1367,7 +1425,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     }
                 }
                 for(int i = 0; i < recordToDelete.size(); i++) {
-                    tableLayout.removeViewAt((int)recordToDelete.get(i));
+                    if(i==0) {
+                        tableLayout.removeViewAt((int) recordToDelete.get(i));
+                    }else{
+                        int indexToDelete = (int)recordToDelete.get(i) - 1;
+                        tableLayout.removeViewAt(indexToDelete);
+                    }
                 }
                 break;
 
@@ -1384,6 +1447,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 }
 
                 CheckboxIconCategory checkedCategory = null;
+                recordToDelete = new ArrayList();
 
                 int noOfItemsChecked = 0;
                 for(int i=0;i<categoryList.getCount();i++){
@@ -1392,8 +1456,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     if(checkedCategory.ismIsChecked()){
                         noOfItemsChecked++;
                         dbCategories.deleteData(checkedCategory.getmIconName());
-                        checkboxIconCategories.remove(i);
+                        recordToDelete.add(i);
                     }
+                }
+
+                for(int i = 0;i < recordToDelete.size();i++){
+                    checkboxIconCategories.remove(recordToDelete.get(i));
                 }
 
                 if (noOfItemsChecked == 1) {
@@ -1696,20 +1764,48 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             values = dummy.split(";");
 
             switch (values[1]){
-                case "2131230950":
-                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.shopping,false));
+                case "2131230918":
+                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.ic_airplane,false));
                     break;
 
-                case "2131230916":
-                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.food,false));
+                case "2131230923":
+                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.ic_bagel,false));
                     break;
 
-                case "2131230815":
-                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.clothing,false));
+                case "2131230924":
+                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.ic_barbershop,false));
                     break;
 
-                case "2131230917":
-                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.groceries,false));
+                case "2131230925":
+                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.ic_bonds,false));
+                    break;
+
+                case "2131230926":
+                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.ic_business,false));
+                    break;
+
+                case "2131230927":
+                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.ic_buy,false));
+                    break;
+
+                case "2131230928":
+                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.ic_circus,false));
+                    break;
+
+                case "2131230929":
+                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.ic_debit_card,false));
+                    break;
+
+                case "2131230930":
+                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.ic_globe,false));
+                    break;
+
+                case "2131230932":
+                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.ic_hotel,false));
+                    break;
+
+                case "2131230938":
+                    mCategoryListView.add(new CheckboxIconCategory(values[0], R.drawable.ic_railway,false));
                     break;
 
                 default:
@@ -1879,10 +1975,21 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     private void initIconList() {
         mCategoryList = new ArrayList<>();
         mCategoryList.add(new CategoryIcon(R.drawable.ic_white_box));
-        mCategoryList.add(new CategoryIcon(R.drawable.clothing));
+        /*mCategoryList.add(new CategoryIcon(R.drawable.clothing));
         mCategoryList.add(new CategoryIcon(R.drawable.food));
         mCategoryList.add(new CategoryIcon(R.drawable.groceries));
-        mCategoryList.add(new CategoryIcon(R.drawable.shopping));
+        mCategoryList.add(new CategoryIcon(R.drawable.shopping));*/
+        mCategoryList.add(new CategoryIcon(R.drawable.ic_airplane));
+        mCategoryList.add(new CategoryIcon(R.drawable.ic_globe));
+        mCategoryList.add(new CategoryIcon(R.drawable.ic_bagel));
+        mCategoryList.add(new CategoryIcon(R.drawable.ic_barbershop));
+        mCategoryList.add(new CategoryIcon(R.drawable.ic_bonds));
+        mCategoryList.add(new CategoryIcon(R.drawable.ic_business));
+        mCategoryList.add(new CategoryIcon(R.drawable.ic_buy));
+        mCategoryList.add(new CategoryIcon(R.drawable.ic_circus));
+        mCategoryList.add(new CategoryIcon(R.drawable.ic_railway));
+        mCategoryList.add(new CategoryIcon(R.drawable.ic_debit_card));
+        mCategoryList.add(new CategoryIcon(R.drawable.ic_hotel));
     }
 
 
