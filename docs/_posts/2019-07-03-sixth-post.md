@@ -125,5 +125,17 @@ harish.harihara@st.ovgu.de
 
 ![Deadline image]({{site.baseurl}}/images/frame.png "QR Code"){:height="25%" width="25%"} 
 
+### Essential & Necessary Features
+
+![Deadline image]({{site.baseurl}}/images/Final1.PNG "Essential & Necessary Features"){:height="50%" width="100%"}
+
+![Deadline image]({{site.baseurl}}/images/Final2.PNG "Essential & Necessary Features"){:height="50%" width="100%"}
+
+### Nice to have Features
+
+![Deadline image]({{site.baseurl}}/images/Nice1.PNG "Nice to have Features"){:height="50%" width="100%"}
+
+![Deadline image]({{site.baseurl}}/images/Nice2.PNG "Nice to have Features"){:height="50%" width="100%"}
+
 <p style="font-family:Times;font-size:160%;text-align:justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thanks for visiting our Blog!!</p>
 
