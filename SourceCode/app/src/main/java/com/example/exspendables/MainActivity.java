@@ -1380,6 +1380,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 }
 
                 CheckboxIconCategory checkedCategory = null;
+                recordToDelete = new ArrayList();
 
                 int noOfItemsChecked = 0;
                 for(int i=0;i<categoryList.getCount();i++){
@@ -1388,8 +1389,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     if(checkedCategory.ismIsChecked()){
                         noOfItemsChecked++;
                         dbCategories.deleteData(checkedCategory.getmIconName());
-                        checkboxIconCategories.remove(i);
+                        recordToDelete.add(i);
                     }
+                }
+
+                for(int i = 0;i < recordToDelete.size();i++){
+                    checkboxIconCategories.remove(recordToDelete.get(i));
                 }
 
                 if (noOfItemsChecked == 1) {
